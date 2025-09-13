@@ -63,4 +63,4 @@ providing short introductions to other platforms.
 
 [https://www.bjarni-gunnarsson.net/courses](https://www.bjarni-gunnarsson.net/courses)
 
-[https://sonology.org/bachelors-programme/](https://sonology.org/bachelors-programme/)
+[https://sonology.org/one-year-course-programme/](https://sonology.org/one-year-course-programme/)
