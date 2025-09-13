@@ -1,13 +1,15 @@
 # Composing with Algorithms
 
-This course explores algorithmic composition techniques and their historical context,
-focusing on the development of computer-assisted composition from the 1950s to the
-present day. Students learn to create musical works using algorithmic processes
-and programming techniques in SuperCollider.
+An introduction to algorithmic composition, its applications, history and
+implementations. Participants will learn to program sound, control and
+musical behaviour.
 
-The course covers historical approaches to algorithmic composition, probability
-theory, set theory, and various compositional strategies used by pioneering
-composers such as Xenakis, Koenig, and others.
+Topics such as using probabilities, generative algorithms, complex systems
+and selection principles will be presented. Each of these will cover
+technique but also practical applications and musical examples.
+
+The course will be using the SuperCollider environment as well as
+providing short introductions to other platforms.
 
 ## Course Structure
 
