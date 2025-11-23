@@ -59,6 +59,26 @@ providing short introductions to other platforms.
   - `Solutions.scd` - Exercise solutions
 - CWA07 - Koenig.pdf
 
+### 08 - Examples
+- Advanced pattern techniques and comprehensive examples
+- Focus on topics covered briefly in previous classes
+- **Code files:**
+  - `Advanced-Examples.scd` - Comprehensive tutorial with detailed examples
+  - `Quick-Reference.scd` - Condensed reference guide
+  - `Comparison-Guide.scd` - Basic vs advanced patterns comparison
+  - `Exercises.scd` - Practice exercises with solutions
+- **Topics covered:**
+  - Pmono (continuous synths)
+  - Markov Chains (state-based composition)
+  - Brownian Motion (random walks)
+  - Exotic Probability Distributions (Pgauss, Pcauchy, Pbeta, etc.)
+  - Pspawner (complex sequencing)
+  - Tendency Masks (controlled randomness)
+  - Pattern Transformations (Pclutch, Pstep, Pseg)
+  - Gendy (stochastic synthesis)
+  - Advanced Pattern Combinations
+- README.md
+
 ## Resources
 
 [https://www.bjarni-gunnarsson.net/courses](https://www.bjarni-gunnarsson.net/courses)
