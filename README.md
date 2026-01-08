@@ -61,23 +61,95 @@ providing short introductions to other platforms.
 
 ### 08 - Examples
 - Advanced pattern techniques and comprehensive examples
-- Focus on topics covered briefly in previous classes
 - **Code files:**
-  - `Advanced-Examples.scd` - Comprehensive tutorial with detailed examples
-  - `Quick-Reference.scd` - Condensed reference guide
-  - `Comparison-Guide.scd` - Basic vs advanced patterns comparison
-  - `Exercises.scd` - Practice exercises with solutions
-- **Topics covered:**
-  - Pmono (continuous synths)
-  - Markov Chains (state-based composition)
-  - Brownian Motion (random walks)
-  - Exotic Probability Distributions (Pgauss, Pcauchy, Pbeta, etc.)
-  - Pspawner (complex sequencing)
-  - Tendency Masks (controlled randomness)
-  - Pattern Transformations (Pclutch, Pstep, Pseg)
-  - Gendy (stochastic synthesis)
-  - Advanced Pattern Combinations
-- README.md
+  - `Examples.scd` - Practical examples and demonstrations
+  - `Exercises.scd` - Practice exercises
+  - `Synths.scd` - Synthesizer definitions
+- CWA08 - Examples.pdf
+
+### 09 - Synthesis
+- Sound synthesis techniques and methods
+- **Code files:**
+  - `Additive.scd` - Additive synthesis techniques
+  - `Subtractive.scd` - Subtractive synthesis methods
+  - `FM.scd` - Frequency modulation synthesis
+  - `Filters.scd` - Filter designs and applications
+  - `Noises.scd` - Noise generators and techniques
+  - `Modeling.scd` - Physical modeling synthesis
+  - `Environment.scd` - Synthesis environment setup
+- CWA09 - Synthesis.pdf
+
+### 10 - Signals
+- Signal processing and control signals
+- **Code files:**
+  - `Signals.scd` - Signal processing fundamentals
+  - `Randomness.scd` - Random signal generation
+  - `SynthDefs.scd` - Synthesis definitions for signals
+  - `EX07 - Exercises.scd` - Exercises from lesson 7
+  - `EX09 - Exercises.scd` - Exercises from lesson 9
+- CWA10 - Signals.pdf
+
+### 11 - Processing
+- Sound processing and transformation techniques
+- **Code files:**
+  - `Effects.scd` - Audio effects processing
+  - `Concrete.scd` - Musique concrète techniques
+  - Audio samples: branches.wav, impulse.wav, sequence.wav, trumpet.wav, vocal.wav
+- CWA11 - Processing.pdf
+
+### 12 - Combine
+- Combining synthesis and pattern techniques
+- **Code files:**
+  - `01-FM-Patterns.scd` - FM synthesis with patterns
+  - `02-Subtractive-Patterns.scd` - Subtractive synthesis with patterns
+  - `03-Effects-Patterns.scd` - Effects processing with patterns
+  - `04-Advanced-Examples.scd` - Advanced combination examples
+- CWA12 - Combine.pdf
+
+### 13 - Microsound
+- Granular synthesis and microsound techniques
+- **Code files:**
+  - `GrainUGens.scd` - Grain unit generators
+  - `GrainPatterns.scd` - Pattern-based granular synthesis
+  - `GrainGlisson.scd` - Glissando techniques with grains
+  - `GranularExamples.scd` - Comprehensive granular examples
+  - Audio samples: bikecat.wav, vocal.wav, and click samples
+- CWA13 - Microsound.pdf
+
+### 14 - Waveforms
+- Waveform generation and manipulation
+- **Code files:**
+  - `Wavetables.scd` - Wavetable synthesis
+  - `Shapes.scd` - Envelope and waveform shapes
+  - `Gendy.scd` - Gendy (stochastic waveform generation)
+  - `DemandRate.scd` - Demand rate control
+  - `DemandEnvGen.scd` - Demand rate envelope generation
+  - Wavetable samples in `tables/` directory
+
+### 15 - Errors
+- Glitch techniques and error-based composition
+- **Code files:**
+  - `Audification.scd` - Data audification techniques
+  - `Binary.scd` - Binary data manipulation
+  - `Wavesets.scd` - Waveset processing
+  - `Instructions.scd` - Implementation instructions
+
+### 16 - Chaos
+- Chaotic systems and non-linear dynamics
+- **Code files:**
+  - `ChaosUGens.scd` - Chaos unit generators
+  - `ChaosFunctions.scd` - Chaotic functions and algorithms
+  - `ChaosPatterns.scd` - Pattern-based chaos techniques
+  - Audio samples: caa.wav, cab.wav, cac.wav
+- CWA15 - Chaos.pdf
+
+### 17 - Sonorities
+- Sound processes and sonority creation
+- **Code files:**
+  - `Synthesis.scd` - Advanced synthesis techniques
+  - `Processing.scd` - Advanced processing techniques
+  - Audio samples: branches.wav, catbike.wav, melodie.wav, noise.wav, texture.wav, impulse.aif
+- CWA14 - Sound Processes.pdf
 
 ## Resources
 
