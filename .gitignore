@@ -1,3 +1,14 @@
-# Audio files
-*.wav
-*.mp3
+# Ignore everything by default
+*
+
+# But allow these file types
+!*.scd
+!*.pdf
+
+# Allow essential project files
+!README.md
+!LICENSE
+!.gitignore
+
+# Allow directories (so git can traverse them)
+!*/
