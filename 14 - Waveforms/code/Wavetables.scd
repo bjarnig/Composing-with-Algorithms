@@ -60,17 +60,6 @@ thisProcess.recompile;
 
 ///////////////////////// OSC //////////////////////////
 
-( // Quick test of loaded wavetables from dictionary
-
-{
-	var name = ~wt.keys.choose;
-	("Playing: " ++ name).postln;
-	Osc.ar(~wt[name], 80, mul: 0.4) ! 2
-}.play
-
-)
-
-
 
 ( // Test loaded wavetables from array
 
@@ -100,9 +89,8 @@ thisProcess.recompile;
 
 {
 	var trig = Dust.kr(4);
-	var keys = ~wt.keys.asArray;
-	var index = TIRand.kr(0, keys.size - 1, trig);
-	var buf = Select.kr(index, keys.collect { |k| ~wt[k].bufnum });
+	var index = TIRand.kr(0, ~wtArray.size - 1, trig);
+	var buf = Select.kr(index, ~wtArray.collect { |k| k.bufnum });
 	var freq = TExpRand.kr(60, 200, trig);
 
 	Osc.ar(buf, freq, mul: 0.4) ! 2
@@ -380,61 +368,3 @@ thisProcess.recompile;
 
 )
 
-
-// ====================================================================
-//                    SHAPER (WAVESHAPING)
-// ====================================================================
-
-
-( // Create transfer function buffer for Shaper
-
-var size = 1024;
-
-// Soft clipping transfer function
-var transfer = Signal.fill(size, { |i|
-	var x = i.linlin(0, size - 1, -1, 1);
-	x.tanh
-});
-
-~shaperBuf = Buffer.loadCollection(s, transfer.asWavetable, 1, {
-	"Shaper buffer loaded".postln;
-});
-
-)
-
-
-
-( // Basic Shaper usage
-
-{
-	var input = SinOsc.ar(100);
-	var drive = MouseX.kr(0.1, 4);
-	Shaper.ar(~shaperBuf, input * drive, mul: 0.4) ! 2
-}.play
-
-)
-
-
-
-( // Shaper with dynamic drive
-
-{
-	var input = SinOsc.ar(80);
-	var drive = SinOsc.kr(0.1).range(0.5, 3);
-	Shaper.ar(~shaperBuf, input * drive, mul: 0.4) ! 2
-}.play
-
-)
-
-
-
-( // VOsc through Shaper
-
-{
-	var bufpos = ~wtArray[0].bufnum + LFNoise2.kr(0.2).range(0, 7);
-	var input = VOsc.ar(bufpos, 80);
-	var drive = LFNoise1.kr(0.3).range(1, 2.5);
-	Shaper.ar(~shaperBuf, input * drive, mul: 0.4) ! 2
-}.play
-
-)

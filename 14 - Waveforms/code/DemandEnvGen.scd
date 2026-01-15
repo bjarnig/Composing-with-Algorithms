@@ -157,7 +157,7 @@ DemandEnvGen.ar(
 
 
 
-( // Rapid Gendy: large steps for aggressive evolution
+( // Rapid Gendy: large steps
 
 {
 	var points = 15;
@@ -205,7 +205,7 @@ DemandEnvGen.ar(
 ( // Demand envelope folding with brownian timing
 
 {
-	var sdm = 1, mod = 0.005, from = 9, to = 12;
+	var sdm = 1, mod = 10, from = 9, to = 12;
 	var min = 0.1, max = 0.3, amp = 0.8, hpf = 40, mf = 1.0;
 	var sd = SampleDur.ir * sdm;
 
