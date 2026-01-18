@@ -22,8 +22,9 @@ Quarks.install("Wavesets");
 
 
 (
+
 ~path = (PathName(thisProcess.nowExecutingPath)).pathOnly;
-w = Wavesets.from(~path ++ "/samples/vocalm.wav");
+w = Wavesets.from(~path ++ "/samples/mahler.wav");
 
 SynthDef(\waveset, {|out=0, buf=0, start=0, length=441, playRate=1, sustain=1, amp=0.2, pan=0|
 	var phasor = Phasor.ar(0, BufRateScale.ir(buf) * playRate, 0, length) + start;
@@ -31,6 +32,7 @@ SynthDef(\waveset, {|out=0, buf=0, start=0, length=441, playRate=1, sustain=1, a
 	var snd = BufRd.ar(1, buf, phasor) * env;
 	OffsetOut.ar(out, Pan2.ar(snd, pan));
 }).add;
+
 )
 
 
@@ -54,8 +56,29 @@ w.plot(1000, 10)
 
 ////////////////////////// Reconstruction ///////////////////////////
 
+( // Pbind version (plays once through all wavesets)
 
-(
+Pbind(
+	\instrument, \waveset,
+	\startWs, Pseries(0, 1, w.numXings),
+	\numWs, 1,
+	\playRate, 1,
+	\buf, w.buffer.bufnum,
+	\repeats, 1,
+	\amp, 0.4,
+	[\start, \length, \sustain], Pfunc({ |ev|
+		var start, length, wsDur;
+		#start, length, wsDur = w.frameFor(ev[\startWs], ev[\numWs]);
+		[start, length, wsDur * ev[\repeats] / ev[\playRate].abs]
+	}).trace,
+	\dur, Pkey(\sustain)
+).play;
+
+)
+
+
+( // Pbindef version (can be modified in real-time)
+
 Pbindef(\ws).clear;
 Pbindef(\ws,
 	\instrument, \waveset,
@@ -72,6 +95,7 @@ Pbindef(\ws,
 	}),
 	\dur, Pkey(\sustain)
 ).play;
+P
 )
 
 
@@ -130,6 +154,7 @@ Pbindef(\ws,
 
 
 (
+
 var lengthThreshold = 50;
 var shortWavesets = [];
 
@@ -147,6 +172,7 @@ Pbindef(\ws,
 	\playRate, Pwhite(0.8, 1.5),
 	\repeats, Pwhite(1, 5)
 ).play;
+
 )
 
 
