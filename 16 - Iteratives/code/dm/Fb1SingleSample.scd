@@ -7,7 +7,7 @@
 
 ( // Install miSCellaneous if needed
 
-Quarks.install("miSCellaneous");
+Quarks.install("miSCellaneous_lib");
 thisProcess.recompile;
 
 )

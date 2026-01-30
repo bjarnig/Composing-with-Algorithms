@@ -21,7 +21,7 @@ to iterate nonlinear functions sample-by-sample, producing complex textures.
 
 ( // Install miSCellaneous if needed
 
-Quarks.install("miSCellaneous");
+Quarks.install("miSCellaneous_lib");
 thisProcess.recompile;
 
 )

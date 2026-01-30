@@ -95,7 +95,7 @@ Pbindef(\ws,
 	}),
 	\dur, Pkey(\sustain)
 ).play;
-P
+
 )
 
 

@@ -14,6 +14,15 @@ thisProcess.recompile;
 
 )
 
+(
+
+SynthDef(\perc, {|freq=440, amp=0.1|
+	var env = EnvGen.ar(Env.perc(0.01, 0.2), 1, doneAction:2) * amp;
+	OffsetOut.ar(0, SinOsc.ar(freq, 0, env) ! 2);
+}).add;
+
+)
+
 
 ////////////////////// Plotter Helpers ////////////////////////
 
