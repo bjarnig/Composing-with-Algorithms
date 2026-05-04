@@ -12,3 +12,7 @@
 
 # Allow directories (so git can traverse them)
 !*/
+
+# Exclude archive folder
+_/
+
