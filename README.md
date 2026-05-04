@@ -134,22 +134,82 @@ providing short introductions to other platforms.
   - `Wavesets.scd` - Waveset processing
   - `Instructions.scd` - Implementation instructions
 
-### 16 - Chaos
-- Chaotic systems and non-linear dynamics
+### 16 - Iteratives
+- Iterative systems: chaos, feedback and digital modelling
 - **Code files:**
-  - `ChaosUGens.scd` - Chaos unit generators
-  - `ChaosFunctions.scd` - Chaotic functions and algorithms
-  - `ChaosPatterns.scd` - Pattern-based chaos techniques
-  - Audio samples: caa.wav, cab.wav, cac.wav
-- CWA15 - Chaos.pdf
+  - `chaos/ChaosUGens.scd` - Chaos unit generators
+  - `chaos/ChaosFunctions.scd` - Chaotic functions and algorithms
+  - `chaos/ChaosPatterns.scd` - Pattern-based chaos techniques
+  - `dm/FunctionalIteration.scd` - Functional iteration methods
+  - `dm/Fb1SingleSample.scd` - Single-sample feedback
+  - `feedback/Feedback.scd` - Feedback networks
+  - `feedback/Variations.scd` - Feedback variations
+- CWA16 - Iteratives.pdf
 
-### 17 - Sonorities
+### 17 - Control
+- GUI, MIDI and mapping for real-time control
+- **Code files:**
+  - `GUI.scd` - Graphical user interface design
+  - `MIDI.scd` - MIDI input and control
+  - `Mapping.scd` - Parameter mapping strategies
+  - `editor/cwa.scd` - Live-coding editor setup
+  - `editor/examples.scd` - Editor usage examples
+- CWA17 - Control.pdf
+
+### 18 - CDP
+- Introduction to the Composers Desktop Project
+- **Code files:**
+  - `CDP.scd` - CDP integration and workflows
+- CWA18 - CDP.pdf
+
+### 19 - Transformation
+- Spectral transformation and cross-synthesis
+- **Code files:**
+  - `CDP2.scd` - Extended CDP processing
+  - `CDPCross.scd` - CDP cross-synthesis
+  - `CDPGui.scd` - CDP graphical interface
+  - `SCCross.scd` - SuperCollider cross-synthesis
+- CWA19 - Spectromorphology.pdf
+
+### 20 - Workshop 2
+- Second practical workshop session
+- cwa20.pdf
+
+### 21 - Sonorities
 - Sound processes and sonority creation
 - **Code files:**
-  - `Synthesis.scd` - Advanced synthesis techniques
   - `Processing.scd` - Advanced processing techniques
-  - Audio samples: branches.wav, catbike.wav, melodie.wav, noise.wav, texture.wav, impulse.aif
-- CWA14 - Sound Processes.pdf
+  - `Synthesis.scd` - Advanced synthesis techniques
+- CWA21 - Sound Processes.pdf
+
+### 22 - IanniX
+- IanniX graphical sequencer and UPIC-inspired tools
+- **Code files:**
+  - `Iannix.scd` - IanniX integration with SuperCollider
+  - `UPIC-Xenakis.scd` - UPIC-style Xenakis emulation
+  - `UPIC-MultiVoice.scd` - Multi-voice UPIC sequencing
+- CWA22 - Iannix.pdf
+
+### 23 - Recap
+- Course recap and consolidation exercises
+- **Code files:**
+  - `Recap.scd` - Summary of key techniques
+  - `Exercises.scd` - Review exercises
+- CWA23 - Recap.pdf
+
+### 24 - Own Works
+- Student compositions using course techniques
+- **Code files (examples):**
+  - `anticlines/OF.scd`
+  - `cendres/Cendres.scd`
+  - `copaline/Copaline.scd`
+  - `dried.up/` - CDP-based processing suite
+  - `fracas/fracas.scd`
+  - `ora/ORA.scd`
+  - `polytree/Polytree.scd`
+  - `portholes/Portholes.scd`
+  - `prisme/prisme-gui.scd`, `prisme-synths.scd`
+- CWA24 - Own Works.pdf
 
 ## Resources
 
