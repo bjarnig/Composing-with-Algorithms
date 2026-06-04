@@ -211,6 +211,55 @@ providing short introductions to other platforms.
   - `prisme/prisme-gui.scd`, `prisme-synths.scd`
 - CWA24 - Own Works.pdf
 
+### 25 - Live Coding
+- Live coding with JitLib, node proxies and ProxySpace
+- **Code files:**
+  - `JitLib.scd` - Just-in-time programming library fundamentals
+  - `NodeProxies.scd` - NodeProxy techniques
+  - `PatternProxies.scd` - Pattern proxy systems
+  - `Ndef.scd` - Ndef (node definition) usage
+  - `ProxySpace.scd` - ProxySpace environments
+  - `Steno.scd` - Steno live coding language
+  - `Additional.scd` - Additional live coding techniques
+- CWA25 - Live Coding.pdf
+
+### 26 - Composition Processes
+- Higher-level composition processes and automated transitions
+- **Code files:**
+  - `Approaches.scd` - Compositional approaches and strategies
+  - `Processes.scd` - Generative composition processes
+  - `Routines.scd` - Routine-based sequencing
+  - `Events.scd` - Event-based composition
+  - `Spawner.scd` - Spawning and layering events
+  - `Transitions.scd` - Automated transitions between states
+  - `Designer.scd` - Sound design tools
+  - `Ndefs.scd` - Ndef-based processes
+  - `SynthDefs.scd` - Synthesis definitions
+  - Supporting `extensions/`, `sequences/` and `sounds/` directories
+- CWA26 - Composition Processes.pdf
+
+### 27 - Workshop 3
+- Third practical workshop session
+- **Code files:**
+  - `Demand.scd` - Demand-rate UGens
+  - `Pulsar.scd` - Pulsar synthesis
+  - `Microsound.scd` - Microsound techniques
+  - `Stochastic.scd` - Stochastic methods
+  - `Feedback.scd` - Feedback networks
+  - `Timbral.scd` - Timbral exploration
+  - `VOsc.scd` - Wavetable oscillation with VOsc
+  - `Sounds.scd` - Sound examples
+  - `Exercises.scd` - Workshop exercises
+  - Wavetable samples in `tables/` directory
+- CWA27 - Workshop 3.pdf
+
+### 28 - Exercises
+- Final exercises and consolidation
+- **Code files:**
+  - `Exercises.scd` - Practice exercises
+  - `Solutions.scd` - Exercise solutions
+- CWA28 - Exercises.pdf
+
 ## Resources
 
 [https://www.bjarni-gunnarsson.net/courses](https://www.bjarni-gunnarsson.net/courses)
