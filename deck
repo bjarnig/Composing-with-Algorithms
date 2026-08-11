@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Drive the Slidev deck for a class, by class number.
+#
+#   ./deck dev 01          serve at localhost:3030
+#   ./deck build 01        hostable SPA -> "<class>/dist/cwa01"
+#   ./deck export 01       student handout -> "<class>/dist/cwa01-<slug>.pdf"
+#   ./deck deploy 01       build, then sync to the slides bucket
+#
+# The class folders have spaces in their names and each deck's markdown lives
+# beside the class material, so the folder is looked up by its NN prefix.
+set -euo pipefail
+cd "$(dirname "$0")"
+
+ACTION="${1:-}"; NUM="${2:-}"
+[ -n "$ACTION" ] && [ -n "$NUM" ] || { sed -n '2,12p' "$0" | sed 's/^# \?//'; exit 1; }
+
+DIR=$(find . -maxdepth 1 -type d -name "$NUM - *" | head -1)
+[ -n "$DIR" ] || { echo "no class folder matching '$NUM - *'"; exit 1; }
+DIR="${DIR#./}"
+
+MD=$(find "$DIR" -maxdepth 1 -name "$NUM-*.md" | head -1)
+[ -n "$MD" ] || { echo "no deck markdown in '$DIR' (expected $NUM-*.md)"; exit 1; }
+
+SLUG=$(basename "$MD" .md)          # e.g. 01-introduction
+DECK="cwa${SLUG%%-*}"               # e.g. cwa01
+BASE="/2026-2027/$DECK/"
+
+case "$ACTION" in
+  dev)    exec npx slidev "$MD" --open ;;
+  build)  exec npx slidev build "$MD" --base "$BASE" --download --out "dist/$DECK" ;;
+  export) exec npx slidev export "$MD" --output "dist/cwa$SLUG.pdf" ;;
+  deploy)
+    npx slidev build "$MD" --base "$BASE" --download --out "dist/$DECK"
+    export AWS_PROFILE=bg
+    aws s3 sync "$DIR/dist/$DECK/" "s3://bg-slides$BASE" \
+      --endpoint-url https://s3.eu-central-1.amazonaws.com --only-show-errors
+    # the bucket-root error document is the SPA fallback for deep links.
+    # S3 read timeouts against this bucket are common, so retry.
+    for i in 1 2 3 4 5; do
+      out=$(aws s3 cp "$DIR/dist/$DECK/404.html" s3://bg-slides/404.html \
+            --endpoint-url https://s3.eu-central-1.amazonaws.com \
+            --content-type text/html 2>&1) && break
+      case "$out" in *timeout*) sleep 3 ;; *) echo "$out"; break ;; esac
+    done
+    # without this CloudFront keeps serving the previous index.html
+    aws cloudfront create-invalidation --distribution-id EUMBQKG58U5DP \
+      --paths "/*" --query 'Invalidation.Status' --output text
+    echo "live: https://slides.bjarni-gunnarsson.net$BASE"
+    ;;
+  *) echo "unknown action '$ACTION' (dev|build|export|deploy)"; exit 1 ;;
+esac

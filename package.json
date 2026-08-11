@@ -1,0 +1,15 @@
+{
+  "name": "cwa-slides",
+  "private": true,
+  "description": "Composing with Algorithms — course decks (Slidev)",
+  "scripts": {
+    "dev": "slidev 01-introduction.md --open",
+    "build": "slidev build 01-introduction.md",
+    "export": "slidev export 01-introduction.md"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.19.0",
+    "@slidev/theme-seriph": "^0.25.0",
+    "playwright-chromium": "^1.62.1"
+  }
+}

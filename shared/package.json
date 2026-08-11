@@ -1,0 +1,7 @@
+{
+  "name": "slidev-addon-sonology",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Institute of Sonology course deck styles: layered on top of seriph",
+  "keywords": ["slidev-addon", "slidev"]
+}

@@ -1,0 +1,186 @@
+/* Institute of Sonology course deck theme (Composing with Algorithms and after).
+   Dark ground for taught material, light ground for other people's voices and
+   technical diagrams, centred serif headers over a hairline rule, humanist-sans
+   body, *-prefixed lists, italic-serif section dividers. Local macOS fonts, so
+   it renders as the original Keynote did.
+
+   Canonical copy lives in the sonology-slides skill; keep the two in step.
+   Proportions were calibrated against the original Keynote PDF: headings and
+   the title-slide title both ~4.1% of slide height, body ~3.0%, text inset
+   ~6.7% of slide width. */
+
+/* Palette shared with the Ora / Accrete SuperCollider extensions, which are
+   built against this same ground (AcScope colorBg = Color.new255(23,27,33)). */
+:root {
+  --cwa-bg: #171b21;      /* Accrete colorBg; also bjarni-gunnarsson.net ground */
+  --cwa-fg: #ffffff;      /* body copy: full white, for projector contrast */
+  --cwa-accent: #78a5d2;  /* Accrete succession: questions, workshops, links */
+  --cwa-muted: #9aa4b5;   /* Accrete colorInactive, lightened: housekeeping notes */
+  --cwa-sage: #9eb5ab;    /* Ora secondary */
+  --cwa-mint: #8ce1b4;    /* Accrete colorActive */
+  --cwa-gold: #d2b95f;    /* Accrete transformation */
+  --cwa-rose: #d27878;    /* Accrete contrast */
+  --cwa-rule: rgba(255, 255, 255, 0.45);   /* header hairline on dark slides */
+  --cwa-rule-light: rgba(0, 0, 0, 0.55);   /* same, on the light Traces slides */
+  --cwa-serif: "Palatino", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --cwa-sans: "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* one side margin for everything, so absolutely-placed captions, logos and
+     figures stay flush with the body text column */
+  --cwa-pad-x: 6rem;
+}
+
+.slidev-layout {
+  background-color: var(--cwa-bg);
+  color: var(--cwa-fg);
+  font-family: var(--cwa-sans);
+  padding: 2.4rem var(--cwa-pad-x);
+  /* grayscale AA: light-on-dark text blooms under macOS subpixel smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Centered serif header + hairline rule (dark slides) */
+.slidev-layout h1 {
+  font-family: var(--cwa-serif);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+  margin: 0 auto 1.5rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--cwa-rule);
+}
+
+.slidev-layout p {
+  font-family: var(--cwa-sans);
+  font-size: 1.15rem;
+  line-height: 1.55;
+  margin: 0 0 0.85rem;
+}
+
+/* seriph dims the paragraph after an h1 to 0.5 as a "subtitle". Ours is ordinary
+   body copy, so undo it: emphasis is marked explicitly, not by slide position. */
+.slidev-layout h1 + p { opacity: 1; margin-top: 0; }
+
+/* --- emphasis system -------------------------------------------------------
+   bold      key term being introduced          (the only inline emphasis)
+   italic    named concept or verbatim phrase
+   .q        a question put to the room         } the blue accent, and the only
+   .workshop hands-on session marker            } two things it is used for
+   .note     housekeeping aside                 muted, subordinate to body copy
+   There is deliberately no underline: it used to overlap bold with no
+   distinction, so all 16 instances became bold.
+   -------------------------------------------------------------------------- */
+.slidev-layout strong { color: #fff; font-weight: 700; }
+
+/* *-prefixed lists */
+.slidev-layout ul { list-style: none; padding-left: 0.2rem; margin: 0.4rem 0 0.8rem; }
+.slidev-layout ul li { font-size: 1.15rem; line-height: 1.45; margin: 0.2rem 0; }
+.slidev-layout ul li::before { content: "*  "; opacity: 0.9; }
+
+/* blue, reserved for what is addressed at the students */
+.q { color: var(--cwa-accent); font-style: italic; }
+/* margin stays small: the marker already sits in its own paragraph, and three
+   of them on the Topics slides overflow the slide if each adds its own space */
+.workshop {
+  display: block; text-align: center; margin: 0.15rem 0;
+  color: var(--cwa-accent); letter-spacing: 0.18em; font-size: 1rem;
+}
+/* housekeeping: present but subordinate to the body copy */
+.note { color: var(--cwa-muted); font-size: 1rem; }
+
+.slidev-layout a { color: var(--cwa-accent); text-decoration: none; }
+.mono { font-family: "Fira Code", "Menlo", monospace; }
+
+/* Section dividers: a single italic-serif word, centered */
+.slidev-layout.divider p {
+  font-family: var(--cwa-serif);
+  font-style: italic;
+  font-size: 2rem;
+  text-align: center;
+  color: #e4e5e8;
+}
+
+/* Title slide: logos pinned top, title optically centered, sub pinned bottom */
+.slidev-layout.title { display: flex; flex-direction: column; justify-content: center; }
+.slidev-layout.title .logos {
+  position: absolute; top: 2.2rem; left: var(--cwa-pad-x); right: var(--cwa-pad-x);
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+/* Sonology logo has a pure-black baked ground, so screen drops it out. The RC
+   logo's ground is already --cwa-bg; screening it would only lighten it to a box. */
+.slidev-layout.title .logos img { height: 2.5rem; }
+.slidev-layout.title .logos img:first-child { mix-blend-mode: screen; }
+.slidev-layout.title .deck-title {
+  font-family: var(--cwa-serif);
+  font-size: 1.8rem; color: #fff; text-align: center;
+  padding-bottom: 0.8rem; border-bottom: 1px solid var(--cwa-rule);
+  width: 82%; margin: 0 auto;
+}
+/* column so the link keeps its own line while shrinking to its text: as a block
+   it stretched seriph's dashed link border across the whole slide */
+.slidev-layout.title .sub {
+  position: absolute; left: 0; right: 0; bottom: 3.4rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+  text-align: center;
+  /* sans, upright: Palatino's calligraphic italic read as fussy down here */
+  font-family: var(--cwa-sans); font-size: 0.9rem; color: #cfd2da;
+}
+/* solid hairline under the url, replacing seriph's dashed link border */
+.slidev-layout.title .sub a {
+  font-style: normal; color: #cfd2da;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Materials slide caption */
+.slidev-layout .caption {
+  position: absolute; left: var(--cwa-pad-x); bottom: 1.8rem;
+  font-family: var(--cwa-serif); font-style: italic; color: var(--cwa-muted);
+}
+.slidev-layout .shot { display: flex; justify-content: center; margin-top: 0.5rem; }
+.slidev-layout .shot img { max-height: 19rem; }
+
+/* Code blocks: shiki's theme ships its own #121212 ground, which reads as an
+   off-colour panel against --cwa-bg. Use a faint tint of the slide instead. */
+.slidev-layout .slidev-code,
+.slidev-layout pre.shiki {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Light "Traces" thinker slides */
+/* pure white, not off-white: the scanned figures carry #ffffff grounds, so any
+   off-white slide turns each one into a visible panel */
+.slidev-layout.light { background-color: #ffffff; color: #141414; display: flex; flex-direction: column; }
+/* width:100% because h1's auto side margins would otherwise shrink it to its
+   text in the flex column, taking the hairline rule with it */
+.slidev-layout.light h1 { color: #111; border-bottom-color: var(--cwa-rule-light); width: 100%; }
+.slidev-layout.light blockquote {
+  font-family: var(--cwa-serif); font-style: italic;
+  font-size: 1.12rem; line-height: 1.5;
+  border: none; padding: 0; margin: 1.4rem 0 0; max-width: 92%; color: #141414;
+  background: transparent;
+}
+.slidev-layout.light blockquote p { font-size: 1.12rem; line-height: 1.5; }
+.slidev-layout.light .src {
+  position: absolute; left: var(--cwa-pad-x); bottom: 2.2rem;
+  font-family: var(--cwa-serif); font-style: italic; font-weight: 700; color: #111;
+}
+/* Figure stays in flow rather than absolutely placed: quote lengths vary per
+   slide, so any fixed offset either crowded the right edge or collided with the
+   quote/attribution. margin-top:auto drops it into the leftover space, the auto
+   side margins centre it, and the bottom margin clears the .src line. */
+/* flex:1 + min-height:0 gives .fig the leftover space as a definite height, so
+   the img's max-height:100% has something to resolve against. Without it a tall
+   figure overflowed its box upward (align-items:flex-end) into the quote. */
+.slidev-layout.light .fig {
+  flex: 1 1 auto; min-height: 0;
+  margin: 0 auto 2.6rem;
+  display: flex; gap: 1.2rem; align-items: flex-end; justify-content: center;
+  max-width: 100%;
+}
+.slidev-layout.light .fig img { max-height: min(11.5rem, 100%); max-width: 100%; min-width: 0; }
