@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chaotic Maps — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  .maps-row{display:flex;gap:.35rem;flex-wrap:wrap;margin:0 0 .8rem}
+  .maps-row button{font-size:.72rem;padding:.3rem .6rem;border-color:var(--rule);color:var(--muted)}
+  .maps-row button.on{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+  body.compact .maps-row{margin:0 0 .4rem}
+  body.compact .maps-row button{font-size:.66rem;padding:.2rem .42rem}
+  #eq{font-family:"Fira Code",Menlo,monospace;font-size:.75rem;color:var(--mint);
+      margin:.1rem 0 .7rem;min-height:1.1em}
+  body.compact #eq{font-size:.68rem;margin:.1rem 0 .35rem}
+</style>
+</head>
+<body>
+
+<h1>Chaotic Maps</h1>
+<p class="sub">Iterated functions as sound sources. The maps and their default
+parameters follow <code>ChaosFunctions.scd</code>; the two playback modes follow
+<code>~playStreamFreq</code> (pitch) and <code>ChaosUGens</code> (audio rate).</p>
+<p class="warn">Start with the gain low. Some parameter settings are very loud and very bright.</p>
+
+<div class="maps-row" id="maps"></div>
+<div id="eq"></div>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i><span id="topLabel">attractor</span></span>
+  <span><i style="background:var(--mint)"></i>time series (last iterations)</span>
+  <span><i style="background:var(--gold)"></i>current parameter</span>
+  <span id="info"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <button id="reset" class="preset">reset state</button>
+</div>
+<p class="hint" id="hint"></p>
+
+<div class="grid">
+  <fieldset>
+    <legend>playback</legend>
+    <label><span>mode</span>
+      <select id="mode">
+        <option value="0" selected>audio rate (direct)</option>
+        <option value="1">pitch (perc events)</option>
+      </select><output></output></label>
+    <label><span>rate (Hz)</span><input type="range" id="rate" min="1" max="12000" step="1" value="2000"><output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.5" step="0.005" value="0.1"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>pitch mapping</legend>
+    <label><span>base (Hz)</span><input type="range" id="base" min="40" max="1000" step="1" value="200"><output></output></label>
+    <label><span>span (oct)</span><input type="range" id="span" min="0" max="5" step="0.05" value="2"><output></output></label>
+  </fieldset>
+
+  <fieldset id="mapparams">
+    <legend>map parameters</legend>
+  </fieldset>
+</div>
+
+<p class="note">
+For the one-dimensional maps the upper panel is the <em>bifurcation diagram</em>: the
+parameter runs left to right and the attractor is plotted vertically, so you can see the
+period doubling and the onset of chaos. The gold line is where the parameter currently sits
+&mdash; drag it and you hear the same transition you are looking at. For the
+two-dimensional maps the upper panel is the <em>phase portrait</em>, <code>x</code> against
+<code>y</code>. The lower panel is always the recent time series, the values actually being
+sonified. In <em>audio rate</em> mode each iteration is one sample-and-held sample, so
+<code>rate</code> behaves like a frequency; in <em>pitch</em> mode each iteration is a short
+percussive tone whose frequency comes from the map value.
+</p>
+
+<!-- The maps live here once, and this text is injected into BOTH the worklet blob and
+     the main thread. Duplicating them would let what you hear drift from what you see. -->
+<script id="mapsrc" type="text/js-lib">
+const MAPS = {
+  logistic: {
+    dim: 1, label: 'logistic', eq: 'x[n+1] = r * x[n] * (1 - x[n])',
+    params: [{k:'r', min:2.4, max:4, step:0.0001, def:3.81699451}],
+    bif: 'r',
+    init: () => ({x:0.5}),
+    step: (s,p) => { s.x = p.r * s.x * (1 - s.x); return s.x; }
+  },
+  sine: {
+    dim: 1, label: 'sine', eq: 'x[n+1] = sin(x[n] * a * b * 2 * r) * 0.5 + 0.5',
+    params: [{k:'a',min:0.5,max:6,step:0.01,def:3.14},{k:'b',min:0.01,max:1,step:0.005,def:0.125},
+             {k:'r',min:0.1,max:8,step:0.005,def:5.2}   /* .scd default 1.1 is a fixed point */],
+    bif: 'r',
+    init: () => ({x:0.15}),
+    step: (s,p) => { s.x = Math.sin(s.x * p.a * p.b * 2 * p.r) * 0.5 + 0.5; return s.x; }
+  },
+  tent: {
+    dim: 1, label: 'tent', eq: 'x[n+1] = 2r * x[n] if x <= 0.5, else 2r * (1 - x[n])',
+    params: [{k:'r',min:0.4,max:1,step:0.0005,def:0.92}],
+    bif: 'r',
+    init: () => ({x:0.25}),
+    step: (s,p) => { s.x = s.x <= 0.5 ? 2*p.r*s.x : 2*p.r*(1-s.x); return s.x; }
+  },
+  lehmer: {
+    dim: 1, label: "Lehmer", eq: 'x[n+1] = (a * x[n] + b) mod m',
+    params: [{k:'a',min:1,max:32,step:0.01,def:3.14},{k:'b',min:0,max:1,step:0.005,def:0.25},
+             {k:'m',min:0.2,max:2,step:0.01,def:1}],
+    bif: 'a',
+    init: () => ({x:0.5}),
+    step: (s,p) => { s.x = ((p.a * s.x + p.b) % p.m); if(!Number.isFinite(s.x)) s.x = 0.5; return s.x / p.m; }
+  },
+  henon: {
+    dim: 2, label: 'Henon', eq: 'x[n+1] = 1 - a * x[n]^2 + y[n] ,  y[n+1] = b * x[n]',
+    params: [{k:'a',min:0.8,max:1.42,step:0.001,def:1.4},{k:'b',min:0,max:0.5,step:0.001,def:0.3}],
+    bif: 'a',
+    init: () => ({x:0.1,y:0.1}),
+    step: (s,p) => { const xn = 1 - p.a*s.x*s.x + s.y, yn = p.b*s.x;
+                     s.x = Math.max(-4, Math.min(4, xn)); s.y = yn; return (s.x + 1.5)/3; }
+  },
+  ikeda: {
+    dim: 2, label: 'Ikeda', eq: 't = 0.4 - 6/(1 + x^2 + y^2) ; rotate by t, scale by u',
+    params: [{k:'u',min:0.6,max:1,step:0.001,def:0.9}],
+    bif: 'u',
+    init: () => ({x:0.1,y:0.1}),
+    step: (s,p) => { const t = 0.4 - 6/(1 + s.x*s.x + s.y*s.y);
+                     const xn = 1 + p.u*(s.x*Math.cos(t) - s.y*Math.sin(t));
+                     const yn = p.u*(s.x*Math.sin(t) + s.y*Math.cos(t));
+                     s.x = xn; s.y = yn; return (Math.abs(s.x)+Math.abs(s.y))/4; }
+  },
+  gingerbread: {
+    dim: 2, label: 'gingerbreadman', eq: 'x[n+1] = 1 - y[n] + |x[n]| ,  y[n+1] = x[n]',
+    params: [],
+    init: () => ({x:-0.1,y:0}),   /* (0.1,0.1) is a period-4 orbit */
+    step: (s) => { const xn = 1 - s.y + Math.abs(s.x), yn = s.x;
+                   s.x = Math.max(-12, Math.min(12, xn)); s.y = yn;
+                   return (Math.abs(s.x)+Math.abs(s.y))/10; }
+  },
+  tinkerbell: {
+    dim: 2, label: 'Tinkerbell', eq: 'x[n+1] = x^2 - y^2 + a*x + b*y ,  y[n+1] = 2xy + c*x + d*y',
+    params: [{k:'a',min:0.5,max:1.2,step:0.001,def:0.9},{k:'b',min:-1,max:0,step:0.001,def:-0.6013},
+             {k:'c',min:1,max:3,step:0.005,def:2},{k:'d',min:0,max:1,step:0.005,def:0.5}],
+    bif: 'a',
+    init: () => ({x:-0.72,y:-0.64}),
+    step: (s,p) => { const xn = s.x*s.x - s.y*s.y + p.a*s.x + p.b*s.y;
+                     const yn = 2*s.x*s.y + p.c*s.x + p.d*s.y;
+                     s.x = Math.max(-10, Math.min(10, xn));
+                     s.y = Math.max(-10, Math.min(10, yn));
+                     return (Math.abs(s.x)+Math.abs(s.y))/4; }
+  },
+  duffing: {
+    dim: 2, label: 'Duffing', eq: 'x[n+1] = y[n] ,  y[n+1] = -a * x[n] + b * y[n] - y[n]^3',
+    params: [{k:'a',min:0.2,max:3,step:0.005,def:1},{k:'b',min:0,max:0.5,step:0.001,def:0.08}],
+    bif: 'a',
+    init: () => ({x:0.1,y:0.1}),
+    step: (s,p) => { const xn = s.y, yn = -p.a*s.x + p.b*s.y - s.y*s.y*s.y;
+                     s.x = Math.max(-2, Math.min(2, xn));
+                     s.y = Math.max(-2, Math.min(2, yn));
+                     return (s.x + 2)/4; }
+  }
+};
+</script>
+
+<script id="worklet" type="text/js-worklet">
+class ChaosProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = { map:'logistic', rate:2000, gain:0.1, mode:0, base:200, span:2, mp:{} };
+    this.s = MAPS.logistic.init();
+    this.acc = 0;          // fractional iteration accumulator
+    this.held = 0;         // sample-and-held map value, 0..1
+    this.env = 0;          // perc envelope for pitch mode
+    this.phase = 0;
+    this.freq = 200;
+    this.hist = new Float32Array(512);
+    this.hi = 0;
+    this.frames = 0;
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'params') {
+        const changed = d.value.map && d.value.map !== this.p.map;
+        Object.assign(this.p, d.value);
+        if (changed) this.reset();
+      } else if (d.type === 'reset') {
+        this.reset();
+      }
+    };
+  }
+
+  reset() {
+    const m = MAPS[this.p.map] || MAPS.logistic;
+    this.s = m.init();
+    this.held = 0; this.env = 0; this.phase = 0;
+  }
+
+  iterate() {
+    const m = MAPS[this.p.map] || MAPS.logistic;
+    let v = m.step(this.s, this.p.mp || {});
+    if (!Number.isFinite(v)) { this.reset(); v = 0.5; }
+    // the SC helpers normalise each map into roughly 0..1; keep it in range
+    this.held = Math.max(0, Math.min(1, v));
+    this.hist[this.hi = (this.hi + 1) % this.hist.length] = this.held;
+    if (this.p.mode === 1) {                       // pitch mode: retrigger
+      this.env = 1;
+      this.freq = this.p.base * Math.pow(2, this.held * this.p.span);
+    }
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0], ch0 = out[0], n = ch0.length, p = this.p;
+    const perIter = Math.max(1e-6, p.rate) / sampleRate;
+    const decay = Math.exp(-1 / (sampleRate * 0.08));   // ~80 ms perc tail
+
+    for (let i = 0; i < n; i++) {
+      this.acc += perIter;
+      while (this.acc >= 1) { this.acc -= 1; this.iterate(); }
+
+      let v;
+      if (p.mode === 1) {
+        this.phase += this.freq / sampleRate;
+        if (this.phase >= 1) this.phase -= 1;
+        this.env *= decay;
+        v = Math.sin(2 * Math.PI * this.phase) * this.env;
+      } else {
+        v = this.held * 2 - 1;                     // sample-and-hold, bipolar
+      }
+      ch0[i] = v * p.gain;
+    }
+    for (let c = 1; c < out.length; c++) out[c].set(ch0);
+
+    this.frames += n;
+    if (this.frames >= sampleRate / 30) {
+      this.frames = 0;
+      const h = new Float32Array(this.hist.length);
+      for (let k = 0; k < h.length; k++)
+        h[k] = this.hist[(this.hi + 1 + k) % this.hist.length];
+      this.port.postMessage({ hist: h, x: this.s.x, y: this.s.y });
+    }
+    return true;
+  }
+}
+registerProcessor('chaos', ChaosProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+// same map source as the worklet, evaluated here for the diagrams
+const MAPS = new Function(document.getElementById('mapsrc').textContent + '; return MAPS;')();
+
+const BASE_IDS = ['mode','rate','gain','base','span'];
+Kit.compact();
+const el = Kit.controls(BASE_IDS);
+const canvas = document.getElementById('view');
+const ctx2d = Kit.fit(canvas);
+const eqBox = document.getElementById('eq');
+const info = document.getElementById('info');
+const hint = document.getElementById('hint');
+const topLabel = document.getElementById('topLabel');
+const mapParams = document.getElementById('mapparams');
+
+let current = 'logistic';
+let mp = {};                       // current map parameter values
+let snap = null;
+let diagram = null;                // offscreen canvas, redrawn when params change
+let diagramKey = '';
+
+/* ---- map chooser + dynamic parameter sliders ---- */
+const mapsRow = document.getElementById('maps');
+for (const key in MAPS) {
+  const b = document.createElement('button');
+  b.textContent = MAPS[key].label;
+  b.dataset.map = key;
+  b.addEventListener('click', () => selectMap(key));
+  mapsRow.appendChild(b);
+}
+
+function selectMap(key) {
+  current = key;
+  const m = MAPS[key];
+  mp = {};
+  mapsRow.querySelectorAll('button').forEach(b =>
+    b.classList.toggle('on', b.dataset.map === key));
+  mapParams.querySelectorAll('label').forEach(l => l.remove());
+  for (const spec of m.params) {
+    mp[spec.k] = spec.def;
+    const lab = document.createElement('label');
+    lab.innerHTML = `<span>${spec.k}</span>`
+      + `<input type="range" min="${spec.min}" max="${spec.max}" step="${spec.step}" value="${spec.def}">`
+      + `<output></output>`;
+    const input = lab.querySelector('input');
+    input.addEventListener('input', () => {
+      mp[spec.k] = parseFloat(input.value);
+      lab.querySelector('output').value = fmt(mp[spec.k]);
+      send();
+    });
+    lab.querySelector('output').value = fmt(spec.def);
+    mapParams.appendChild(lab);
+  }
+  if (!m.params.length) {
+    const p = document.createElement('label');
+    p.innerHTML = '<span>—</span><span style="color:var(--muted);font-size:.72rem">no parameters</span><output></output>';
+    mapParams.appendChild(p);
+  }
+  eqBox.textContent = m.eq;
+  topLabel.textContent = m.dim === 1 ? 'bifurcation diagram' : 'phase portrait (x, y)';
+  hint.textContent = m.dim === 1 && m.bif
+    ? `drag ${m.bif} and watch the gold line move across the bifurcation`
+    : '';
+  diagram = null;
+  send({ type: 'reset' });
+}
+const fmt = v => Math.abs(v) >= 100 || Number.isInteger(v) ? String(v) : v.toFixed(4).replace(/0+$/, '');
+
+/* ---- audio ---- */
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'chaos', prelude: ['mapsrc'] });
+  st.node.port.onmessage = e => { snap = e.data; };
+  st.node.port.postMessage({ type: 'params', value: params() });
+  return st;
+});
+
+function params() {
+  const v = Kit.values(el);
+  return { map: current, rate: v.rate, gain: v.gain, mode: v.mode, base: v.base, span: v.span, mp: { ...mp } };
+}
+function send(msg) {
+  const st = getState();
+  if (!st) return;
+  st.node.port.postMessage(msg || { type: 'params', value: params() });
+  if (msg && msg.type === 'reset') st.node.port.postMessage({ type: 'params', value: params() });
+}
+BASE_IDS.forEach(id => el[id].addEventListener('input', () => { Kit.readouts(el); syncMode(); send(); }));
+document.getElementById('reset').addEventListener('click', () => send({ type: 'reset' }));
+
+function syncMode() {
+  const pitch = el.mode.value === '1';
+  el.base.disabled = !pitch;
+  el.span.disabled = !pitch;
+  // pitch mode is an event rate, audio-rate mode is a sample rate
+  if (pitch && parseFloat(el.rate.value) > 60) el.rate.value = 12;
+  if (!pitch && parseFloat(el.rate.value) < 60) el.rate.value = 2000;
+  Kit.readouts(el);
+}
+
+/* ---- diagrams, computed off the audio thread ---- */
+function buildDiagram(W, H) {
+  const m = MAPS[current];
+  const off = document.createElement('canvas');
+  const dpr = window.devicePixelRatio || 1;
+  off.width = W * dpr; off.height = H * dpr;
+  const c = off.getContext('2d');
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.fillStyle = Kit.css('--accent');
+
+  if (m.dim === 1 && m.bif) {
+    const spec = m.params.find(s => s.k === m.bif);
+    const cols = Math.min(900, Math.round(W));
+    for (let i = 0; i < cols; i++) {
+      const val = spec.min + (spec.max - spec.min) * (i / (cols - 1));
+      const p = { ...mp }; p[m.bif] = val;
+      const s = m.init();
+      for (let k = 0; k < 220; k++) m.step(s, p);              // discard transient
+      for (let k = 0; k < 110; k++) {
+        let v = m.step(s, p);
+        if (!Number.isFinite(v)) break;
+        v = Math.max(0, Math.min(1, v));
+        c.globalAlpha = 0.16;
+        c.fillRect(i / (cols - 1) * W, (1 - v) * H, 1, 1);
+      }
+    }
+  } else {
+    // phase portrait: x against y over the attractor's own bounds
+    const s = m.init(), pts = [];
+    for (let k = 0; k < 400; k++) m.step(s, mp);
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (let k = 0; k < 12000; k++) {
+      m.step(s, mp);
+      if (!Number.isFinite(s.x) || !Number.isFinite(s.y)) break;
+      pts.push(s.x, s.y);
+      if (s.x < x0) x0 = s.x; if (s.x > x1) x1 = s.x;
+      if (s.y < y0) y0 = s.y; if (s.y > y1) y1 = s.y;
+    }
+    const sx = (x1 - x0) || 1, sy = (y1 - y0) || 1;
+    c.globalAlpha = 0.5;
+    for (let i = 0; i < pts.length; i += 2) {
+      const X = ((pts[i] - x0) / sx) * (W - 8) + 4;
+      const Y = (1 - (pts[i + 1] - y0) / sy) * (H - 8) + 4;
+      c.fillRect(X, Y, 1, 1);
+    }
+  }
+  c.globalAlpha = 1;
+  return off;
+}
+
+function draw() {
+  const r = canvas.getBoundingClientRect(), W = r.width, H = r.height;
+  ctx2d.clearRect(0, 0, W, H);
+  const m = MAPS[current];
+  const splitY = Math.round(H * 0.62), gap = 8;
+
+  const key = current + JSON.stringify(mp) + Math.round(W) + 'x' + Math.round(splitY);
+  if (!diagram || diagramKey !== key) {
+    diagram = buildDiagram(W, splitY);
+    diagramKey = key;
+  }
+  ctx2d.drawImage(diagram, 0, 0, W, splitY);
+
+  // where the bifurcation parameter currently sits
+  if (m.dim === 1 && m.bif) {
+    const spec = m.params.find(s => s.k === m.bif);
+    const t = (mp[m.bif] - spec.min) / (spec.max - spec.min);
+    ctx2d.strokeStyle = Kit.css('--gold'); ctx2d.lineWidth = 1.5;
+    ctx2d.beginPath(); ctx2d.moveTo(t * W, 0); ctx2d.lineTo(t * W, splitY); ctx2d.stroke();
+  }
+  ctx2d.strokeStyle = 'rgba(255,255,255,.12)'; ctx2d.lineWidth = 1;
+  ctx2d.beginPath(); ctx2d.moveTo(0, splitY); ctx2d.lineTo(W, splitY); ctx2d.stroke();
+
+  // lower panel: the values actually being sonified
+  const botTop = splitY + gap, botH = H - botTop;
+  ctx2d.strokeStyle = 'rgba(255,255,255,.10)';
+  ctx2d.beginPath(); ctx2d.moveTo(0, botTop + botH / 2); ctx2d.lineTo(W, botTop + botH / 2); ctx2d.stroke();
+  if (snap && snap.hist) {
+    const h = snap.hist;
+    ctx2d.strokeStyle = Kit.css('--mint'); ctx2d.lineWidth = 1.5;
+    ctx2d.beginPath();
+    for (let i = 0; i < h.length; i++) {
+      const x = (i / (h.length - 1)) * W;
+      const y = botTop + (1 - h[i]) * (botH - 6) + 3;
+      i ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+    }
+    ctx2d.stroke();
+  }
+  ctx2d.fillStyle = Kit.css('--muted');
+  ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillText(m.dim === 1 ? 'time series' : 'time series (normalised value)', 6, botTop + 12);
+
+  info.textContent = m.dim === 1 && m.bif
+    ? m.bif + ' = ' + fmt(mp[m.bif])
+    : (snap ? 'x ' + snap.x.toFixed(3) + '  y ' + (snap.y ?? 0).toFixed(3) : '');
+
+  requestAnimationFrame(draw);
+}
+
+selectMap('logistic');
+Kit.readouts(el); syncMode(); draw();
+</script>
+</body>
+</html>

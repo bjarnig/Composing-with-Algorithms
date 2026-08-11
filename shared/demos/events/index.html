@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event Generator — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  .focus-row{display:flex;gap:.35rem;align-items:center;margin:0 0 .8rem}
+  .focus-row button{font-size:.72rem;padding:.28rem .6rem;border-color:var(--rule);color:var(--muted)}
+  .focus-row button.on{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+  .extra label{padding:.1rem 0}
+  body.compact .focus-row{margin:0 0 .4rem}
+  body.compact .focus-row button{font-size:.66rem;padding:.18rem .42rem}
+</style>
+</head>
+<body>
+
+<h1>Event Generator</h1>
+<p class="sub">One percussive sine per event, exactly the <code>\perc</code> SynthDef from the
+early classes. Each of <code>dur</code>, <code>freq</code> and <code>amp</code> is drawn from its
+own distribution, as in a <code>Pbind</code>.</p>
+<p class="warn">Start with the gain low. Short durations plus high amp gets dense quickly.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>events (time &times; pitch, size = amp)</span>
+  <span><i style="background:var(--mint)"></i>histogram of drawn values</span>
+  <span id="info"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <span style="color:var(--muted);font-size:.75rem">presets:</span>
+  <button class="preset" data-p="uniform">Pwhite</button>
+  <button class="preset" data-p="exprand">Pexprand durs</button>
+  <button class="preset" data-p="brown">Pbrown melody</button>
+  <button class="preset" data-p="gauss">Pgauss around 400</button>
+  <button class="preset" data-p="beta">Pbeta edges</button>
+  <button class="preset" data-p="cloud">dense cloud</button>
+</div>
+
+<div class="focus-row">
+  <span style="color:var(--muted);font-size:.75rem">histogram of:</span>
+  <button data-f="dur">dur</button>
+  <button data-f="freq" class="on">freq</button>
+  <button data-f="amp">amp</button>
+</div>
+
+<div class="grid">
+  <fieldset>
+    <legend>dur (inter-onset, s)</legend>
+    <label><span>distribution</span><select id="durDist"></select><output></output></label>
+    <label><span>lo</span><input type="range" id="durLo" min="0.02" max="1" step="0.005" value="0.12"><output></output></label>
+    <label><span>hi</span><input type="range" id="durHi" min="0.02" max="2" step="0.005" value="0.28"><output></output></label>
+    <div class="extra" id="durExtra"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>freq (Hz)</legend>
+    <label><span>distribution</span><select id="freqDist"></select><output></output></label>
+    <label><span>lo</span><input type="range" id="freqLo" min="60" max="2000" step="1" value="200"><output></output></label>
+    <label><span>hi</span><input type="range" id="freqHi" min="60" max="4000" step="1" value="900"><output></output></label>
+    <label><span>scale</span>
+      <select id="scale">
+        <option value="off" selected>off (continuous)</option>
+        <option value="chromatic">chromatic</option>
+        <option value="ionian">ionian</option>
+        <option value="pentatonic">pentatonic</option>
+        <option value="whole">whole tone</option>
+      </select><output></output></label>
+    <div class="extra" id="freqExtra"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>amp</legend>
+    <label><span>distribution</span><select id="ampDist"></select><output></output></label>
+    <label><span>lo</span><input type="range" id="ampLo" min="0" max="1" step="0.01" value="0.35"><output></output></label>
+    <label><span>hi</span><input type="range" id="ampHi" min="0" max="1" step="0.01" value="1"><output></output></label>
+    <div class="extra" id="ampExtra"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>voice</legend>
+    <label><span>attack (s)</span><input type="range" id="atk" min="0.001" max="0.2" step="0.001" value="0.01"><output></output></label>
+    <label><span>release (s)</span><input type="range" id="rel" min="0.02" max="2" step="0.01" value="0.2"><output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.4" step="0.005" value="0.1"><output></output></label>
+  </fieldset>
+</div>
+
+<p class="note">
+The upper panel is the resulting texture: every event as a dot, time running left to right,
+pitch vertically, size from its amplitude. The lower panel is the histogram of the values
+actually drawn for whichever stream you select, so the shape of the distribution and the
+shape of the music are visible together. <code>Pwhite</code> fills its range evenly;
+<code>Pexprand</code> crowds the low end, which is why it suits durations;
+<code>Pbrown</code> walks in small steps and so draws a melodic line rather than a scatter;
+<code>Pbeta</code> can be pushed to the edges of the range. Quantising <code>freq</code> to a
+scale keeps the same distribution but constrains where the values may land.
+</p>
+
+<script id="dists" type="text/js-lib">
+/* Distributions named after the SuperCollider patterns from the early classes.
+   Each takes {lo, hi, p1, p2} plus its own carried state and returns one value. */
+const DISTS = {
+  fixed:   { label: 'fixed (lo)',        extra: [] },
+  white:   { label: 'Pwhite (uniform)',  extra: [] },
+  exprand: { label: 'Pexprand',          extra: [] },
+  brown:   { label: 'Pbrown (walk)',     extra: [{k:'p1', label:'step', min:0.005, max:1, step:0.005, def:0.12}] },
+  gauss:   { label: 'Pgauss',            extra: [{k:'p1', label:'dev', min:0.01, max:1, step:0.01, def:0.2}] },
+  beta:    { label: 'Pbeta',             extra: [{k:'p1', label:'prob1', min:0.1, max:4, step:0.05, def:0.4},
+                                                 {k:'p2', label:'prob2', min:0.1, max:4, step:0.05, def:0.4}] }
+};
+
+function drawFrom(kind, s, lo, hi, p1, p2) {
+  if (hi < lo) { const t = lo; lo = hi; hi = t; }
+  const span = hi - lo;
+  switch (kind) {
+    case 'fixed': return lo;
+
+    case 'exprand': {                       // geometric between lo and hi, needs lo > 0
+      const a = Math.max(1e-6, lo), b = Math.max(a * 1.0001, hi);
+      return a * Math.pow(b / a, Math.random());
+    }
+    case 'brown': {                         // random walk, folded back into range
+      if (s.x === undefined) s.x = lo + span * 0.5;
+      s.x += (Math.random() * 2 - 1) * (p1 * span);
+      while (s.x < lo || s.x > hi) {
+        if (s.x > hi) s.x = hi - (s.x - hi);
+        if (s.x < lo) s.x = lo + (lo - s.x);
+      }
+      return s.x;
+    }
+    case 'gauss': {                         // mean at range centre, dev as a fraction of span
+      // sum of three uniform(-1,1) has sd 1, so dev maps straight to sd*span.
+      // (dividing by 3 first, as is tempting, makes the real spread dev/3.)
+      let u = 0; for (let i = 0; i < 3; i++) u += Math.random() * 2 - 1;
+      const v = lo + span * 0.5 + u * p1 * span;
+      return Math.min(hi, Math.max(lo, v));
+    }
+    case 'beta': {                          // Johnk's method, as in Pbeta
+      let sum = 2, t = 0, guard = 0;
+      while (sum > 1 && guard++ < 64) {
+        t = Math.pow(Math.random(), 1 / p1);
+        sum = t + Math.pow(Math.random(), 1 / p2);
+      }
+      return lo + (sum > 0 ? t / sum : 0.5) * span;
+    }
+    default:                                 // white
+      return lo + Math.random() * span;
+  }
+}
+
+const SCALES = {
+  off: null,
+  chromatic:  [0,1,2,3,4,5,6,7,8,9,10,11],
+  ionian:     [0,2,4,5,7,9,11],
+  pentatonic: [0,2,4,7,9],
+  whole:      [0,2,4,6,8,10]
+};
+
+function quantise(freq, scaleName) {
+  const pcs = SCALES[scaleName];
+  if (!pcs) return freq;
+  const midi = 69 + 12 * Math.log2(Math.max(1e-6, freq) / 440);
+  const oct = Math.floor(midi / 12), pc = midi - oct * 12;
+  let best = pcs[0], bd = 99;
+  for (const c of pcs.concat([12])) {
+    const d = Math.abs(pc - c);
+    if (d < bd) { bd = d; best = c; }
+  }
+  return 440 * Math.pow(2, (oct * 12 + best - 69) / 12);
+}
+</script>
+
+<script id="worklet" type="text/js-worklet">
+const NVOICES = 48;
+
+class EventProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = {
+      durDist:'white', durLo:0.12, durHi:0.28, durP1:0.12, durP2:0.4,
+      freqDist:'white', freqLo:200, freqHi:900, freqP1:0.12, freqP2:0.4, scale:'off',
+      ampDist:'white', ampLo:0.35, ampHi:1, ampP1:0.12, ampP2:0.4,
+      atk:0.01, rel:0.2, gain:0.1
+    };
+    this.st = { dur:{}, freq:{}, amp:{} };
+    this.v = [];
+    for (let i = 0; i < NVOICES; i++)
+      this.v.push({ on:false, phase:0, inc:0, amp:0, env:0, stage:0, aInc:0, rCoef:0 });
+    this.until = 0;          // samples until the next event
+    this.clock = 0;          // sample counter, for event timestamps
+    this.pending = [];       // events waiting to be drawn
+    this.frames = 0;
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'params') {
+        // a changed distribution should not inherit the previous walk position
+        for (const k of ['dur','freq','amp'])
+          if (d.value[k + 'Dist'] !== this.p[k + 'Dist']) this.st[k] = {};
+        Object.assign(this.p, d.value);
+      }
+    };
+  }
+
+  fire() {
+    const p = this.p;
+    let f = drawFrom(p.freqDist, this.st.freq, p.freqLo, p.freqHi, p.freqP1, p.freqP2);
+    f = quantise(f, p.scale);
+    const a = drawFrom(p.ampDist, this.st.amp, p.ampLo, p.ampHi, p.ampP1, p.ampP2);
+
+    const v = this.v.find(x => !x.on) || this.v[0];   // steal the first if all busy
+    v.on = true; v.phase = 0; v.env = 0; v.stage = 0;
+    v.inc = Math.max(1, f) / sampleRate;
+    v.amp = Math.max(0, a);
+    v.aInc = 1 / Math.max(1, p.atk * sampleRate);
+    v.rCoef = Math.exp(-1 / Math.max(1, p.rel * sampleRate));
+
+    this.pending.push({ t: this.clock / sampleRate, f, a });
+    if (this.pending.length > 128) this.pending.shift();
+
+    const d = drawFrom(p.durDist, this.st.dur, p.durLo, p.durHi, p.durP1, p.durP2);
+    this.until = Math.max(32, d * sampleRate);        // floor keeps the density sane
+    this.lastDur = d;
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0], ch0 = out[0], n = ch0.length, p = this.p;
+
+    for (let i = 0; i < n; i++) {
+      if (this.until <= 0) this.fire();
+      this.until--; this.clock++;
+
+      let sum = 0;
+      for (let k = 0; k < NVOICES; k++) {
+        const v = this.v[k];
+        if (!v.on) continue;
+        if (v.stage === 0) {                 // linear attack
+          v.env += v.aInc;
+          if (v.env >= 1) { v.env = 1; v.stage = 1; }
+        } else {                             // exponential decay
+          v.env *= v.rCoef;
+          if (v.env < 1e-4) { v.on = false; continue; }
+        }
+        v.phase += v.inc;
+        if (v.phase >= 1) v.phase -= 1;
+        sum += Math.sin(2 * Math.PI * v.phase) * v.env * v.amp;
+      }
+      // soft saturation: sparse events stay essentially linear (tanh x ~ x), while a
+      // dense cloud of up to 48 voices is compressed instead of leaping ~6x in level
+      ch0[i] = Math.tanh(sum * p.gain);
+    }
+    for (let c = 1; c < out.length; c++) out[c].set(ch0);
+
+    this.frames += n;
+    if (this.frames >= sampleRate / 30) {
+      this.frames = 0;
+      this.port.postMessage({
+        events: this.pending.splice(0, this.pending.length),
+        now: this.clock / sampleRate,
+        lastDur: this.lastDur,
+        active: this.v.reduce((c, v) => c + (v.on ? 1 : 0), 0)
+      });
+    }
+    return true;
+  }
+}
+registerProcessor('events', EventProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const DISTS = new Function(document.getElementById('dists').textContent + '; return DISTS;')();
+const IDS = ['durDist','durLo','durHi','freqDist','freqLo','freqHi','scale',
+             'ampDist','ampLo','ampHi','atk','rel','gain'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const ctx2d = Kit.fit(document.getElementById('view'));
+const info = document.getElementById('info');
+
+const extraVals = { dur:{p1:0.12,p2:0.4}, freq:{p1:0.12,p2:0.4}, amp:{p1:0.12,p2:0.4} };
+let focus = 'freq';
+let events = [];          // {t,f,a}
+let now = 0, active = 0;
+
+// populate the three distribution menus from the shared definitions
+for (const stream of ['dur','freq','amp']) {
+  const sel = el[stream + 'Dist'];
+  for (const k in DISTS) {
+    const o = document.createElement('option');
+    o.value = k; o.textContent = DISTS[k].label;
+    if (k === 'white') o.selected = true;
+    sel.appendChild(o);
+  }
+  sel.addEventListener('change', () => { buildExtra(stream); send(); });
+}
+
+// the extra sliders a distribution needs (step / dev / prob1 / prob2)
+function buildExtra(stream) {
+  const host = document.getElementById(stream + 'Extra');
+  host.innerHTML = '';
+  for (const spec of DISTS[el[stream + 'Dist'].value].extra) {
+    const lab = document.createElement('label');
+    lab.innerHTML = `<span>${spec.label}</span>`
+      + `<input type="range" min="${spec.min}" max="${spec.max}" step="${spec.step}" value="${extraVals[stream][spec.k]}">`
+      + `<output>${extraVals[stream][spec.k]}</output>`;
+    const input = lab.querySelector('input');
+    input.value = extraVals[stream][spec.k];
+    input.addEventListener('input', () => {
+      extraVals[stream][spec.k] = parseFloat(input.value);
+      lab.querySelector('output').value = input.value;
+      send();
+    });
+    host.appendChild(lab);
+  }
+}
+['dur','freq','amp'].forEach(buildExtra);
+
+document.querySelectorAll('.focus-row button').forEach(b =>
+  b.addEventListener('click', () => {
+    focus = b.dataset.f;
+    document.querySelectorAll('.focus-row button').forEach(x => x.classList.toggle('on', x === b));
+  }));
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'events', prelude: ['dists'] });
+  st.node.port.onmessage = e => {
+    const d = e.data;
+    now = d.now; active = d.active;
+    events = events.concat(d.events).filter(ev => ev.t > now - 8);
+  };
+  st.node.port.postMessage({ type: 'params', value: params() });
+  return st;
+});
+
+function params() {
+  const v = Kit.values(el);
+  return {
+    durDist: el.durDist.value, durLo: v.durLo, durHi: v.durHi,
+    durP1: extraVals.dur.p1, durP2: extraVals.dur.p2,
+    freqDist: el.freqDist.value, freqLo: v.freqLo, freqHi: v.freqHi,
+    freqP1: extraVals.freq.p1, freqP2: extraVals.freq.p2, scale: el.scale.value,
+    ampDist: el.ampDist.value, ampLo: v.ampLo, ampHi: v.ampHi,
+    ampP1: extraVals.amp.p1, ampP2: extraVals.amp.p2,
+    atk: v.atk, rel: v.rel, gain: v.gain
+  };
+}
+function send() { const st = getState(); if (st) st.node.port.postMessage({ type: 'params', value: params() }); }
+IDS.forEach(id => el[id].addEventListener('input', () => { Kit.readouts(el); send(); }));
+
+Kit.presets({
+  uniform: {durDist:'white',   durLo:0.12, durHi:0.28, freqDist:'white',   freqLo:200, freqHi:900, ampDist:'white', scale:'off'},
+  exprand: {durDist:'exprand', durLo:0.03, durHi:0.6,  freqDist:'white',   freqLo:200, freqHi:1200, scale:'off'},
+  brown:   {durDist:'fixed',   durLo:0.16, durHi:0.16, freqDist:'brown',   freqLo:150, freqHi:900, scale:'pentatonic', freqP1:0.08},
+  gauss:   {durDist:'white',   durLo:0.1,  durHi:0.25, freqDist:'gauss',   freqLo:200, freqHi:700, scale:'off', freqP1:0.18},
+  // prob1 == prob2 < 1 is what pushes Pbeta to both edges of the range
+  beta:    {durDist:'white',   durLo:0.08, durHi:0.3,  freqDist:'beta',    freqLo:150, freqHi:1400, scale:'off', freqP1:0.4, freqP2:0.4},
+  cloud:   {durDist:'exprand', durLo:0.02, durHi:0.12, freqDist:'white',   freqLo:300, freqHi:3000, ampDist:'exprand', ampLo:0.05, ampHi:0.5, scale:'off'}
+}, p => {
+  for (const k in p) {
+    // the per-distribution sliders are built on demand, so they have no stable id
+    const m = /^(dur|freq|amp)P([12])$/.exec(k);
+    if (m) { extraVals[m[1]]['p' + m[2]] = p[k]; continue; }
+    if (el[k]) el[k].value = p[k];
+  }
+  ['dur','freq','amp'].forEach(buildExtra);
+  Kit.readouts(el); send();
+});
+
+/* ---- drawing ---- */
+function draw() {
+  const r = document.getElementById('view').getBoundingClientRect(), W = r.width, H = r.height;
+  ctx2d.clearRect(0, 0, W, H);
+  const splitY = Math.round(H * 0.62), gap = 8;
+
+  // upper: events as time x pitch, radius from amp
+  const loF = Math.min(+el.freqLo.value, +el.freqHi.value) * 0.9;
+  const hiF = Math.max(+el.freqLo.value, +el.freqHi.value) * 1.1;
+  const yOf = f => {
+    const t = (Math.log2(Math.max(1, f)) - Math.log2(loF)) / (Math.log2(hiF) - Math.log2(loF));
+    return splitY - Math.max(0, Math.min(1, t)) * (splitY - 8) - 4;
+  };
+  ctx2d.strokeStyle = 'rgba(255,255,255,.07)'; ctx2d.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = 4 + i * (splitY - 8) / 4;
+    ctx2d.beginPath(); ctx2d.moveTo(0, y); ctx2d.lineTo(W, y); ctx2d.stroke();
+  }
+  const span = 8;
+  for (const ev of events) {
+    const x = ((ev.t - (now - span)) / span) * W;
+    if (x < -4 || x > W + 4) continue;
+    const rad = 1.5 + ev.a * 5;
+    ctx2d.fillStyle = Kit.css('--accent');
+    ctx2d.globalAlpha = 0.35 + 0.5 * Math.min(1, ev.a);
+    ctx2d.beginPath(); ctx2d.arc(x, yOf(ev.f), rad, 0, Math.PI * 2); ctx2d.fill();
+  }
+  ctx2d.globalAlpha = 1;
+  ctx2d.fillStyle = Kit.css('--muted'); ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillText(Math.round(loF) + '–' + Math.round(hiF) + ' Hz, last ' + span + ' s', 6, splitY - 6);
+
+  ctx2d.strokeStyle = 'rgba(255,255,255,.12)';
+  ctx2d.beginPath(); ctx2d.moveTo(0, splitY); ctx2d.lineTo(W, splitY); ctx2d.stroke();
+
+  // lower: histogram of the values actually drawn for the focused stream
+  const botTop = splitY + gap, botH = H - botTop;
+  const pick = ev => focus === 'dur' ? null : (focus === 'freq' ? ev.f : ev.a);
+  let lo, hi, vals;
+  if (focus === 'dur') {
+    lo = Math.min(+el.durLo.value, +el.durHi.value); hi = Math.max(+el.durLo.value, +el.durHi.value);
+    vals = [];
+    for (let i = 1; i < events.length; i++) vals.push(events[i].t - events[i - 1].t);
+  } else if (focus === 'freq') {
+    lo = Math.min(+el.freqLo.value, +el.freqHi.value); hi = Math.max(+el.freqLo.value, +el.freqHi.value);
+    vals = events.map(pick);
+  } else {
+    lo = Math.min(+el.ampLo.value, +el.ampHi.value); hi = Math.max(+el.ampLo.value, +el.ampHi.value);
+    vals = events.map(pick);
+  }
+  const BINS = 44, bins = new Array(BINS).fill(0);
+  for (const v of vals) {
+    if (v == null || !Number.isFinite(v)) continue;
+    const t = (v - lo) / ((hi - lo) || 1);
+    const b = Math.floor(Math.max(0, Math.min(0.9999, t)) * BINS);
+    bins[b]++;
+  }
+  const peak = Math.max(1, ...bins);
+  const bw = W / BINS;
+  ctx2d.fillStyle = Kit.css('--mint');
+  for (let i = 0; i < BINS; i++) {
+    const h = (bins[i] / peak) * (botH - 16);
+    ctx2d.globalAlpha = 0.75;
+    ctx2d.fillRect(i * bw + 0.5, botTop + (botH - 4) - h, bw - 1, h);
+  }
+  ctx2d.globalAlpha = 1;
+  ctx2d.fillStyle = Kit.css('--muted');
+  ctx2d.fillText(focus + ':  ' + DISTS[el[focus + 'Dist'].value].label
+    + '   ' + (focus === 'dur' ? lo.toFixed(2) + '–' + hi.toFixed(2) + ' s'
+             : focus === 'freq' ? Math.round(lo) + '–' + Math.round(hi) + ' Hz'
+             : lo.toFixed(2) + '–' + hi.toFixed(2))
+    + '   n=' + vals.filter(v => v != null).length, 6, botTop + 12);
+
+  info.textContent = 'voices ' + active + '   events/s '
+    + (events.length ? (events.length / span).toFixed(1) : '0');
+  requestAnimationFrame(draw);
+}
+Kit.readouts(el); draw();
+</script>
+</body>
+</html>

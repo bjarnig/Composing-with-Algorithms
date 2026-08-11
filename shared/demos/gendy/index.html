@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamic Stochastic Synthesis — Web Audio prototype</title>
+<style>
+  :root{
+    --bg:#171b21; --fg:#ffffff; --accent:#78a5d2; --muted:#9aa4b5;
+    --mint:#8ce1b4; --gold:#d2b95f; --rose:#d27878; --rule:rgba(255,255,255,.18);
+    --serif:"Palatino","Palatino Linotype","Book Antiqua",Georgia,serif;
+    --sans:"Avenir Next","Avenir","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+       -webkit-font-smoothing:antialiased;padding:1.6rem 2rem 3rem;line-height:1.5}
+  h1{font-family:var(--serif);font-weight:700;font-size:1.5rem;margin:0 0 .2rem}
+  .sub{color:var(--muted);font-size:.85rem;margin:0 0 1.2rem}
+  .warn{color:var(--gold);font-size:.8rem;margin:.4rem 0 1.2rem}
+  canvas{width:100%;height:260px;display:block;background:rgba(255,255,255,.03);
+         border:1px solid var(--rule);border-radius:4px}
+  .legend{display:flex;gap:1.2rem;font-size:.72rem;color:var(--muted);margin:.45rem 0 1.2rem}
+  .legend i{display:inline-block;width:10px;height:2px;vertical-align:middle;margin-right:.35rem}
+  .row{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-bottom:1.1rem}
+  button{font-family:var(--sans);font-size:.85rem;padding:.5rem 1.1rem;border-radius:4px;
+         border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+  button:hover{background:rgba(120,165,210,.12)}
+  button.on{background:var(--accent);color:var(--bg);font-weight:600}
+  button.preset{border-color:var(--rule);color:var(--muted);font-size:.75rem;padding:.35rem .7rem}
+  button.preset:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:.5rem 1.6rem}
+  label{display:grid;grid-template-columns:7.2rem minmax(0,1fr) 3.4rem;align-items:center;
+        gap:.6rem;font-size:.8rem;padding:.18rem 0}
+  label span:first-child{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  label output{font-variant-numeric:tabular-nums;color:var(--accent);font-size:.75rem;text-align:right}
+  input[type=range]{width:100%;min-width:0;accent-color:var(--accent)}
+  input[type=range]:disabled{opacity:.35}
+  select{background:var(--bg);color:var(--fg);border:1px solid var(--rule);width:100%;min-width:0;
+         border-radius:3px;padding:.2rem .3rem;font-family:var(--sans);font-size:.78rem}
+  fieldset{border:1px solid var(--rule);border-radius:4px;padding:.7rem 1rem 1rem;margin:0 0 1rem}
+  legend{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:.85rem;padding:0 .4rem}
+  code{font-family:"Fira Code",Menlo,monospace;font-size:.78rem;color:var(--mint)}
+  .note{color:var(--muted);font-size:.75rem;margin-top:1.4rem;max-width:52rem}
+
+  /* ?compact=1 — for embedding in a slide: drop the prose, tighten everything,
+     and let the canvas take the height the iframe gives it */
+  body.compact{padding:.5rem .7rem 0}
+  body.compact h1,
+  body.compact .sub,
+  body.compact .warn,
+  body.compact .note,
+  body.compact .legend{display:none}
+  body.compact canvas{height:min(34vh,190px)}
+  body.compact fieldset{padding:.3rem .6rem .45rem;margin:0}
+  body.compact legend{font-size:.72rem}
+  body.compact .row{margin:.45rem 0 .5rem;gap:.4rem}
+  body.compact button{padding:.3rem .6rem;font-size:.72rem}
+  body.compact button.preset{padding:.22rem .45rem;font-size:.68rem}
+  body.compact label{padding:.04rem 0;font-size:.7rem;
+                     grid-template-columns:5.6rem minmax(0,1fr) 2.8rem}
+  body.compact .grid{gap:.35rem 1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  body.compact select{font-size:.7rem;padding:.1rem .2rem}
+</style>
+</head>
+<body>
+
+<h1>Dynamic Stochastic Synthesis</h1>
+<p class="sub">Xenakis&rsquo; GENDYN in the browser. Parameter names follow SuperCollider&rsquo;s
+<code>Gendy1</code> / <code>Gendy3</code>, so this runs beside <code>Gendy.scd</code> in class.</p>
+<p class="warn">Start with the gain low. Stochastic synthesis produces broadband signals.</p>
+
+<canvas id="scope"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>breakpoint waveform</span>
+  <span><i style="background:var(--mint)"></i>control points</span>
+  <span><i style="background:var(--muted)"></i>audio output</span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <span style="color:var(--muted);font-size:.75rem">presets:</span>
+  <button class="preset" data-p="basic">basic</button>
+  <button class="preset" data-p="bass">bass rumble</button>
+  <button class="preset" data-p="simple">4 points</button>
+  <button class="preset" data-p="complex">50 points</button>
+  <button class="preset" data-p="expon">expon amp</button>
+  <button class="preset" data-p="hyper">hyperbcos dur</button>
+  <button class="preset" data-p="pitched">Gendy3 @ 440</button>
+</div>
+
+<div class="grid">
+  <fieldset>
+    <legend>waveform</legend>
+    <label><span>initCPs</span><input type="range" id="initCPs" min="2" max="64" step="1" value="12"><output></output></label>
+    <label><span>knum</span><input type="range" id="knum" min="2" max="64" step="1" value="12"><output></output></label>
+    <label><span>mode</span>
+      <select id="mode">
+        <option value="1" selected>Gendy1 (free)</option>
+        <option value="3">Gendy3 (forced freq)</option>
+      </select><output></output></label>
+    <label><span>interpolation</span>
+      <select id="interp">
+        <option value="1" selected>linear</option>
+        <option value="0">step</option>
+        <option value="2">cubic</option>
+      </select><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>frequency</legend>
+    <label><span>minfreq</span><input type="range" id="minfreq" min="1" max="2000" step="1" value="440"><output></output></label>
+    <label><span>maxfreq</span><input type="range" id="maxfreq" min="1" max="4000" step="1" value="660"><output></output></label>
+    <label><span>freq (Gendy3)</span><input type="range" id="freq" min="20" max="2000" step="1" value="440"><output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.5" step="0.005" value="0.12"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>amplitude walk</legend>
+    <label><span>ampdist</span>
+      <select id="ampdist">
+        <option value="0" selected>0 linear</option><option value="1">1 cauchy</option>
+        <option value="2">2 logist</option><option value="3">3 hyperbcos</option>
+        <option value="4">4 arcsine</option><option value="5">5 expon</option>
+        <option value="6">6 sinus</option>
+      </select><output></output></label>
+    <label><span>adparam</span><input type="range" id="adparam" min="0.001" max="1" step="0.001" value="1"><output></output></label>
+    <label><span>ampscale</span><input type="range" id="ampscale" min="0" max="1" step="0.005" value="0.5"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>duration walk</legend>
+    <label><span>durdist</span>
+      <select id="durdist">
+        <option value="0" selected>0 linear</option><option value="1">1 cauchy</option>
+        <option value="2">2 logist</option><option value="3">3 hyperbcos</option>
+        <option value="4">4 arcsine</option><option value="5">5 expon</option>
+        <option value="6">6 sinus</option>
+      </select><output></output></label>
+    <label><span>ddparam</span><input type="range" id="ddparam" min="0.001" max="1" step="0.001" value="1"><output></output></label>
+    <label><span>durscale</span><input type="range" id="durscale" min="0" max="1" step="0.005" value="0.5"><output></output></label>
+  </fieldset>
+</div>
+
+<p class="note">
+Each control point holds an amplitude and a duration. Every time the oscillator reaches
+a point, both values take a random step drawn from the chosen distribution, scaled by
+<code>ampscale</code> / <code>durscale</code>, and are mirrored back inside their bounds
+&mdash; so the waveform never resets, it only ever walks away from where it was. In
+<em>Gendy1</em> each point&rsquo;s duration maps to an instantaneous frequency between
+<code>minfreq</code> and <code>maxfreq</code>; in <em>Gendy3</em> the cycle is forced to
+<code>freq</code> and the durations only redistribute time inside it. The distributions are
+standard shaping forms of a uniform variate, not a bit-exact port of the SuperCollider UGens,
+so shapes correspond but individual samples will not.
+</p>
+
+<!-- AudioWorklet source. Kept in a non-executed script tag and turned into a Blob URL,
+     so this stays one file with no escaping games. -->
+<script id="worklet" type="text/js-worklet">
+class GendyProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = { mode:1, initCPs:12, knum:12, interp:1,
+               minfreq:440, maxfreq:660, freq:440, gain:0.12,
+               ampdist:0, durdist:0, adparam:1, ddparam:1,
+               ampscale:0.5, durscale:0.5 };
+    this.alloc(this.p.initCPs);
+    this.idx = 0;
+    this.phase = 0;
+    this.segLen = 128;
+    this.aPrev = 0;
+    this.aNext = 0;
+    this.frames = 0;
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'params') {
+        const oldN = this.p.initCPs;
+        Object.assign(this.p, d.value);
+        if (this.p.initCPs !== oldN) this.alloc(this.p.initCPs);
+        if (this.p.knum > this.p.initCPs) this.p.knum = this.p.initCPs;
+      }
+    };
+  }
+
+  alloc(n) {
+    this.amp = new Float32Array(n);
+    this.dur = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      this.amp[i] = Math.random() * 2 - 1;
+      this.dur[i] = Math.random();
+    }
+  }
+
+  // uniform variate in [-1,1] shaped by one of SuperCollider's distribution ids.
+  // Each form is monotone, passes through 0, and maps +-1 to +-1.
+  dist(which, a, f) {
+    const A = Math.min(Math.max(a, 0.001), 1);
+    let k, t;
+    switch (which) {
+      case 1: k = 1.5707963 * A * 0.999; return Math.tan(k * f) / Math.tan(k);      // cauchy
+      case 2: k = A * 0.999; t = Math.atanh(k); return t === 0 ? f : Math.atanh(k * f) / t; // logist
+      case 3: k = 6 * A; return Math.sinh(k * f) / Math.sinh(k);                    // hyperbcos
+      case 4: k = 1.5707963 * A; return Math.sin(k * f) / Math.sin(k);              // arcsine
+      case 5: k = 6 * A;                                                            // expon
+              t = (1 - Math.exp(-k * Math.abs(f))) / (1 - Math.exp(-k));
+              return f < 0 ? -t : t;
+      case 6: return Math.sin(Math.PI * A * f);                                     // sinus
+      default: return f;                                                            // 0 linear
+    }
+  }
+
+  // reflect a value back inside [lo,hi] instead of clamping, so the walk keeps moving
+  mirror(x, lo, hi) {
+    if (!(hi > lo)) return lo;
+    for (let n = 0; n < 16 && (x < lo || x > hi); n++) {
+      if (x > hi) x = hi - (x - hi);
+      if (x < lo) x = lo + (lo - x);
+    }
+    return Math.min(Math.max(x, lo), hi);
+  }
+
+  nextPoint() {
+    const p = this.p;
+    const kn = Math.max(2, Math.min(p.knum, this.amp.length));
+    this.idx = (this.idx + 1) % kn;
+    const i = this.idx;
+
+    this.amp[i] = this.mirror(
+      this.amp[i] + p.ampscale * this.dist(p.ampdist, p.adparam, Math.random() * 2 - 1), -1, 1);
+    this.dur[i] = this.mirror(
+      this.dur[i] + p.durscale * this.dist(p.durdist, p.ddparam, Math.random() * 2 - 1), 0, 1);
+
+    if (p.mode === 3) {
+      // forced cycle: durations only redistribute time within one period
+      let sum = 0;
+      for (let j = 0; j < kn; j++) sum += this.dur[j] + 0.01;
+      const share = (this.dur[i] + 0.01) / sum;
+      this.segLen = Math.max(1, (sampleRate / Math.max(1, p.freq)) * share);
+    } else {
+      // free: this point's duration picks an instantaneous frequency in range
+      const lo = Math.min(p.minfreq, p.maxfreq), hi = Math.max(p.minfreq, p.maxfreq);
+      const f = lo + (hi - lo) * this.dur[i];
+      this.segLen = Math.max(1, sampleRate / (Math.max(0.01, f) * kn));
+    }
+
+    this.aPrev = this.aNext;
+    this.aNext = this.amp[i];
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0];
+    const ch0 = out[0];
+    const n = ch0.length;
+    const p = this.p;
+
+    for (let s = 0; s < n; s++) {
+      let v;
+      if (p.interp === 0) {
+        v = this.aPrev;
+      } else if (p.interp === 2) {
+        const t = this.phase, t2 = t * t;                 // smoothstep, C1 continuous
+        v = this.aPrev + (this.aNext - this.aPrev) * (t2 * (3 - 2 * t));
+      } else {
+        v = this.aPrev + (this.aNext - this.aPrev) * this.phase;
+      }
+      ch0[s] = v * p.gain;
+
+      this.phase += 1 / this.segLen;
+      while (this.phase >= 1) { this.phase -= 1; this.nextPoint(); }
+    }
+    for (let c = 1; c < out.length; c++) out[c].set(ch0);
+
+    // ~30 fps snapshot of the breakpoints for drawing
+    this.frames += n;
+    if (this.frames >= sampleRate / 30) {
+      this.frames = 0;
+      const kn = Math.max(2, Math.min(p.knum, this.amp.length));
+      this.port.postMessage({
+        amp: Array.from(this.amp.slice(0, kn)),
+        dur: Array.from(this.dur.slice(0, kn)),
+        idx: this.idx
+      });
+    }
+    return true;
+  }
+}
+registerProcessor('gendy', GendyProcessor);
+</script>
+
+<script>
+const QS = new URLSearchParams(location.search);
+if (QS.has('compact')) document.body.classList.add('compact');
+
+const IDS = ['initCPs','knum','mode','interp','minfreq','maxfreq','freq','gain',
+             'ampdist','adparam','ampscale','durdist','ddparam','durscale'];
+const el = {}; IDS.forEach(id => el[id] = document.getElementById(id));
+const playBtn = document.getElementById('play');
+const canvas = document.getElementById('scope');
+const ctx2d = canvas.getContext('2d');
+
+let audio = null, node = null, analyser = null, master = null, playing = false;
+let snapshot = null, scopeBuf = null;
+
+function params() {
+  const v = {};
+  for (const id of IDS) v[id] = parseFloat(el[id].value);
+  if (v.knum > v.initCPs) { v.knum = v.initCPs; el.knum.value = v.knum; }
+  return v;
+}
+
+function readouts() {
+  for (const id of IDS) {
+    const out = el[id].parentElement.querySelector('output');
+    if (!out) continue;
+    if (el[id].tagName === 'SELECT') out.value = '';
+    else {
+      const n = parseFloat(el[id].value);
+      out.value = (id === 'gain' || id === 'adparam' || id === 'ddparam' ||
+                   id === 'ampscale' || id === 'durscale') ? n.toFixed(3) : n;
+    }
+  }
+  el.freq.disabled  = (el.mode.value !== '3');
+  el.minfreq.disabled = (el.mode.value === '3');
+  el.maxfreq.disabled = (el.mode.value === '3');
+}
+
+function send() { if (node) node.port.postMessage({type:'params', value: params()}); }
+
+async function start() {
+  audio = new (window.AudioContext || window.webkitAudioContext)();
+  const src = document.getElementById('worklet').textContent;
+  const url = URL.createObjectURL(new Blob([src], {type:'application/javascript'}));
+  await audio.audioWorklet.addModule(url);
+  URL.revokeObjectURL(url);
+
+  node = new AudioWorkletNode(audio, 'gendy', {numberOfInputs:0, outputChannelCount:[2]});
+  node.port.onmessage = e => { snapshot = e.data; };
+
+  analyser = audio.createAnalyser();
+  analyser.fftSize = 2048;
+  scopeBuf = new Float32Array(analyser.fftSize);
+
+  master = audio.createGain();
+  master.gain.value = 1;
+
+  node.connect(analyser);
+  analyser.connect(master);
+  master.connect(audio.destination);
+  send();
+}
+
+playBtn.addEventListener('click', async () => {
+  if (!audio) {
+    try {
+      await start();
+    } catch (err) {
+      // AudioWorklet modules cannot load from an opaque origin, so opening this
+      // file directly with file:// fails. It has to be served over http.
+      audio = null;
+      const m = document.createElement('p');
+      m.className = 'warn';
+      m.style.color = 'var(--rose)';
+      m.textContent = location.protocol === 'file:'
+        ? 'Audio needs this page served over http, not opened as a file. Run '
+          + '"python3 -m http.server 8090" in this folder and open '
+          + 'http://localhost:8090/gendy.html'
+        : 'Could not start audio: ' + err.message;
+      playBtn.parentElement.after(m);
+      return;
+    }
+  }
+  if (playing) {
+    await audio.suspend(); playing = false;
+    playBtn.textContent = 'play'; playBtn.classList.remove('on');
+  } else {
+    await audio.resume(); playing = true;
+    playBtn.textContent = 'stop'; playBtn.classList.add('on');
+  }
+});
+
+IDS.forEach(id => el[id].addEventListener('input', () => { readouts(); send(); }));
+
+const PRESETS = {
+  basic:   {mode:1, initCPs:12, knum:12, minfreq:440, maxfreq:660, ampdist:0, durdist:0,
+            adparam:1, ddparam:1, ampscale:0.5, durscale:0.5, interp:1},
+  bass:    {mode:1, initCPs:12, knum:12, minfreq:20, maxfreq:100, ampscale:0.5, durscale:0.5},
+  simple:  {mode:1, initCPs:4, knum:4, minfreq:440, maxfreq:660},
+  complex: {mode:1, initCPs:50, knum:50, minfreq:440, maxfreq:660},
+  expon:   {mode:1, ampdist:5, adparam:0.6, initCPs:12, knum:12},
+  hyper:   {mode:1, durdist:3, ddparam:0.5, initCPs:12, knum:12},
+  pitched: {mode:3, freq:440, initCPs:12, knum:12, durscale:0.1, ampscale:0.4, interp:1}
+};
+document.querySelectorAll('button.preset').forEach(b => b.addEventListener('click', () => {
+  const p = PRESETS[b.dataset.p];
+  for (const k in p) if (el[k]) el[k].value = p[k];
+  readouts(); send();
+}));
+
+// ---- drawing -------------------------------------------------------------
+function resize() {
+  const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  canvas.width = r.width * dpr; canvas.height = r.height * dpr;
+  ctx2d.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener('resize', resize); resize();
+
+function draw() {
+  const r = canvas.getBoundingClientRect(), W = r.width, H = r.height, mid = H / 2;
+  ctx2d.clearRect(0, 0, W, H);
+
+  ctx2d.strokeStyle = 'rgba(255,255,255,.10)'; ctx2d.lineWidth = 1;
+  ctx2d.beginPath(); ctx2d.moveTo(0, mid); ctx2d.lineTo(W, mid); ctx2d.stroke();
+
+  // live audio, behind. Only a few cycles are shown, otherwise 2048 samples of a
+  // broadband signal reads as noise rather than as a waveform.
+  if (analyser) {
+    analyser.getFloatTimeDomainData(scopeBuf);
+    const hz = el.mode.value === '3'
+      ? parseFloat(el.freq.value)
+      : (parseFloat(el.minfreq.value) + parseFloat(el.maxfreq.value)) / 2;
+    const win = Math.max(128, Math.min(scopeBuf.length,
+                  Math.round((audio ? audio.sampleRate : 48000) / Math.max(20, hz) * 2)));
+    const norm = mid * 0.92 / Math.max(0.02, parseFloat(el.gain.value));
+    ctx2d.strokeStyle = 'rgba(154,164,181,.38)'; ctx2d.lineWidth = 1;
+    ctx2d.beginPath();
+    for (let i = 0; i < win; i++) {
+      const x = (i / (win - 1)) * W;
+      const y = mid - scopeBuf[i] * norm;
+      i ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+    }
+    ctx2d.stroke();
+  }
+
+  // the breakpoint waveform itself, in front
+  if (snapshot && snapshot.amp.length > 1) {
+    const a = snapshot.amp, d = snapshot.dur, n = a.length;
+    let sum = 0; for (let i = 0; i < n; i++) sum += d[i] + 0.01;
+    const xs = []; let acc = 0;
+    for (let i = 0; i < n; i++) { xs.push((acc / sum) * W); acc += d[i] + 0.01; }
+    xs.push(W);
+
+    ctx2d.strokeStyle = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+    ctx2d.lineWidth = 2; ctx2d.beginPath();
+    for (let i = 0; i < n; i++) {
+      const x = xs[i], y = mid - a[i] * mid * 0.92;
+      i ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+    }
+    ctx2d.lineTo(xs[n], mid - a[0] * mid * 0.92);
+    ctx2d.stroke();
+
+    for (let i = 0; i < n; i++) {
+      const x = xs[i], y = mid - a[i] * mid * 0.92;
+      const cur = (i === snapshot.idx);
+      ctx2d.fillStyle = cur
+        ? getComputedStyle(document.body).getPropertyValue('--gold').trim()
+        : getComputedStyle(document.body).getPropertyValue('--mint').trim();
+      ctx2d.beginPath(); ctx2d.arc(x, y, cur ? 4.5 : 2.6, 0, Math.PI * 2); ctx2d.fill();
+    }
+  }
+  requestAnimationFrame(draw);
+}
+readouts(); draw();
+</script>
+</body>
+</html>

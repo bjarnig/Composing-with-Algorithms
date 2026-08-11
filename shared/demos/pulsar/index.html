@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulsar Synthesis — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+
+<h1>Pulsar Synthesis</h1>
+<p class="sub">A pulsaret of duration <code>d</code> followed by silence <code>s</code>, repeated.
+Period <code>p = d + s</code>. Parameter names follow <code>Pulsar.scd</code>:
+<code>fund</code> sets the train rate, <code>form</code> the pulsaret rate.</p>
+<p class="warn">Start with the gain low.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>pulsaret (d)</span>
+  <span><i style="background:var(--rule)"></i>silence (s)</span>
+  <span><i style="background:var(--mint)"></i>envelope</span>
+  <span><i style="background:var(--muted)"></i>audio output</span>
+  <span id="duty"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <span style="color:var(--muted);font-size:.75rem">presets:</span>
+  <button class="preset" data-p="basic">basic train</button>
+  <button class="preset" data-p="low">low fund</button>
+  <button class="preset" data-p="formant">high formant</button>
+  <button class="preset" data-p="inharmonic">complex pulsaret</button>
+  <button class="preset" data-p="masked">masked</button>
+  <button class="preset" data-p="flux">flux</button>
+  <button class="preset" data-p="grains">grain cloud</button>
+</div>
+<p class="hint" id="hint"></p>
+
+<div class="grid">
+  <fieldset>
+    <legend>train</legend>
+    <label><span>fund (Hz)</span><input type="range" id="fund" min="1" max="400" step="0.5" value="20"><output></output></label>
+    <label><span>form (Hz)</span><input type="range" id="form" min="20" max="4000" step="1" value="200"><output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.5" step="0.005" value="0.12"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>pulsaret</legend>
+    <label><span>waveform</span>
+      <select id="wave">
+        <option value="0" selected>sine</option><option value="1">saw</option>
+        <option value="2">triangle</option><option value="3">square</option>
+        <option value="4">complex (3 harm)</option>
+      </select><output></output></label>
+    <label><span>envelope</span>
+      <select id="env">
+        <option value="0" selected>perc (expodec)</option><option value="1">reverse expodec</option>
+        <option value="2">gaussian</option><option value="3">hann</option>
+        <option value="4">none (clicks)</option>
+      </select><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>masking</legend>
+    <label><span>probability</span><input type="range" id="prob" min="0" max="1" step="0.01" value="1"><output></output></label>
+    <label><span>burst</span><input type="range" id="burst" min="0" max="16" step="1" value="0"><output></output></label>
+    <label><span>rest</span><input type="range" id="rest" min="0" max="16" step="1" value="0"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>flux</legend>
+    <label><span>fluxAmt</span><input type="range" id="fluxAmt" min="0" max="1" step="0.01" value="0"><output></output></label>
+    <label><span>fluxRate</span><input type="range" id="fluxRate" min="0.1" max="60" step="0.1" value="8"><output></output></label>
+  </fieldset>
+</div>
+
+<p class="note">
+The point of the picture: <code>fund</code> moves the right-hand edge of the period while
+<code>form</code> moves the edge of the pulsaret, so pitch and timbre are controlled
+<em>separately</em>. Raise <code>form</code> and the pulsaret shortens, its spectral peak
+climbs, and the perceived pitch does not move. Lower <code>fund</code> below roughly 20 Hz
+and the train stops fusing into a tone and is heard as separate grains instead.
+The duty cycle is capped at 1, so when <code>form</code> falls below <code>fund</code> the
+pulsaret would be longer than the period and is truncated &mdash; the hint says when.
+</p>
+
+<script id="worklet" type="text/js-worklet">
+class PulsarProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = { fund:20, form:200, gain:0.12, wave:0, env:0,
+               prob:1, burst:0, rest:0, fluxAmt:0, fluxRate:8 };
+    this.pos = 0;          // samples into the current period
+    this.period = 2400;
+    this.grainLen = 240;
+    this.on = true;
+    this.maskPos = 0;
+    this.flux = 1;         // smoothed multiplier on form
+    this.fluxTarget = 1;
+    this.frames = 0;
+    this.clamped = false;
+    this.port.onmessage = e => {
+      if (e.data.type === 'params') Object.assign(this.p, e.data.value);
+    };
+    this.newPeriod();
+  }
+
+  // one cycle of the pulsaret, t in [0,1)
+  wave(t) {
+    const x = 2 * Math.PI * t;
+    switch (this.p.wave) {
+      case 1: return 2 * t - 1;                                  // saw
+      case 2: return 1 - 4 * Math.abs(t - 0.5);                   // triangle
+      case 3: return t < 0.5 ? 1 : -1;                            // square
+      case 4: return (Math.sin(x) + 0.5 * Math.sin(2 * x)
+                    + 0.33 * Math.sin(3 * x)) / 1.83;             // complex
+      default: return Math.sin(x);                                // sine
+    }
+  }
+
+  // pulsaret envelope, t in [0,1]
+  envelope(t) {
+    switch (this.p.env) {
+      case 1: return Math.exp(-6 * (1 - t));                      // reverse expodec
+      case 2: { const u = (t - 0.5) / 0.15; return Math.exp(-0.5 * u * u); } // gaussian
+      case 3: return 0.5 * (1 - Math.cos(2 * Math.PI * t));       // hann
+      case 4: return 1;                                           // none
+      default: return Math.exp(-6 * t);                           // perc / expodec
+    }
+  }
+
+  newPeriod() {
+    const p = this.p;
+
+    // flux: a smoothed random multiplier on the formant, refreshed per period
+    if (p.fluxAmt > 0) {
+      const step = Math.min(1, Math.max(0.001, p.fluxRate / Math.max(1, p.fund)));
+      this.fluxTarget = 1 + p.fluxAmt * (Math.random() * 2 - 1);
+      this.flux += (this.fluxTarget - this.flux) * step;
+    } else {
+      this.flux = 1;
+    }
+
+    this.period = Math.max(2, sampleRate / Math.max(0.5, p.fund));
+    const wanted = sampleRate / Math.max(1, p.form * this.flux);
+    this.clamped = wanted > this.period;                 // duty cycle would exceed 1
+    this.grainLen = Math.max(1, Math.min(wanted, this.period));
+
+    // masking: a burst/rest pattern, then a per-period probability
+    let inBurst = true;
+    const cycle = p.burst + p.rest;
+    if (cycle > 0) inBurst = (this.maskPos % cycle) < p.burst;
+    this.maskPos++;
+    this.on = inBurst && (Math.random() < p.prob);
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0], ch0 = out[0], n = ch0.length, p = this.p;
+
+    for (let s = 0; s < n; s++) {
+      let v = 0;
+      if (this.on && this.pos < this.grainLen) {
+        const t = this.pos / this.grainLen;
+        v = this.wave(t) * this.envelope(t);
+      }
+      ch0[s] = v * p.gain;
+      this.pos++;
+      if (this.pos >= this.period) { this.pos -= this.period; this.newPeriod(); }
+    }
+    for (let c = 1; c < out.length; c++) out[c].set(ch0);
+
+    this.frames += n;
+    if (this.frames >= sampleRate / 30) {
+      this.frames = 0;
+      this.port.postMessage({
+        duty: this.grainLen / this.period,
+        grainLen: this.grainLen,
+        period: this.period,
+        clamped: this.clamped,
+        on: this.on
+      });
+    }
+    return true;
+  }
+}
+registerProcessor('pulsar', PulsarProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const IDS = ['fund','form','gain','wave','env','prob','burst','rest','fluxAmt','fluxRate'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const canvas = document.getElementById('view');
+const ctx2d = Kit.fit(canvas);
+const hint = document.getElementById('hint');
+const dutyLabel = document.getElementById('duty');
+
+let snap = null;
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'pulsar' });
+  st.node.port.onmessage = e => { snap = e.data; };
+  st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+  return st;
+});
+
+function send() {
+  const st = getState();
+  if (st) st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+}
+IDS.forEach(id => el[id].addEventListener('input', () => { Kit.readouts(el); send(); }));
+
+Kit.presets({
+  basic:      {fund:20, form:200,  wave:0, env:0, prob:1, burst:0, rest:0, fluxAmt:0},
+  low:        {fund:5,  form:400,  wave:0, env:0, prob:1, burst:0, rest:0, fluxAmt:0},
+  formant:    {fund:20, form:1600, wave:0, env:0, prob:1, burst:0, rest:0, fluxAmt:0},
+  inharmonic: {fund:20, form:300,  wave:4, env:2, prob:1, burst:0, rest:0, fluxAmt:0},
+  masked:     {fund:40, form:600,  wave:0, env:0, prob:0.6, burst:5, rest:3, fluxAmt:0},
+  flux:       {fund:30, form:500,  wave:0, env:0, prob:1, burst:0, rest:0, fluxAmt:0.6, fluxRate:20},
+  grains:     {fund:8,  form:900,  wave:4, env:2, prob:0.8, burst:0, rest:0, fluxAmt:0.3, fluxRate:12}
+}, p => { for (const k in p) if (el[k]) el[k].value = p[k]; Kit.readouts(el); send(); });
+
+function shapes() {
+  const wv = parseInt(el.wave.value), ev = parseInt(el.env.value);
+  return {
+    env: t => {
+      switch (ev) {
+        case 1: return Math.exp(-6 * (1 - t));
+        case 2: { const u = (t - 0.5) / 0.15; return Math.exp(-0.5 * u * u); }
+        case 3: return 0.5 * (1 - Math.cos(2 * Math.PI * t));
+        case 4: return 1;
+        default: return Math.exp(-6 * t);
+      }
+    },
+    wave: t => {
+      const x = 2 * Math.PI * t;
+      switch (wv) {
+        case 1: return 2 * t - 1;
+        case 2: return 1 - 4 * Math.abs(t - 0.5);
+        case 3: return t < 0.5 ? 1 : -1;
+        case 4: return (Math.sin(x) + 0.5 * Math.sin(2 * x) + 0.33 * Math.sin(3 * x)) / 1.83;
+        default: return Math.sin(x);
+      }
+    }
+  };
+}
+
+/* Two stacked panels. The upper one is one period to scale, which is where the
+   duty cycle is legible; but at a 1% duty the pulsaret there is a single pixel,
+   so the lower panel expands the pulsaret alone to full width. */
+function draw() {
+  const r = canvas.getBoundingClientRect(), W = r.width, H = r.height;
+  ctx2d.clearRect(0, 0, W, H);
+
+  const st = getState();
+  const fund = parseFloat(el.fund.value), form = parseFloat(el.form.value);
+  const sr = st ? st.ctx.sampleRate : 48000;
+  const period = sr / Math.max(0.5, fund);
+  const duty = Math.min(1, (sr / Math.max(1, form)) / period);
+  // d = 1/form is exactly one period of a waveform at frequency form, so the
+  // pulsaret always holds precisely one cycle. (duty = fund/form cancels it out.)
+  const { env: envAt, wave: waveAt } = shapes();
+
+  const splitY = Math.round(H * 0.58);
+  const gapY = 10;
+
+  // ---- upper: one period, to scale ----
+  const topH = splitY, topMid = topH / 2, gx = Math.max(1, duty * W);
+  ctx2d.save();
+  ctx2d.beginPath(); ctx2d.rect(0, 0, W, topH); ctx2d.clip();
+  ctx2d.strokeStyle = 'rgba(255,255,255,.10)'; ctx2d.lineWidth = 1;
+  ctx2d.beginPath(); ctx2d.moveTo(0, topMid); ctx2d.lineTo(W, topMid); ctx2d.stroke();
+  Kit.drawScope(ctx2d, W, topH, st && st.analyser, st && st.scope, {
+    hz: fund, gain: parseFloat(el.gain.value), sampleRate: sr
+  });
+  ctx2d.fillStyle = 'rgba(255,255,255,.03)';
+  ctx2d.fillRect(gx, 0, W - gx, topH);
+  ctx2d.strokeStyle = 'rgba(255,255,255,.20)';
+  ctx2d.setLineDash([3, 4]); ctx2d.beginPath();
+  ctx2d.moveTo(gx, 0); ctx2d.lineTo(gx, topH); ctx2d.stroke(); ctx2d.setLineDash([]);
+  ctx2d.strokeStyle = Kit.css('--accent'); ctx2d.lineWidth = 2;
+  ctx2d.beginPath();
+  const N = 600;
+  for (let i = 0; i <= N; i++) {
+    const t = i / N, x = t * gx;
+    const y = topMid - waveAt(t) * envAt(t) * topMid * 0.86;
+    i ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+  }
+  ctx2d.stroke();
+  ctx2d.beginPath(); ctx2d.moveTo(gx, topMid); ctx2d.lineTo(W, topMid); ctx2d.stroke();
+  ctx2d.restore();
+
+  ctx2d.strokeStyle = 'rgba(255,255,255,.12)';
+  ctx2d.beginPath(); ctx2d.moveTo(0, splitY); ctx2d.lineTo(W, splitY); ctx2d.stroke();
+
+  // ---- lower: the pulsaret alone, expanded ----
+  const botTop = splitY + gapY, botH = H - botTop, botMid = botTop + botH / 2;
+  ctx2d.strokeStyle = 'rgba(255,255,255,.10)';
+  ctx2d.beginPath(); ctx2d.moveTo(0, botMid); ctx2d.lineTo(W, botMid); ctx2d.stroke();
+  ctx2d.strokeStyle = Kit.css('--mint'); ctx2d.lineWidth = 1; ctx2d.globalAlpha = .55;
+  for (const sign of [1, -1]) {
+    ctx2d.beginPath();
+    for (let i = 0; i <= 240; i++) {
+      const t = i / 240, x = t * W, y = botMid - sign * envAt(t) * (botH / 2) * 0.86;
+      i ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+    }
+    ctx2d.stroke();
+  }
+  ctx2d.globalAlpha = 1;
+  ctx2d.strokeStyle = Kit.css('--accent'); ctx2d.lineWidth = 2;
+  ctx2d.beginPath();
+  const M = 900;
+  for (let i = 0; i <= M; i++) {
+    const t = i / M, x = t * W;
+    const y = botMid - waveAt(t) * envAt(t) * (botH / 2) * 0.86;
+    i ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+  }
+  ctx2d.stroke();
+  ctx2d.fillStyle = Kit.css('--muted');
+  ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillText('pulsaret expanded — one cycle, d = '
+    + (1000 / Math.max(1, form)).toFixed(2) + ' ms', 6, botTop + 12);
+
+  dutyLabel.textContent = 'duty ' + (duty * 100).toFixed(duty < 0.1 ? 1 : 0) + '%'
+    + '   d ' + (1000 / Math.max(1, form)).toFixed(2) + ' ms'
+    + '   p ' + (1000 / Math.max(0.5, fund)).toFixed(1) + ' ms';
+  hint.textContent = (snap && snap.clamped) || duty >= 1
+    ? 'form is below fund, so the pulsaret fills the whole period and is truncated (duty capped at 1)'
+    : '';
+
+  requestAnimationFrame(draw);
+}
+Kit.readouts(el); draw();
+</script>
+</body>
+</html>
