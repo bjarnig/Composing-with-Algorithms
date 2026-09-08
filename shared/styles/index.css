@@ -76,7 +76,7 @@
 
 /* *-prefixed lists */
 .slidev-layout ul { list-style: none; padding-left: 0.2rem; margin: 0.4rem 0 0.8rem; }
-.slidev-layout ul li { font-size: 1.15rem; line-height: 1.45; margin: 0.2rem 0; }
+.slidev-layout ul li { font-size: 1.15rem; line-height: 1.45; margin: 0.55rem 0; }
 .slidev-layout ul li::before { content: "*  "; opacity: 0.9; }
 
 /* blue, reserved for what is addressed at the students */

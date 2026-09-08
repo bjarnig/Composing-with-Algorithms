@@ -28,7 +28,7 @@ BASE="/2026-2027/$DECK/"
 case "$ACTION" in
   dev)    exec npx slidev "$MD" --open ;;
   build)  exec npx slidev build "$MD" --base "$BASE" --download --out "dist/$DECK" ;;
-  export) exec npx slidev export "$MD" --output "dist/cwa$SLUG.pdf" ;;
+  export) exec npx slidev export "$MD" --output "$DIR/dist/cwa$SLUG.pdf" ;;
   deploy)
     npx slidev build "$MD" --base "$BASE" --download --out "dist/$DECK"
     export AWS_PROFILE=bg

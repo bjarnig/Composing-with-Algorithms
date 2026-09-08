@@ -7,6 +7,8 @@ titleTemplate: '%s'
 layout: default
 class: title
 transition: slide-left
+colorSchema: dark
+favicon: /favicon.ico
 mdc: true
 ---
 
@@ -19,11 +21,14 @@ mdc: true
 
 <div class="sub">
   Composing with Algorithms
-  <a href="http://www.bjarni-gunnarsson.net">http://www.bjarni-gunnarsson.net</a>
+  <a href="https://www.bjarni-gunnarsson.net">https://www.bjarni-gunnarsson.net</a>
 </div>
 
 <!--
 First class. Welcome, who is here, backgrounds. Acknowledge Paul Berg openly.
+Play something before any definition, and something recent rather than canonical:
+Elías Merino, Spaceless Latitudes (2018). Alternates: Merino, Fluctuating Melisma
+(2015); Jia Liu; Roc Jiménez de Cisneros. Say nothing about it until afterwards.
 -->
 
 ---
@@ -87,6 +92,27 @@ Algorithms are found in computer programs and created during **programming**.
 
 ---
 
+# Models of Musical Processes
+
+The course in one line: **exploring computational models of musical processes**.
+
+A **model** of a musical process is a rule set that produces material you did not write out by hand. You decide the rule, the boundaries and what to keep; the procedure decides the events.
+
+Three families, named now so the year has a shape, each with a class of its own later:
+
+- **Cellular automata** — many simple cells, one local rule, a pattern nobody specified
+- **Chaotic maps** — one equation iterated, deterministic and still unpredictable
+- **Random walks** — each value near the one before it, so a line wanders rather than jumps
+
+<span class="q">What would you delegate to a procedure, and what would you never hand over?</span>
+
+<!--
+The last line is the question the whole year keeps asking. Take answers now and write
+them down: it is worth reading them back in June.
+-->
+
+---
+
 # Objectives
 
 Understand the **history**, **concepts**, **techniques** and **design considerations** used in algorithmic composition and generative systems.
@@ -136,6 +162,17 @@ Regular **workshops** for practical works will also take place.
 <div class="caption mono">/courses . code == 'composing'</div>
 
 ---
+
+# Tools
+
+Two of the three families are also **browser demos**, so they can be played with before anything is installed, and after the course ends:
+
+- <a href="https://slides.bjarni-gunnarsson.net/tools/chaos/">**Chaotic maps**</a> — nine of them, one and two dimensional, audio rate or pitched events, with a bifurcation view
+- <a href="https://slides.bjarni-gunnarsson.net/tools/events/">**Event generator**</a> — six distributions and a random walk, applied to duration, frequency and amplitude
+
+<span class="note">Both live under slides.bjarni-gunnarsson.net/tools. A cellular automaton demo is still to come, which completes the trio.</span>
+
+---
 layout: center
 class: divider
 ---
@@ -146,48 +183,49 @@ Topics
 
 # Topics
 
-Class 01, Introduction<br>
+Class 01, Composing with Algorithms<br>
 Class 02, SuperCollider<br>
-Class 03, Patterns<br>
-<span class="workshop">- workshop -</span>
-
-Class 05, History<br>
-Class 06, Xenakis<br>
-Class 07, Koenig<br>
-<span class="workshop">- workshop -</span>
-
-Class 09, Synthesis<br>
-Class 10, Signals<br>
-Class 11, Processing<br>
-<span class="workshop">- workshop -</span>
+Class 03, Patterns and Streams<br>
+Class 04, Practical Workshop<br>
+Class 05, Algorithmic Composition<br>
+Class 06, Xenakis and Stochastics<br>
+Class 07, Koenig and Selection<br>
+Class 08, Sound Synthesis<br>
+Class 09, Generating Shapes<br>
+Class 10, Recording and Processing
 
 ---
 
 # Topics
 
-Class 13, Microtime<br>
-Class 14, Microsound<br>
-Class 15, Chaos<br>
-<span class="workshop">- workshop -</span>
-
-Class 17, Control and Interfaces<br>
-Class 18, Live Coding<br>
-Class 19, Iannix<br>
-<span class="workshop">- workshop -</span>
-
-Class 21, Composition Processes<br>
-Class 22, Transforming Sound (CDP)<br>
-Class 23, Space and Movement<br>
-<span class="workshop">- workshop -</span>
+Class 11, Microsound and Timescales<br>
+Class 12, Non-Standard Synthesis<br>
+Class 13, Errors and Glitches<br>
+Class 14, Iterative Systems<br>
+Class 15, Feedback and Cybernetics<br>
+Class 16, Mapping and Control<br>
+Class 17, Machine Learning<br>
+Class 18, Posthuman Listening<br>
+Class 19, Sound Transformation
 
 ---
 
 # Topics
 
-Class 25, Rhythm & Time<br>
-Class 26, Systems & Agency<br>
-Class 27, Own Works<br>
-<span class="workshop">- workshop -</span>
+Class 20, Gesture and Texture<br>
+Class 21, Spectral Composition<br>
+Class 22, Rhythm and Time<br>
+Class 23, Sonorities and Materials<br>
+Class 24, Drawing and Notation<br>
+Class 25, Own Works<br>
+Class 26, Live Coding<br>
+Class 27, Composition Processes<br>
+Class 28, Open topic
+
+<!--
+Twenty-eight classes, one workshop at 04. Class 28 is deliberately left open; the
+candidates are in the plan sheet. Do not promise which it will be.
+-->
 
 ---
 
@@ -201,7 +239,36 @@ SuperCollider supports different activities such as **sound synthesis**, **digit
 
 SuperCollider is *free software*, released under the terms of the GNU General Public License
 
-<a href="http://supercollider.github.io/download.html">http://supercollider.github.io/download.html</a>
+<a href="https://supercollider.github.io/downloads">supercollider.github.io/downloads</a>
+
+---
+
+# One Line, A Hundred Events
+
+Three notes, stated one at a time. Every value is yours.
+
+```supercollider
+Pbind(\instrument, \sine, \dur, 0.2, \midinote, Pseq([60,62,65], inf)).play
+```
+
+A range instead of a list. Now you decide the boundaries, not the notes.
+
+```supercollider
+Pbind(\instrument, \sine, \dur, 0.2, \freq, Pwhite(400,600)).play
+```
+
+A **random walk**: each value near the one before it, so the line wanders rather than jumps. The step size is the whole character.
+
+```supercollider
+Pbind(\instrument, \sine, \dur, 0.1, \midinote, Pbrown(36, 84, 4, inf)).play
+```
+
+<span class="note">All of it, with the instrument it needs, is in *code/Intro.scd*.</span>
+
+<!--
+Run the third one twice, with step 1 and step 12. The difference is audible and it is
+the first time this year that a single number changes the character of a whole texture.
+-->
 
 ---
 layout: center
