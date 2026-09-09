@@ -205,7 +205,7 @@ Class 14, Iterative Systems<br>
 Class 15, Feedback and Cybernetics<br>
 Class 16, Mapping and Control<br>
 Class 17, Machine Learning<br>
-Class 18, Posthuman Listening<br>
+Class 18, Listening Machines<br>
 Class 19, Sound Transformation
 
 ---
@@ -220,11 +220,11 @@ Class 24, Drawing and Notation<br>
 Class 25, Own Works<br>
 Class 26, Live Coding<br>
 Class 27, Composition Processes<br>
-Class 28, Open topic
+Class 28, Prompts and Agents
 
 <!--
-Twenty-eight classes, one workshop at 04. Class 28 is deliberately left open; the
-candidates are in the plan sheet. Do not promise which it will be.
+Twenty-eight classes, one workshop at 04. 28 closes the year on language models and
+generative AI: the class that asks whether writing the rule can itself be delegated.
 -->
 
 ---
@@ -326,6 +326,11 @@ A computer can take different roles in the creative process:
 - **Instrument** during a performance
 - **Playback device** for pre-composed materials
 
+<!--
+This list is the hinge. Read it once, then say that the year turns those roles into four
+questions, and go straight into the threads.
+-->
+
 ---
 
 # Representations
@@ -339,116 +344,44 @@ With digital technology compositional methods have become reproducible due to th
 The way materials for a composition are **represented** is certainly not something that should be thought of a being fixed. The precise definition of materials, possible operations that transform the material and relationship between them is perhaps part of what is **to be composed**.
 
 ---
-
-# Programming
-
-Necessary to do anything **really new** in computer music or should be left to system designers?
-
-Requires a perhaps slightly **different mindset** of problem solving compared to composing music?
-
-Becomes dominant during the creative process in such a way that its **goals** become more important than the initial musical ones?
-
----
-
-# Programming and Music
-
-Many concepts relate programming and music:
-
-- **Hierarchy** of levels
-- **Complexity** of relationships
-- **Simultaneous happening** of events
-- **Abstraction** of details
-- **Structure** of entities
-- **Modularisation** of components
-- **Reference** to external ideas
-
----
-
-# Composing Sound
-
-Music exists at **different levels** of time at any given moment.
-
-It is common to distinguish between micro, meso and micro time but many other possible timeframes are imaginable.
-
-<span class="q">Is there a difference between **composing music** and **composing sounds?**</span>
-
-If a music is not based on notes, does it make sense to think of what happens beneath or above the note?
-
-Could we think of the **sounds a music creates** instead of which music sounds create?
-
----
-
-# Parametrical thinking
-
-A **parameter** is one of the variables that controls the outcome of a system.
-
-**Attributes of a process** are converted to values representing its state where its properties and variability control the value settings.
-
-**Parametrical thinking** enables **limits**, **boundaries**, **parameter spaces** and **mapping** from one to the other.
-
-**Parameter mappings** include *one-to-many*, *many-to-one* and *many-to-many*.
-
----
-
-# Composition or Music Theory
-
-In **algorithmic composition** much discussion has been on how to program software that generates "plausible" results that appear to be in a *certain style* or to *emulate a composer*.
-
-One belief states that computers should "learn" a musical structure and then reproduce it. The idea itself prevents invention but encourages copying of ideas.
-
-A possible confusion is between the different goals of composition on the one hand and music theory or artificial intelligence on the other.
-
----
-
-# Approaches
-
-**The working process** and its different possible approaches is important both when **developing** software and **creating** music.
-
-Two opposite poles are the *top-down approach* and the *bottom-up approach*.
-
-The computer is an ideal tool for **inspecting** different aspects at multiple stages of the creation process.
-
-The study of what happens during the evolution of a musical composition made with a computer can give birth to new methods and ways of making music
-
----
 layout: center
 class: divider
 ---
 
-Traces
+Threads
+
+---
+
+# Rule and Selection
+
+Where a rule comes from, and what you do with what it makes.
+
+<span class="note">Classes 05 Algorithmic Composition, 06 Xenakis and Stochastics, 07 Koenig and Selection, 27 Composition Processes</span>
+
+- Mozart's **dice game**, the oldest algorithmic composition you will meet, and the cheapest demonstration of the whole idea
+- Xenakis fixing a **density** between 0.11 and 150 sounds per second, and letting the events fall where they fall
+- Koenig's six **selection principles**: sequence, alea, series, ratio, group, tendency
+- A **transition table** derived from a poem, and used to write music
+
+<span class="q">Generating is the easy half. On what grounds do you keep one result and throw away the other twenty?</span>
 
 ---
 class: light
 ---
 
-# Material
+# Given the Rules
 
-> "The Cologne studio looked down on composers that "only" had form problems. "Material fetishism" dates from then and could be understood as "form fetishism". Form was not mentioned at all, everything was material; sounds as well as the serial methods. Form was seen more as an automatic consequence of the treatment of material than as an independent category to which the fashioning of sounds ought to be subordinate. When forms were exposed at all they were simple concepts such as the crossform in Kreuzpiel or the group in Gruppen, in both cases they were derived from the treatment of the material. "
+> "Repeated application of a model under changed circumstances makes its limits clearer: accumulation and correlation of the results cause the model to reveal itself and at the same time the extent to which it coincides with a part of musical reality."
 
-<div class="src">(Koenig, Genesis of Form)</div>
+> "The analytical task - given the music, find the rules - is reversed: given the rules, find the music."
+
+<div class="src">(Koenig, on Project 1)</div>
 <div class="fig"><img src="/figures/koenig-000.png" /></div>
 
----
-class: light
----
-
-# Microtime
-
-> "All compositional manipulations articulating relations between different temporal levels depend essentially on the paradigm adopted by the composer. Evidently, a decision has to be made concerning the status and the nature of these interactions: to consider them as taking place in a continuum organized as a fixed hierarchy [...] or to assume the existence of discontinuities, of nonlinearities, considering (in the last case) microtime, macrotime, and all intermediate dimensions as disjoint (or relative) realms."
-
-<div class="src">(Vaggione, interview with Budon)</div>
-<div class="fig"><img src="/figures/vaggione-000.png" /></div>
-
----
-class: light
----
-
-# Sonological Emergence
-
-> "The conceptual separation of composition (or, responsibility on premises and conditions, in my wording) and music (sonic features arising from premises and conditions) perhaps attests to a shared perspective. The implication is that sound is the epiphenomenon of a lower-level process: you design a low-level process, and the interactions and interferences among particle components taking part in the process are heard as a dynamic shape of sound, a process of sonological emergence. "
-
-<div class="src">(Agostino Di Scipio, 2005)</div>
-<div class="fig"><img src="/figures/discipio-000.png" /></div>
+<!--
+Both from Koenig, quoted in Paul Berg's CWA 6. The second sentence is the course in one line
+and it belongs here, at the start, not buried in class 07.
+-->
 
 ---
 class: light
@@ -465,27 +398,50 @@ class: light
 </div>
 
 ---
+
+# Inside the Sound
+
+The same rule, applied beneath the note.
+
+<span class="note">Classes 08 Sound Synthesis, 09 Generating Shapes, 11 Microsound and Timescales, 12 Non-Standard Synthesis, 21 Spectral Composition</span>
+
+- Risset's **bell** as four parallel lists, with a decay per partial: timbre as process, not state
+- A **grain rate** climbing past 20 Hz, where a rhythm stops being a rhythm and becomes a pitch
+- **GENDYN**, where the breakpoints of the waveform itself take a random walk
+- One analysed **spectrum**, four selection criteria, four different chords, and the disagreement is the lesson
+
+<span class="q">Is there a difference between composing music and composing sounds?</span>
+
+---
 class: light
 ---
 
-# Agency
+# Particles
 
-> "The presumption that there is an agency, desire, or will belonging to the self and clearly distinguished from the "wills of others" is undercut in the posthuman, for the posthuman's collective heterogeneous quality implies a distributed cognition located in disparate parts that may be in only tenuous communication with one another. […] If "human essence is freedom from the wills of others," the posthuman is "post" not because it is necessarily unfree but because there is no a priori way to identify a self-will that can be clearly distinguished from an other-will."
+> "point, pulse, line, and surface emerge as particle density increases"
 
-<div class="src">(Katherine Hayles)</div>
-<div class="fig"><img src="/figures/hayles-000.png" /></div>
+<div class="src">(Curtis Roads)</div>
+<div class="fig"><img src="/figures/roads-000.png" /></div>
+
+<!--
+One quantity changes, density, and the kind of thing you are hearing changes with it. That is
+the whole of class 11 in a sentence.
+-->
 
 ---
-class: light
----
 
-# Assimilation
+# Systems That Run
 
-> "After the different waves of cybernetics, after information and control theory, semiotics and linguistics, cognitive science and artificial intelligence, we are reaching a point … intensified constructivism, or by a renewed realism, both of which de-emphasise the human subject and the categorial split between humans and machines.
-> From this standpoint, the interesting question is not so much whether machines can be creative or artistic, but rather how the exchange and assimilation processes between human and machine are structured, and how they can give rise to an aesthetics."
+What happens when it runs without you.
 
-<div class="src">(Hans Holger Rutz)</div>
-<div class="fig"><img src="/figures/rutz-000.png" /></div>
+<span class="note">Classes 13 Errors and Glitches, 14 Iterative Systems, 15 Feedback and Cybernetics, 17 Machine Learning, 28 Prompts and Agents</span>
+
+- The **logistic map** at r = 2.8, 3.2, 3.5, 3.56 and 3.9: period one, two, four, eight, then chaos, from one equation
+- Jaap Vink's chain of delay, filter, ring modulation and compression, where **removing any one component stops it working**
+- A system that **listens to its own output** and regulates itself
+- A model that writes the **rule** rather than the sound
+
+<span class="q">If you set the conditions rather than choose the events, where did the composing happen?</span>
 
 ---
 class: light
@@ -502,6 +458,38 @@ class: light
 class: light
 ---
 
+# The Objective
+
+> "As soon as you create an objective, you ruin your ability to reach it."
+
+> "If you're wondering how to escape the myth of the objective, just do things because they're interesting."
+
+<div class="src">(Kenneth Stanley, Why Greatness Cannot Be Planned, 2015)</div>
+
+<!--
+Hold this against the whole year, and especially against class 28: a prompt is an objective,
+stated in advance. Stanley is the argument for not stating one.
+-->
+
+---
+
+# Ears and Surfaces
+
+What reaches a listener, and whose ear it is.
+
+<span class="note">Classes 10 Recording and Processing, 18 Listening Machines, 20 Gesture and Texture, 23 Sonorities and Materials, 24 Drawing and Notation</span>
+
+- **Reduced listening** and the sound object: hearing a sound as itself rather than as its cause
+- An analyser reporting a loudness of 0.192486 on **silence**, and a pitch tracker holding its last value: a listening machine that looks healthy and hears nothing
+- Smalley's **archetypes**, a vocabulary for describing a sound rather than making one
+- A **drawn curve** read as frequency over time
+
+<span class="q">Who is the listener you are composing for, and is it necessarily a person?</span>
+
+---
+class: light
+---
+
 # Anticommunication
 
 > "A relation between persons and things which emerges and is maintained through messages requiring and permitting not yet available encoding and decoding systems or mechanisms."
@@ -512,15 +500,35 @@ class: light
 <div class="fig"><img src="/figures/brun-000.png" /></div>
 
 ---
+
+# The Craft That Serves All Four
+
+Four classes cut across every thread rather than belonging to one.
+
+- **03 Patterns and Streams** is the tool the whole year is written with
+- **16 Mapping and Control** is the join: what you connect to what is the compositional decision
+- **22 Rhythm and Time** is time itself, from the sieve to the Risset rhythm
+- **26 Live Coding** is the rule changed while it is still running
+- **25 Own Works** is the case study, with the code open beside the piece
+
+<span class="workshop">- workshop -</span>
+
+<span class="note">04 is where you try it, with a duration, one sound source and one prohibition.</span>
+
+---
 class: light
 ---
 
-# Contagion
+# Determining Indeterminacy
 
-> "There is a concrete culture, an aesthetic and a mode of thought, specific to the computational production of new probabilities.[…] contagion is taken here to define the quasi-finitude of algorithmic objects: the fact that these objects are spatiotemporal actualities which cannot be summed up in smaller programs, and which do not result from the sum of their parts."
+> Computation is "a process of determining indeterminacy."
 
-<div class="src">(Luciana Parisi)</div>
-<div class="fig"><img src="/figures/parisi-000.png" /></div>
+<div class="src">(M. Beatrice Fazi, Contingent Computation, 2018)</div>
+
+<!--
+Close on this. Not the deterministic execution of pre-given rules, but a process that makes
+something that was not specified. That is the year's wager, and the last class tests it.
+-->
 
 ---
 layout: center
