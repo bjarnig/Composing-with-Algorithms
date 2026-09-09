@@ -1,7 +1,7 @@
 /* Institute of Sonology course deck theme (Composing with Algorithms and after).
    Dark ground for taught material, light ground for other people's voices and
    technical diagrams, centred serif headers over a hairline rule, humanist-sans
-   body, *-prefixed lists, italic-serif section dividers. Local macOS fonts, so
+   body, *-prefixed lists, sans section dividers. Local macOS fonts, so
    it renders as the original Keynote did.
 
    Canonical copy lives in the sonology-slides skill; keep the two in step.
@@ -103,13 +103,17 @@
 .slidev-layout a { color: var(--cwa-accent); text-decoration: none; }
 .mono { font-family: "Fira Code", "Menlo", monospace; }
 
-/* Section dividers: a single italic-serif word, centered */
+/* Section dividers: a single word, centered. Sans and white like the headings and
+   the title, because a divider is the deck naming its own sections. It was italic
+   Palatino at #e4e5e8, which read soft and dim next to everything around it. Larger
+   than a heading and with no rule under it, so it still reads as a break. */
 .slidev-layout.divider p {
-  font-family: var(--cwa-serif);
-  font-style: italic;
+  font-family: var(--cwa-sans);
+  font-weight: 600;
+  letter-spacing: -0.005em;
   font-size: 2rem;
   text-align: center;
-  color: #e4e5e8;
+  color: #ffffff;
 }
 
 /* Title slide: logos pinned top, title optically centered, sub pinned bottom */
