@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" fill="#141414">
+<rect x="80.0" y="118" width="229.7" height="46" fill="none" stroke="#141414" stroke-width="2"/>
+<text x="195" y="148" text-anchor="middle" font-size="18">form and phrase</text>
+<rect x="309.7" y="118" width="114.1" height="46" fill="none" stroke="#141414" stroke-width="2"/>
+<text x="367" y="148" text-anchor="middle" font-size="18">rhythm</text>
+<rect x="423.8" y="118" width="329.9" height="46" fill="none" stroke="#141414" stroke-width="2"/>
+<text x="589" y="148" text-anchor="middle" font-size="18">pitch</text>
+<rect x="753.7" y="118" width="86.3" height="46" fill="none" stroke="#141414" stroke-width="2"/>
+<text x="797" y="148" text-anchor="middle" font-size="18">timbre</text>
+<g stroke="#141414" stroke-width="1.5"><path d="M80 200 H840"/></g>
+<path d="M80.0 200 V210" stroke="#141414" stroke-width="1.5"/>
+<text x="80.0" y="232" text-anchor="middle" font-size="16" fill="#555">0.1 Hz</text>
+<path d="M223.4 200 V210" stroke="#141414" stroke-width="1.5"/>
+<text x="223.4" y="232" text-anchor="middle" font-size="16" fill="#555">1 Hz</text>
+<path d="M409.9 200 V210" stroke="#141414" stroke-width="1.5"/>
+<text x="409.9" y="232" text-anchor="middle" font-size="16" fill="#555">20 Hz</text>
+<path d="M553.3 200 V210" stroke="#141414" stroke-width="1.5"/>
+<text x="553.3" y="232" text-anchor="middle" font-size="16" fill="#555">200 Hz</text>
+<path d="M696.6 200 V210" stroke="#141414" stroke-width="1.5"/>
+<text x="696.6" y="232" text-anchor="middle" font-size="16" fill="#555">2 kHz</text>
+<path d="M840.0 200 V210" stroke="#141414" stroke-width="1.5"/>
+<text x="840.0" y="232" text-anchor="middle" font-size="16" fill="#555">20 kHz</text>
+<g stroke="#141414" stroke-width="2" stroke-dasharray="5 5"><path d="M409.9 96 V200"/></g>
+<text x="409.9" y="86" text-anchor="middle" font-size="17" font-style="italic">a rhythm becomes a pitch</text>
+<text x="80" y="278" font-size="17" fill="#555">one generator, read at different rates: the rate decides what kind of thing you hear</text>
+</svg>

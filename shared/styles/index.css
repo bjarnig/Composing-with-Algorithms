@@ -145,6 +145,10 @@
 }
 .slidev-layout .shot { display: flex; justify-content: center; margin-top: 0.5rem; }
 .slidev-layout .shot img { max-height: 19rem; }
+/* A diagram that IS the slide, rather than a figure under a quote: let width lead, since
+   these are wide and short, and .fig's 11.5rem height cap shrinks them to nothing. */
+.slidev-layout.light .shot { margin: 1.6rem 0 0; }
+.slidev-layout.light .shot img { max-height: none; width: 100%; }
 
 /* Code blocks: shiki's theme ships its own #121212 ground, which reads as an
    off-colour panel against --cwa-bg. Use a faint tint of the slide instead. */

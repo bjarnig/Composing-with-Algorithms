@@ -257,13 +257,7 @@ A range instead of a list. Now you decide the boundaries, not the notes.
 Pbind(\instrument, \sine, \dur, 0.2, \freq, Pwhite(400,600)).play
 ```
 
-A **random walk**: each value near the one before it, so the line wanders rather than jumps. The step size is the whole character.
-
-```supercollider
-Pbind(\instrument, \sine, \dur, 0.1, \midinote, Pbrown(36, 84, 4, inf)).play
-```
-
-<span class="note">All of it, with the instrument it needs, is in *code/Intro.scd*.</span>
+<span class="note">All of it, with the instrument it needs, is in *code/Intro.scd*. The ways of choosing a value come back under the first thread.</span>
 
 <!--
 Run the third one twice, with step 1 and step 12. The difference is audible and it is
@@ -366,6 +360,48 @@ Where a rule comes from, and what you do with what it makes.
 <span class="q">Generating is the easy half. On what grounds do you keep one result and throw away the other twenty?</span>
 
 ---
+
+# Six Ways to Choose
+
+Koenig's selection principles, each one line, one instrument, and the same four notes throughout. Only the **way a value is picked** changes.
+
+```supercollider {*|1-2|3-4|5-6|7-8|9-10|11-13}
+// sequence: in order, forever
+Pbind(\instrument, \sine, \dur, 0.15, \midinote, Pseq([60,63,67,70], inf)).play
+// alea: any value in a range, no memory
+Pbind(\instrument, \sine, \dur, 0.15, \midinote, Pwhite(60, 72)).play
+// series: every value once before any repeats
+Pbind(\instrument, \sine, \dur, 0.15, \midinote, Pshuf([60,63,67,70], inf)).play
+// ratio: weighted, so some values are likelier
+Pbind(\instrument, \sine, \dur, 0.15, \midinote, Pwrand([60,63,67,70], [0.6,0.2,0.1,0.1], inf)).play
+// group: a value repeated a few times, then the next
+Pbind(\instrument, \sine, \dur, 0.15, \midinote, Pdup(Pwhite(2,5), Pwhite(60,72))).play
+// tendency: random inside boundaries that move, drawn on the next slide
+Pbind(\instrument, \sine, \dur, 0.1,
+	\midinote, Pwhite(Pseg([36,60],[10],\lin), Pseg([84,66],[10],\lin))).play
+```
+
+<!--
+Click through one at a time and play each. Six lines, and class 07 is built on them.
+The last one needs the diagram that follows.
+-->
+
+---
+class: light
+---
+
+# Tendency Mask
+
+<div class="shot"><img src="/figures/tendency-000.svg" /></div>
+
+<div class="src">(after Koenig, Project 2)</div>
+
+<!--
+Koenig's own device. Draw the two boundaries, divide the time into N parts, and let the
+values fall between them. The composer sets the shape of the corridor, not the notes.
+-->
+
+---
 class: light
 ---
 
@@ -416,6 +452,22 @@ The same rule, applied beneath the note.
 class: light
 ---
 
+# One Rate, Three Kinds of Thing
+
+<div class="shot"><img src="/figures/rate-000.svg" /></div>
+
+<div class="src">(the boundary classes 09 and 11 are built on)</div>
+
+<!--
+Nothing about the generator changes across this axis. Only how fast it is read. Around 20 Hz
+a sequence of events stops being countable and turns into a pitch, and that is the same
+threshold the grain-rate demo crosses.
+-->
+
+---
+class: light
+---
+
 # Particles
 
 > "point, pulse, line, and surface emerge as particle density increases"
@@ -442,6 +494,32 @@ What happens when it runs without you.
 - A model that writes the **rule** rather than the sound
 
 <span class="q">If you set the conditions rather than choose the events, where did the composing happen?</span>
+
+---
+
+# One Equation, Iterated
+
+$$x_{n+1} = r \cdot x_n \cdot (1 - x_n)$$
+
+```supercollider
+~logistic = { |r = 3.9, x = 0.5, n = 64| n.collect { x = r * x * (1 - x) } };
+```
+
+Feed it four values of **r** and print the last six numbers each time:
+
+```
+r = 2.8   [ 0.643, 0.643, 0.643, 0.643, 0.643, 0.643 ]
+r = 3.2   [ 0.799, 0.513, 0.799, 0.513, 0.799, 0.513 ]
+r = 3.5   [ 0.827, 0.501, 0.875, 0.383, 0.827, 0.501 ]
+r = 3.9   [ 0.120, 0.413, 0.945, 0.202, 0.628, 0.911 ]
+```
+
+One value, then two, then four, then none of them repeating. **Nothing was random.**
+
+<!--
+Real output, not an illustration. Open /tools/chaos and sweep r to see the same thing as a
+picture. Then map the numbers to pitch, which is the next block in Intro.scd.
+-->
 
 ---
 class: light
@@ -485,6 +563,32 @@ What reaches a listener, and whose ear it is.
 - A **drawn curve** read as frequency over time
 
 <span class="q">Who is the listener you are composing for, and is it necessarily a person?</span>
+
+---
+
+# What the Analyser Reports
+
+Three numbers a machine will offer about any sound.
+
+```supercollider
+{
+	var snd = PlayBuf.ar(1, b, BufRateScale.kr(b), loop: 1);
+	var amp = Amplitude.kr(snd);
+	var freq = Pitch.kr(snd)[0];
+	var centroid = SpecCentroid.kr(FFT(LocalBuf(2048), snd));
+	[amp, freq, centroid].poll(2, ["amp", "freq", "centroid"]);
+	snd * 0.5 ! 2
+}.play
+```
+
+Now stop the sound and watch the numbers. Amplitude falls to zero, and **`Pitch` keeps reporting whatever it last found**.
+
+<span class="q">A listener that cannot tell silence from a held note. What else is it not telling you?</span>
+
+<!--
+This is class 18 in one block. The machine's ear is not a worse ear, it is a different one,
+and the interesting part is the shape of what it misses.
+-->
 
 ---
 class: light
