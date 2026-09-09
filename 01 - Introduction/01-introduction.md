@@ -104,8 +104,6 @@ Examples:
 - **Chaotic maps** : one equation iterated, deterministic but unpredictable
 - **Random walks** : each value near the one before it, so a shape wanders rather than jumps
 
-<span class="q">What is sensible to delegate to a procedure, and hard to hand over?</span>
-
 ---
 
 # Objectives
@@ -359,24 +357,21 @@ Threads
 
 ---
 
-# Rule and Selection
+# Rules and Selection
 
-Where a rule comes from, and what you do with what it makes.
+Where a rule comes from, and how to use it?
 
-<span class="note">Classes 05 Algorithmic Composition, 06 Xenakis and Stochastics, 07 Koenig and Selection, 27 Composition Processes</span>
 
 - Mozart's **dice game**, the oldest algorithmic composition you will meet, and the cheapest demonstration of the whole idea
 - Xenakis fixing a **density** between 0.11 and 150 sounds per second, and letting the events fall where they fall
-- Koenig's six **selection principles**: sequence, alea, series, ratio, group, tendency
+- Koenig's **selection principles**: sequence, alea, series, ratio, group, tendency
 - A **transition table** derived from a poem, and used to write music
-
-<span class="q">Generating is the easy half. On what grounds do you keep one result and throw away the other twenty?</span>
 
 ---
 
-# Six Ways to Choose
+# Ways to Choose
 
-Koenig's selection principles, each one line, one instrument, and the same four notes throughout. Only the **way a value is picked** changes.
+Koenig's selection principles, one line, one instrument, and the same four notes throughout. Only the **way a value is picked** changes.
 
 ```supercollider {*|1-2|3-4|5-6|7-8|9-10|11-13}
 // sequence: in order, forever
@@ -448,24 +443,7 @@ class: light
 
 ---
 
-# Inside the Sound
-
-The same rule, applied beneath the note.
-
-<span class="note">Classes 08 Sound Synthesis, 09 Generating Shapes, 11 Microsound and Timescales, 12 Non-Standard Synthesis, 21 Spectral Composition</span>
-
-- Risset's **bell** as four parallel lists, with a decay per partial: timbre as process, not state
-- A **grain rate** climbing past 20 Hz, where a rhythm stops being a rhythm and becomes a pitch
-- **GENDYN**, where the breakpoints of the waveform itself take a random walk
-- One analysed **spectrum**, four selection criteria, four different chords, and the disagreement is the lesson
-
-<span class="q">Is there a difference between composing music and composing sounds?</span>
-
----
-class: light
----
-
-# One Rate, Three Kinds of Thing
+# Timescales
 
 <div class="shot"><img src="/figures/rate-000.svg" /></div>
 
@@ -495,22 +473,7 @@ the whole of class 11 in a sentence.
 
 ---
 
-# Systems That Run
-
-What happens when it runs without you.
-
-<span class="note">Classes 13 Errors and Glitches, 14 Iterative Systems, 15 Feedback and Cybernetics, 17 Machine Learning, 28 Generative AI and Agents</span>
-
-- The **logistic map** at r = 2.8, 3.2, 3.5, 3.56 and 3.9: period one, two, four, eight, then chaos, from one equation
-- Jaap Vink's chain of delay, filter, ring modulation and compression, where **removing any one component stops it working**
-- A system that **listens to its own output** and regulates itself
-- A model that writes the **rule** rather than the sound
-
-<span class="q">If you set the conditions rather than choose the events, where did the composing happen?</span>
-
----
-
-# One Equation, Iterated
+# Iterated Equation
 
 $$x_{n+1} = r \cdot x_n \cdot (1 - x_n)$$
 
@@ -549,37 +512,24 @@ class: light
 class: light
 ---
 
-# The Objective
+# Irreducible
 
-> "As soon as you create an objective, you ruin your ability to reach it."
+> "The only way to determine the answer is to perform, or simulate, the computation."
 
-> "If you're wondering how to escape the myth of the objective, just do things because they're interesting."
+> Macro-behaviour "derivable only by means of a step-by-step simulation".
 
-<div class="src">(Kenneth Stanley, Why Greatness Cannot Be Planned, 2015)</div>
+<div class="src">(Stephen Wolfram, computational irreducibility; Mark Bedau, weak emergence, 1997)</div>
 
 <!--
-Hold this against the whole year, and especially against class 28: a prompt is an objective,
-stated in advance. Stanley is the argument for not stating one.
+The formal ground under the whole year. For some processes there is no shortcut: you cannot
+outrun the system by analysis, so you run it and listen. The cellular automaton on the tools
+page is exactly this, Wolfram's own elementary rules with no way to reach generation 200
+except by taking all two hundred steps.
 -->
 
 ---
 
-# Ears and Surfaces
-
-What reaches a listener, and whose ear it is.
-
-<span class="note">Classes 10 Recording and Processing, 18 Listening Machines, 20 Gesture and Texture, 23 Sonorities and Materials, 24 Drawing and Notation</span>
-
-- **Reduced listening** and the sound object: hearing a sound as itself rather than as its cause
-- An analyser reporting a loudness of 0.192486 on **silence**, and a pitch tracker holding its last value: a listening machine that looks healthy and hears nothing
-- Smalley's **archetypes**, a vocabulary for describing a sound rather than making one
-- A **drawn curve** read as frequency over time
-
-<span class="q">Who is the listener you are composing for, and is it necessarily a person?</span>
-
----
-
-# What the Analyser Reports
+# Machine Listening
 
 Three numbers a machine will offer about any sound.
 
@@ -595,8 +545,6 @@ Three numbers a machine will offer about any sound.
 ```
 
 Now stop the sound and watch the numbers. Amplitude falls to zero, and **`Pitch` keeps reporting whatever it last found**.
-
-<span class="q">A listener that cannot tell silence from a held note. What else is it not telling you?</span>
 
 <!--
 This is class 18 in one block. The machine's ear is not a worse ear, it is a different one,
@@ -617,22 +565,6 @@ class: light
 <div class="fig"><img src="/figures/brun-000.png" /></div>
 
 ---
-
-# The Craft That Serves All Four
-
-Four classes cut across every thread rather than belonging to one.
-
-- **03 Patterns and Streams** is the tool the whole year is written with
-- **16 Mapping and Control** is the join: what you connect to what is the compositional decision
-- **22 Rhythm and Time** is time itself, from the sieve to the Risset rhythm
-- **26 Live Coding** is the rule changed while it is still running
-- **25 Own Works** is the case study, with the code open beside the piece
-
-<span class="workshop">- workshop -</span>
-
-<span class="note">04 is where you try it, with a duration, one sound source and one prohibition.</span>
-
----
 class: light
 ---
 
@@ -640,12 +572,9 @@ class: light
 
 > Computation is "a process of determining indeterminacy."
 
-<div class="src">(M. Beatrice Fazi, Contingent Computation, 2018)</div>
+<div class="shot"><img src="/figures/indeterminacy-000.svg" /></div>
 
-<!--
-Close on this. Not the deterministic execution of pre-given rules, but a process that makes
-something that was not specified. That is the year's wager, and the last class tests it.
--->
+<div class="src">(M. Beatrice Fazi, Contingent Computation, 2018)</div>
 
 ---
 layout: center
