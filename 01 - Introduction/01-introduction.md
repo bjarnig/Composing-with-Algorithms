@@ -160,11 +160,11 @@ Regular **workshops** for practical works will also take place.
 
 The class also features **online systems**, intended to be played with and used to illustrate a class concept.
 
-- <a href="https://slides.bjarni-gunnarsson.net/tools/ca/">**Cellular automata**</a> all 256 elementary rules, the rule drawn as its eight neighbourhoods, and a row read as a waveform
+- <a href="https://slides.bjarni-gunnarsson.net/tools/ca/">**Cellular automata**</a> 256 elementary rules, the rule drawn as its eight neighbourhoods, and a row read as a waveform
 - <a href="https://slides.bjarni-gunnarsson.net/tools/chaos/">**Chaotic maps**</a> nine equations, one and two dimensional, audio rate or pitched events, with a bifurcation view
 - <a href="https://slides.bjarni-gunnarsson.net/tools/events/">**Event generator**</a> six distributions and a random walk, applied to duration, frequency and amplitude
 
-<span class="note">All three are at <a href="https://slides.bjarni-gunnarsson.net/tools/">slides.bjarni-gunnarsson.net/tools</a></span>
+<span class="note"><a href="https://slides.bjarni-gunnarsson.net/tools/">slides.bjarni-gunnarsson.net/tools</a></span>
 
 ---
 layout: center
@@ -178,16 +178,16 @@ Topics
 # Topics: Algorithms
 
 <div class="topics">
-Class 01, Composing with Algorithms<br>
-Class 02, SuperCollider<br>
-Class 03, Patterns and Streams<br>
-Class 04, Practical Workshop<br>
-Class 05, Algorithmic Composition<br>
-Class 06, Xenakis and Stochastics<br>
-Class 07, Koenig and Selection<br>
-Class 08, Sound Synthesis<br>
-Class 09, Generating Shapes<br>
-Class 10, Recording and Processing
+Class 01, <b>Composing with Algorithms</b><br>
+Class 02, <b>SuperCollider</b><br>
+Class 03, <b>Patterns and Streams</b><br>
+Class 04, <b>Practical Workshop</b><br>
+Class 05, <b>Algorithmic Composition</b><br>
+Class 06, <b>Xenakis and Stochastics</b><br>
+Class 07, <b>Koenig and Selection</b><br>
+Class 08, <b>Sound Synthesis</b><br>
+Class 09, <b>Generating Shapes</b><br>
+Class 10, <b>Recording and Processing</b>
 </div>
 
 ---
@@ -195,15 +195,15 @@ Class 10, Recording and Processing
 # Topics: Synthesis
 
 <div class="topics">
-Class 11, Microsound and Timescales<br>
-Class 12, Non-Standard Synthesis<br>
-Class 13, Errors and Glitches<br>
-Class 14, Iterative Systems<br>
-Class 15, Feedback and Cybernetics<br>
-Class 16, Mapping and Control<br>
-Class 17, Machine Learning<br>
-Class 18, Listening Machines<br>
-Class 19, Sound Transformation
+Class 11, <b>Microsound and Timescales</b><br>
+Class 12, <b>Non-Standard Synthesis</b><br>
+Class 13, <b>Errors and Glitches</b><br>
+Class 14, <b>Iterative Systems</b><br>
+Class 15, <b>Feedback and Cybernetics</b><br>
+Class 16, <b>Mapping and Control</b><br>
+Class 17, <b>Machine Learning</b><br>
+Class 18, <b>Listening Machines</b><br>
+Class 19, <b>Sound Transformation</b>
 </div>
 
 ---
@@ -211,15 +211,15 @@ Class 19, Sound Transformation
 # Topics: Composition
 
 <div class="topics">
-Class 20, Gesture and Texture<br>
-Class 21, Spectral Composition<br>
-Class 22, Rhythm and Time<br>
-Class 23, Sonorities and Materials<br>
-Class 24, Drawing and Notation<br>
-Class 25, Own Works<br>
-Class 26, Live Coding<br>
-Class 27, Composition Processes<br>
-Class 28, Generative AI and Agents
+Class 20, <b>Gesture and Texture</b><br>
+Class 21, <b>Spectral Composition</b><br>
+Class 22, <b>Rhythm and Time</b><br>
+Class 23, <b>Sonorities and Materials</b><br>
+Class 24, <b>Drawing and Notation</b><br>
+Class 25, <b>Own Works</b><br>
+Class 26, <b>Live Coding</b><br>
+Class 27, <b>Composition Processes</b><br>
+Class 28, <b>Generative AI and Agents</b>
 </div>
 
 <!--
@@ -442,12 +442,12 @@ class: light
 </div>
 
 ---
+class: light
+---
 
 # Timescales
 
 <div class="shot"><img src="/figures/rate-000.svg" /></div>
-
-<div class="src">(the boundary classes 09 and 11 are built on)</div>
 
 <!--
 Nothing about the generator changes across this axis. Only how fast it is read. Around 20 Hz
@@ -517,6 +517,8 @@ class: light
 > "The only way to determine the answer is to perform, or simulate, the computation."
 
 > Macro-behaviour "derivable only by means of a step-by-step simulation".
+
+<div class="shot"><img src="/figures/irreducible-000.svg" /></div>
 
 <div class="src">(Stephen Wolfram, computational irreducibility; Mark Bedau, weak emergence, 1997)</div>
 

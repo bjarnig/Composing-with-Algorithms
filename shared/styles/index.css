@@ -74,7 +74,7 @@
    italic    named concept or verbatim phrase
    .q        a question put to the room         } the blue accent, and the only
    .workshop hands-on session marker            } two things it is used for
-   .note     housekeeping aside                 muted, subordinate to body copy
+   .note     housekeeping aside                 mint, smaller than body copy
    There is deliberately no underline: it used to overlap bold with no
    distinction, so all 16 instances became bold.
    -------------------------------------------------------------------------- */
@@ -83,6 +83,9 @@
 /* The class lists on the Topics slides are one paragraph of <br>-separated lines,
    so the air between entries is line-height rather than a margin. */
 .slidev-layout .topics { font-size: 1.15rem; line-height: 2.15; }
+/* class title reads slightly bold, lighter than .strong's 700 so it stays
+   secondary to the "Class NN" label rather than competing with it */
+.slidev-layout .topics b { font-weight: 600; color: inherit; }
 
 /* *-prefixed lists */
 .slidev-layout ul { list-style: none; padding-left: 0.2rem; margin: 0.4rem 0 0.8rem; }
@@ -97,8 +100,9 @@
   display: block; text-align: center; margin: 0.15rem 0;
   color: var(--cwa-accent); letter-spacing: 0.18em; font-size: 1rem;
 }
-/* housekeeping: present but subordinate to the body copy */
-.note { color: var(--cwa-muted); font-size: 1rem; }
+/* housekeeping: smaller than body copy, but bright rather than grey. Mint, not the
+   blue accent, so .q and .workshop keep their exclusive claim on "addressed at you". */
+.note { color: var(--cwa-mint); font-size: 1rem; }
 
 .slidev-layout a { color: var(--cwa-accent); text-decoration: none; }
 .mono { font-family: "Fira Code", "Menlo", monospace; }
