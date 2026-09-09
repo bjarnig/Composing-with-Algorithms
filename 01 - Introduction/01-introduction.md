@@ -160,13 +160,13 @@ Regular **workshops** for practical works will also take place.
 
 # Tools
 
-The class also features **browser systems**, intended to be played with and used to illustrate a class concept.
+The class also features **online systems**, intended to be played with and used to illustrate a class concept.
 
 - <a href="https://slides.bjarni-gunnarsson.net/tools/ca/">**Cellular automata**</a> all 256 elementary rules, the rule drawn as its eight neighbourhoods, and a row read as a waveform
 - <a href="https://slides.bjarni-gunnarsson.net/tools/chaos/">**Chaotic maps**</a> nine equations, one and two dimensional, audio rate or pitched events, with a bifurcation view
 - <a href="https://slides.bjarni-gunnarsson.net/tools/events/">**Event generator**</a> six distributions and a random walk, applied to duration, frequency and amplitude
 
-<span class="note">These three, and three more for GENDYN, pulsars and wavetables, are listed at <a href="https://slides.bjarni-gunnarsson.net/tools/">slides.bjarni-gunnarsson.net/tools</a>.</span>
+<span class="note">All three are at <a href="https://slides.bjarni-gunnarsson.net/tools/">slides.bjarni-gunnarsson.net/tools</a></span>
 
 ---
 layout: center
@@ -237,7 +237,7 @@ class: light
 
 <div class="shot"><img src="/figures/sclang-server-000.svg" /></div>
 
-<div class="src">(two programs, one protocol)</div>
+<div class="src">(two components, client/server)</div>
 
 <!--
 The whole architecture in one picture, and the only claim worth making now: these are two
