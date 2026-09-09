@@ -40,13 +40,19 @@
   text-rendering: optimizeLegibility;
 }
 
-/* Centered serif header + hairline rule (dark slides) */
+/* Centered header + hairline rule. Sans at demi bold, matching the title slide:
+   Palatino's thin strokes read soft at heading size, and the sans carries more ink
+   so it reads brighter on a projector without any colour change. Palatino is kept
+   where the deck speaks in another register: the section dividers and the quotations
+   on the light slides. Slightly smaller than the serif was, because the sans has the
+   larger x-height and sets optically bigger at the same nominal size. */
 .slidev-layout h1 {
-  font-family: var(--cwa-serif);
-  font-weight: 700;
+  font-family: var(--cwa-sans);
+  font-weight: 600;
+  letter-spacing: -0.005em;
   color: #fff;
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin: 0 auto 1.5rem;
   padding-bottom: 0.65rem;
   border-bottom: 1px solid var(--cwa-rule);
