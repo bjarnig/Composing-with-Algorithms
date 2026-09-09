@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" width="980" height="440" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<rect x="30" y="70" width="330" height="215" rx="6" fill="none" stroke="#141414" stroke-width="2.5"/>
+<text x="195" y="97" text-anchor="middle" font-size="20" font-weight="600">sclang</text>
+<text x="48" y="126" font-size="15" fill="#333">the class library</text>
+<text x="48" y="149" font-size="15" fill="#333">patterns and streams</text>
+<text x="48" y="172" font-size="15" fill="#333">routines, tasks, clocks</text>
+<text x="48" y="195" font-size="15" fill="#333">GUI and MIDI</text>
+<text x="48" y="218" font-size="15" fill="#333">quarks</text>
+<rect x="560" y="70" width="330" height="215" rx="6" fill="none" stroke="#141414" stroke-width="2.5"/>
+<text x="725" y="97" text-anchor="middle" font-size="20" font-weight="600">scsynth</text>
+<text x="578" y="126" font-size="15" fill="#333">SynthDefs</text>
+<text x="578" y="149" font-size="15" fill="#333">UGen graphs</text>
+<text x="578" y="172" font-size="15" fill="#333">nodes and groups</text>
+<text x="578" y="195" font-size="15" fill="#333">busses</text>
+<text x="578" y="218" font-size="15" fill="#333">buffers</text>
+<text x="195" y="60" text-anchor="middle" font-size="14" fill="#555" font-style="italic">the language you write</text>
+<text x="725" y="60" text-anchor="middle" font-size="14" fill="#555" font-style="italic">the server that makes sound</text>
+<g fill="none" stroke="#141414" stroke-width="2.5"><path d="M360 148 H560" marker-end="url(#a)"/><path d="M560 205 H360" marker-end="url(#a)" stroke-dasharray="6 5"/></g>
+<text x="460" y="138" text-anchor="middle" font-size="15">OSC</text>
+<text x="460" y="196" text-anchor="middle" font-size="13" fill="#555">replies, polls, analysis</text>
+<g fill="none" stroke="#141414" stroke-width="2"><path d="M195 340 V285" marker-end="url(#a)"/></g>
+<text x="195" y="360" text-anchor="middle" font-size="16">you, in the editor</text>
+<g fill="none" stroke="#141414" stroke-width="2"><path d="M890 178 H950" marker-end="url(#a)"/></g>
+<text x="920" y="205" text-anchor="middle" font-size="14">out</text>
+<g fill="none" stroke="#141414" stroke-width="2"><path d="M725 340 V285" marker-end="url(#a)"/></g>
+<text x="725" y="360" text-anchor="middle" font-size="16">sound files, audio in</text>
+<text x="490" y="412" text-anchor="middle" font-size="15" fill="#555" font-style="italic">two separate programs. Nothing you type makes a sound until a message crosses that arrow.</text>
+</svg>

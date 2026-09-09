@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools — Institute of Sonology courses</title>
+<link rel="stylesheet" href="kit/kit.css">
+<style>
+  body{max-width:52rem;padding:2.4rem 2rem 4rem}
+  /* sans for naming, matching the slide decks the students arrive from */
+  h1{font-family:var(--sans);font-weight:600;letter-spacing:-.005em;font-size:1.7rem;margin:0 0 .3rem}
+  h1 + p.sub{margin-bottom:2rem;font-size:.9rem;max-width:40rem}
+  ul.tools{list-style:none;padding:0;margin:0}
+  ul.tools li{border-top:1px solid var(--rule);padding:1.1rem 0}
+  ul.tools li:last-child{border-bottom:1px solid var(--rule)}
+  a.name{font-family:var(--sans);font-weight:600;font-size:1.05rem;color:var(--fg);
+         text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px}
+  a.name:hover{color:var(--accent)}
+  .desc{color:var(--muted);font-size:.85rem;margin:.4rem 0 0;max-width:42rem}
+  .where{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:.8rem;margin:.35rem 0 0}
+  .group{font-family:var(--serif);font-style:italic;color:var(--muted);
+         font-size:.9rem;margin:2.2rem 0 .6rem}
+  .group:first-of-type{margin-top:0}
+  footer{color:var(--muted);font-size:.78rem;margin-top:2.6rem;max-width:42rem}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<h1>Tools</h1>
+<p class="sub">Small self-contained pages, one idea each: the algorithm, its controls, the
+sound, and a picture of what it is doing. Nothing to install, and they keep working after the
+course ends. Each one mirrors a SuperCollider file from the class it belongs to.</p>
+
+<p class="group">Three ways a rule makes material</p>
+<ul class="tools">
+  <li>
+    <a class="name" href="./ca/">Cellular Automata</a>
+    <p class="desc">One local rule applied to every cell at once. All 256 elementary rules,
+    the space-time diagram, the rule drawn as its eight neighbourhoods, and the option to
+    read a row as a single cycle of a waveform.</p>
+    <p class="where">Composing with Algorithms 01, 24</p>
+  </li>
+  <li>
+    <a class="name" href="./chaos/">Chaotic Maps</a>
+    <p class="desc">Nine iterated maps, one and two dimensional, at audio rate or as pitched
+    events, with the attractor, the time series and a bifurcation view of the parameter you
+    are moving.</p>
+    <p class="where">Composing with Algorithms 01, 14 · Programming and Music 2, 22</p>
+  </li>
+  <li>
+    <a class="name" href="./events/">Event Generator</a>
+    <p class="desc">Six distributions and a random walk, applied independently to duration,
+    frequency and amplitude, with scale quantisation and a histogram of what was actually
+    drawn.</p>
+    <p class="where">Composing with Algorithms 01, 06, 09</p>
+  </li>
+</ul>
+
+<p class="group">Sound built from a procedure</p>
+<ul class="tools">
+  <li>
+    <a class="name" href="./gendy/">Dynamic Stochastic Synthesis</a>
+    <p class="desc">Xenakis's GENDYN: the breakpoints of the waveform itself take a random
+    walk, in both time and amplitude, inside elastic barriers. Fourteen parameters.</p>
+    <p class="where">Composing with Algorithms 06, 12 · Programming and Music 2, 06</p>
+  </li>
+  <li>
+    <a class="name" href="./pulsar/">Pulsar Synthesis</a>
+    <p class="desc">Fundamental and formant set independently, so the rate of the train and
+    the spectrum of the particle are two separate decisions. Wave, envelope, burst and rest.</p>
+    <p class="where">Composing with Algorithms 11 · Programming and Music 2, 03</p>
+  </li>
+  <li>
+    <a class="name" href="./wavetable/">Wavetable Morphing</a>
+    <p class="desc">Reading between stored waveforms rather than choosing one, with the
+    position driven by an oscillator so the timbre is itself a signal.</p>
+    <p class="where">Composing with Algorithms 12 · Programming and Music 2, 07</p>
+  </li>
+</ul>
+
+<footer>
+Sound needs a click, because browsers require a gesture before audio starts. Add
+<code>?compact=1</code> to any of these for the layout used when one is embedded in a slide.
+Course pages: <a href="https://bjarni-gunnarsson.net/courses">bjarni-gunnarsson.net/courses</a>.
+</footer>
+
+</body>
+</html>

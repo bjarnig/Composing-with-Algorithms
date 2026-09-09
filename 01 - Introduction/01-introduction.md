@@ -94,22 +94,17 @@ Algorithms are found in computer programs and created during **programming**.
 
 # Models of Musical Processes
 
-The course in one line: **exploring computational models of musical processes**.
+A central theme: **exploring computational models of musical processes**.
 
-A **model** of a musical process is a rule set that produces material you did not write out by hand. You decide the rule, the boundaries and what to keep; the procedure decides the events.
+A **model** of a musical process is a rule set that produces musical material. Decides the rule, the boundaries and what to keep; the procedure then introduces the events.
 
-Three families, named now so the year has a shape, each with a class of its own later:
+Examples:
 
-- **Cellular automata** — many simple cells, one local rule, a pattern nobody specified
-- **Chaotic maps** — one equation iterated, deterministic and still unpredictable
-- **Random walks** — each value near the one before it, so a line wanders rather than jumps
+- **Cellular automata** : many simple cells, one local rule, a pattern that emerges
+- **Chaotic maps** : one equation iterated, deterministic but unpredictable
+- **Random walks** : each value near the one before it, so a shape wanders rather than jumps
 
-<span class="q">What would you delegate to a procedure, and what would you never hand over?</span>
-
-<!--
-The last line is the question the whole year keeps asking. Take answers now and write
-them down: it is worth reading them back in June.
--->
+<span class="q">What is sensible to delegate to a procedure, and hard to hand over?</span>
 
 ---
 
@@ -159,18 +154,19 @@ Regular **workshops** for practical works will also take place.
   <img src="/figures/materials-000.png" alt="bjarni-gunnarsson.net" />
 </div>
 
-<div class="caption mono">/courses . code == 'composing'</div>
+<div class="caption mono">/cwa </div>
 
 ---
 
 # Tools
 
-Two of the three families are also **browser demos**, so they can be played with before anything is installed, and after the course ends:
+The class also features **browser systems**, intended to be played with and used to illustrate a class concept.
 
-- <a href="https://slides.bjarni-gunnarsson.net/tools/chaos/">**Chaotic maps**</a> — nine of them, one and two dimensional, audio rate or pitched events, with a bifurcation view
-- <a href="https://slides.bjarni-gunnarsson.net/tools/events/">**Event generator**</a> — six distributions and a random walk, applied to duration, frequency and amplitude
+- <a href="https://slides.bjarni-gunnarsson.net/tools/ca/">**Cellular automata**</a> all 256 elementary rules, the rule drawn as its eight neighbourhoods, and a row read as a waveform
+- <a href="https://slides.bjarni-gunnarsson.net/tools/chaos/">**Chaotic maps**</a> nine equations, one and two dimensional, audio rate or pitched events, with a bifurcation view
+- <a href="https://slides.bjarni-gunnarsson.net/tools/events/">**Event generator**</a> six distributions and a random walk, applied to duration, frequency and amplitude
 
-<span class="note">Both live under slides.bjarni-gunnarsson.net/tools. A cellular automaton demo is still to come, which completes the trio.</span>
+<span class="note">These three, and three more for GENDYN, pulsars and wavetables, are listed at <a href="https://slides.bjarni-gunnarsson.net/tools/">slides.bjarni-gunnarsson.net/tools</a>.</span>
 
 ---
 layout: center
@@ -181,8 +177,9 @@ Topics
 
 ---
 
-# Topics
+# Topics: Algorithms
 
+<div class="topics">
 Class 01, Composing with Algorithms<br>
 Class 02, SuperCollider<br>
 Class 03, Patterns and Streams<br>
@@ -193,11 +190,13 @@ Class 07, Koenig and Selection<br>
 Class 08, Sound Synthesis<br>
 Class 09, Generating Shapes<br>
 Class 10, Recording and Processing
+</div>
 
 ---
 
-# Topics
+# Topics: Synthesis
 
+<div class="topics">
 Class 11, Microsound and Timescales<br>
 Class 12, Non-Standard Synthesis<br>
 Class 13, Errors and Glitches<br>
@@ -207,11 +206,13 @@ Class 16, Mapping and Control<br>
 Class 17, Machine Learning<br>
 Class 18, Listening Machines<br>
 Class 19, Sound Transformation
+</div>
 
 ---
 
-# Topics
+# Topics: Composition
 
+<div class="topics">
 Class 20, Gesture and Texture<br>
 Class 21, Spectral Composition<br>
 Class 22, Rhythm and Time<br>
@@ -220,11 +221,28 @@ Class 24, Drawing and Notation<br>
 Class 25, Own Works<br>
 Class 26, Live Coding<br>
 Class 27, Composition Processes<br>
-Class 28, Prompts and Agents
+Class 28, Generative AI and Agents
+</div>
 
 <!--
 Twenty-eight classes, one workshop at 04. 28 closes the year on language models and
 generative AI: the class that asks whether writing the rule can itself be delegated.
+-->
+
+---
+class: light
+---
+
+# SuperCollider
+
+<div class="shot"><img src="/figures/sclang-server-000.svg" /></div>
+
+<div class="src">(two programs, one protocol)</div>
+
+<!--
+The whole architecture in one picture, and the only claim worth making now: these are two
+separate programs, and nothing you type makes a sound until a message crosses that arrow.
+Class 02 unpacks it. Do not name a single UGen here.
 -->
 
 ---
@@ -243,7 +261,7 @@ SuperCollider is *free software*, released under the terms of the GNU General Pu
 
 ---
 
-# One Line, A Hundred Events
+# One Line, Many Events
 
 Three notes, stated one at a time. Every value is yours.
 
@@ -258,11 +276,6 @@ Pbind(\instrument, \sine, \dur, 0.2, \freq, Pwhite(400,600)).play
 ```
 
 <span class="note">All of it, with the instrument it needs, is in *code/Intro.scd*. The ways of choosing a value come back under the first thread.</span>
-
-<!--
-Run the third one twice, with step 1 and step 12. The difference is audible and it is
-the first time this year that a single number changes the character of a whole texture.
--->
 
 ---
 layout: center
@@ -486,7 +499,7 @@ the whole of class 11 in a sentence.
 
 What happens when it runs without you.
 
-<span class="note">Classes 13 Errors and Glitches, 14 Iterative Systems, 15 Feedback and Cybernetics, 17 Machine Learning, 28 Prompts and Agents</span>
+<span class="note">Classes 13 Errors and Glitches, 14 Iterative Systems, 15 Feedback and Cybernetics, 17 Machine Learning, 28 Generative AI and Agents</span>
 
 - The **logistic map** at r = 2.8, 3.2, 3.5, 3.56 and 3.9: period one, two, four, eight, then chaos, from one equation
 - Jaap Vink's chain of delay, filter, ring modulation and compression, where **removing any one component stops it working**

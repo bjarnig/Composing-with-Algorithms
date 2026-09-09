@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cellular Automata — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  .rules-row{display:flex;gap:.4rem;flex-wrap:wrap;margin:0 0 .8rem}
+  .rules-row button{font-size:.72rem;padding:.3rem .6rem;border-color:var(--rule);color:var(--muted)}
+  .rules-row button.on{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+  canvas{height:330px}
+  body.compact .rules-row{margin:.3rem 0 .35rem}
+  body.compact .rules-row button{font-size:.66rem;padding:.2rem .42rem}
+  body.compact canvas{height:min(38vh,210px)}
+</style>
+</head>
+<body>
+
+<h1>Cellular Automata</h1>
+<p class="sub">One local rule, applied to every cell at once, over and over. Nothing in the
+rule describes the pattern that comes out of it. Elementary automata after Wolfram; the
+numbering is his. Mirrors <code>CA.scd</code> and <code>WolframCA.scd</code>.</p>
+<p class="warn">Start with the gain low. Dense rules at a high rate are loud and bright.</p>
+
+<div class="rules-row" id="rules"></div>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>live cell</span>
+  <span><i style="background:var(--gold)"></i>newest generation</span>
+  <span><i style="background:var(--mint)"></i>the rule, as eight neighbourhoods</span>
+  <span id="info"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <button id="reseed" class="preset">re-seed</button>
+</div>
+<p class="hint" id="hint"></p>
+
+<div class="grid">
+  <fieldset>
+    <legend>the rule</legend>
+    <label><span>rule</span><input type="range" id="rule" min="0" max="255" step="1" value="90"><output></output></label>
+    <label><span>cells</span><input type="range" id="width" min="16" max="256" step="1" value="129"><output></output></label>
+    <label><span>seed</span>
+      <select id="seed"><option value="0">one cell</option><option value="1">random</option></select>
+      <output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>time and level</legend>
+    <label><span>generations/s</span><input type="range" id="rate" min="1" max="60" step="1" value="8"><output></output></label>
+    <label><span>mode</span>
+      <select id="mode"><option value="0">pitched events</option><option value="1">row as waveform</option></select>
+      <output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.5" step="0.005" value="0.1"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>mapping</legend>
+    <label><span>base (Hz)</span><input type="range" id="base" min="40" max="800" step="1" value="110"><output></output></label>
+    <label><span>span (oct)</span><input type="range" id="span" min="0" max="5" step="0.05" value="3"><output></output></label>
+    <label><span>decay (s)</span><input type="range" id="decay" min="0.02" max="1.2" step="0.01" value="0.25"><output></output></label>
+  </fieldset>
+</div>
+
+<p class="note">
+Every cell looks at itself and its two neighbours, three cells, so eight possible
+neighbourhoods. A rule is one choice of new state for each of the eight, which is eight bits,
+which is why there are exactly 256 elementary rules. The eight boxes above the diagram are
+that rule, drawn out. In <em>pitched events</em> mode each live cell in a new generation
+sounds a short tone, its position mapped across <code>span</code> octaves from
+<code>base</code>. In <em>row as waveform</em> mode the row is read as a single cycle, so the
+pattern becomes a timbre and every generation changes it. Rule 90 draws Sierpinski's triangle
+from one live cell; rule 30 never repeats; rule 110 is complicated enough to compute anything.
+</p>
+<p class="note">
+Worth trying: set rule 90 and move <code>cells</code> to exactly 128, or 64. The pattern
+annihilates itself and the sound stops. Rule 90 is the exclusive-or of the two neighbours, and
+on a ring whose length is a power of two every live cell eventually cancels: 64 cells die at
+generation 32, 128 at generation 64. One cell more or fewer and it runs forever. None of the
+other rules here care.
+</p>
+
+<!-- The rule lives here once, and this text is injected into BOTH the worklet blob and the
+     main thread. Duplicating it would let what you hear drift from what you see. -->
+<script id="casrc" type="text/js-lib">
+const CA = {
+  /* One generation of an elementary cellular automaton, wrapped at the edges.
+     Wolfram numbering: bit (left<<2 | centre<<1 | right) of `rule` is the new
+     centre cell, so rule 90 = 01011010b and neighbourhood 001 -> 1. */
+  step(cells, rule, out) {
+    const n = cells.length;
+    for (let i = 0; i < n; i++) {
+      const l = cells[(i - 1 + n) % n], c = cells[i], r = cells[(i + 1) % n];
+      out[i] = (rule >> ((l << 2) | (c << 1) | r)) & 1;
+    }
+    return out;
+  },
+  seed(n, kind, density) {
+    const a = new Uint8Array(n);
+    if (kind === 1) { for (let i = 0; i < n; i++) a[i] = Math.random() < (density || 0.5) ? 1 : 0; }
+    else a[n >> 1] = 1;
+    return a;
+  }
+};
+const CA_PRESETS = [
+  [90,  'Sierpinski'], [30,  'chaotic'], [110, 'universal'],
+  [150, 'nested'],     [184, 'traffic'], [250, 'solid'], [126, 'dense']
+];
+</script>
+
+<script id="worklet" type="text/js-worklet">
+class CAProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = { rule: 90, width: 129, seed: 0, rate: 8, mode: 0, gain: 0.1,
+               base: 110, span: 3, decay: 0.25 };
+    this.reseed();
+    this.acc = 0;                 // samples until the next generation
+    this.phase = 0;               // waveform-mode read phase
+    this.lp = 0;                  // one-pole, to take the edge off a square row
+    this.V = 24;                  // voice cap: cells sum, so bound it
+    this.vf = new Float32Array(this.V);
+    this.vp = new Float32Array(this.V);
+    this.ve = new Float32Array(this.V);
+    this.vd = new Float32Array(this.V);
+    this.vi = 0;
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'params') {
+        const w = d.value.width, s = d.value.seed;
+        const reseed = (w !== undefined && w !== this.p.width) ||
+                       (s !== undefined && s !== this.p.seed);
+        Object.assign(this.p, d.value);
+        if (reseed) this.reseed();
+      } else if (d.type === 'reseed') {
+        this.reseed();
+      }
+    };
+  }
+
+  reseed() {
+    const n = Math.max(8, Math.round(this.p.width));
+    this.cells = CA.seed(n, Number(this.p.seed), 0.5);
+    this.next = new Uint8Array(n);
+    this.gen = 0;
+    this.post();
+  }
+
+  post() {
+    // the drawing follows the audio thread rather than re-deriving the generation
+    this.port.postMessage({ type: 'gen', n: this.gen, row: Array.from(this.cells) });
+  }
+
+  advance() {
+    CA.step(this.cells, Math.round(this.p.rule) & 255, this.next);
+    const t = this.cells; this.cells = this.next; this.next = t;
+    this.gen++;
+    this.post();
+    if (Number(this.p.mode) === 0) this.fire();
+  }
+
+  fire() {
+    const n = this.cells.length, span = this.p.span, base = this.p.base;
+    let live = 0;
+    for (let i = 0; i < n; i++) if (this.cells[i]) live++;
+    if (!live) return;
+    // one voice per live cell, but never more than the cap, so density is audible
+    // as brightness rather than as clipping
+    const stride = Math.max(1, Math.ceil(live / this.V));
+    let seen = 0;
+    for (let i = 0; i < n; i++) {
+      if (!this.cells[i]) continue;
+      if (seen++ % stride) continue;
+      const v = this.vi = (this.vi + 1) % this.V;
+      this.vf[v] = base * Math.pow(2, span * (i / (n - 1)));
+      this.vp[v] = 0;
+      this.ve[v] = 1;
+      this.vd[v] = Math.exp(-1 / (Math.max(0.02, this.p.decay) * sampleRate));
+    }
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0], L = out[0], R = out[1] || out[0];
+    const N = L.length, sr = sampleRate;
+    const mode = Number(this.p.mode), gain = this.p.gain;
+    const perGen = sr / Math.max(1, this.p.rate);
+
+    for (let k = 0; k < N; k++) {
+      if (--this.acc <= 0) { this.advance(); this.acc = perGen; }
+
+      let s = 0;
+      if (mode === 1) {
+        const n = this.cells.length;
+        const f = this.p.base * Math.pow(2, this.p.span * 0.25);
+        this.phase += f / sr;
+        if (this.phase >= 1) this.phase -= 1;
+        const idx = Math.min(n - 1, (this.phase * n) | 0);
+        const raw = this.cells[idx] ? 1 : -1;
+        this.lp += (raw - this.lp) * 0.28;      // tame the square edges
+        s = this.lp;
+      } else {
+        for (let v = 0; v < this.V; v++) {
+          if (this.ve[v] < 1e-4) continue;
+          this.vp[v] += this.vf[v] / sr;
+          if (this.vp[v] >= 1) this.vp[v] -= 1;
+          s += Math.sin(this.vp[v] * 6.283185307179586) * this.ve[v];
+          this.ve[v] *= this.vd[v];
+        }
+        s /= 6;                                  // voices sum: normalise before the clip
+      }
+
+      s = Math.tanh(s * 1.4) * gain;
+      if (!Number.isFinite(s)) s = 0;
+      L[k] = s; if (R !== L) R[k] = s;
+    }
+    return true;
+  }
+}
+registerProcessor('ca', CAProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+/* Same rule source as the worklet, evaluated here for the drawing and the presets.
+   The prelude tag has a non-standard type, so the browser never runs it: it exists
+   as text for the worklet Blob, and the main thread has to ask for it explicitly. */
+const { CA, CA_PRESETS } =
+  new Function(document.getElementById('casrc').textContent + '; return { CA, CA_PRESETS };')();
+
+const IDS = ['rule','width','seed','rate','mode','gain','base','span','decay'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const ctx2d = Kit.fit(document.getElementById('view'));
+const info = document.getElementById('info');
+const hint = document.getElementById('hint');
+
+// rule presets
+const rulesRow = document.getElementById('rules');
+CA_PRESETS.forEach(([r, label]) => {
+  const b = document.createElement('button');
+  b.textContent = r + ' · ' + label;
+  b.dataset.rule = r;
+  b.addEventListener('click', () => { el.rule.value = r; onInput(); });
+  rulesRow.appendChild(b);
+});
+function markRule() {
+  const r = Number(el.rule.value);
+  rulesRow.querySelectorAll('button').forEach(b =>
+    b.classList.toggle('on', Number(b.dataset.rule) === r));
+}
+
+// history of generations, newest last
+let hist = [], liveGen = 0;
+const MAXROWS = 260;   // history kept; how many are drawn depends on the cell size
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'ca', prelude: ['casrc'] });
+  st.node.port.onmessage = e => {
+    if (e.data.type !== 'gen') return;
+    liveGen = e.data.n;
+    const row = Uint8Array.from(e.data.row);
+    if (hist.length && hist[hist.length - 1].length !== row.length) hist = [];
+    hist.push(row);
+    if (hist.length > MAXROWS) hist.shift();
+  };
+  st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+  return st;
+});
+
+function onInput() {
+  Kit.readouts(el);
+  markRule();
+  const st = getState();
+  if (st) st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+  el.decay.disabled = Number(el.mode.value) === 1;
+  hint.textContent = Number(el.mode.value) === 1
+    ? 'the row is one cycle of a waveform, so the pattern is the timbre'
+    : '';
+}
+IDS.forEach(id => el[id] && el[id].addEventListener('input', onInput));
+IDS.forEach(id => el[id] && el[id].addEventListener('change', onInput));
+document.getElementById('reseed').addEventListener('click', () => {
+  hist = [];
+  const st = getState();
+  if (st) st.node.port.postMessage({ type: 'reseed' });
+});
+
+/* Draw the rule as its eight neighbourhoods, then the space-time diagram. */
+function drawRuleTable(W, top, h) {
+  const rule = Math.round(Number(el.rule.value)) & 255;
+  const cell = Math.min(11, Math.max(6, Math.floor(W / 90)));
+  const groupW = cell * 3 + 26;
+  const total = groupW * 8;
+  let x = Math.max(4, (W - total) / 2);
+  ctx2d.font = '9px ' + Kit.css('--sans');
+  for (let nb = 7; nb >= 0; nb--) {
+    const l = (nb >> 2) & 1, c = (nb >> 1) & 1, r = nb & 1;
+    const bit = (rule >> nb) & 1;
+    [l, c, r].forEach((v, i) => {
+      ctx2d.fillStyle = v ? Kit.css('--mint') : 'rgba(255,255,255,.10)';
+      ctx2d.fillRect(x + i * cell, top, cell - 1, cell - 1);
+    });
+    ctx2d.fillStyle = bit ? Kit.css('--mint') : 'rgba(255,255,255,.10)';
+    ctx2d.fillRect(x + cell, top + cell + 4, cell - 1, cell - 1);
+    ctx2d.fillStyle = Kit.css('--muted');
+    ctx2d.fillText(String(bit), x + cell + cell + 2, top + cell + cell + 2);
+    x += groupW;
+  }
+  ctx2d.fillStyle = Kit.css('--muted');
+  ctx2d.fillText('rule ' + rule + ' = ' + rule.toString(2).padStart(8, '0'), 6, top + h - 2);
+}
+
+function draw() {
+  const W = ctx2d.canvas.clientWidth, H = ctx2d.canvas.clientHeight;
+  ctx2d.clearRect(0, 0, W, H);
+  const tableH = 40;
+  drawRuleTable(W, 8, tableH);
+
+  const y0 = tableH + 14, viewH = H - y0 - 4;
+  if (hist.length) {
+    const n = hist[hist.length - 1].length;
+    const cw = W / n;
+    /* Cells near-square, which is what makes the space-time diagram read as the
+       familiar picture: a row of thin dashes distorts the triangle badly. Capped
+       so a useful number of generations still fits the panel. */
+    const rh = Math.max(1.5, Math.min(6, cw));
+    const rows = Math.min(hist.length, Math.floor(viewH / rh));
+    const start = hist.length - rows;
+    for (let r = 0; r < rows; r++) {
+      const row = hist[start + r];
+      const newest = (start + r) === hist.length - 1;
+      ctx2d.fillStyle = newest ? Kit.css('--gold') : Kit.css('--accent');
+      for (let i = 0; i < n; i++) {
+        if (!row[i]) continue;
+        ctx2d.fillRect(i * cw, y0 + r * rh, Math.max(1, cw - 0.3), Math.max(1, rh - 0.2));
+      }
+    }
+    const live = hist[hist.length - 1].reduce((a, b) => a + b, 0);
+    info.textContent = 'generation ' + liveGen + ' · ' + live + ' of ' + n + ' cells live';
+    // silence with no explanation reads as a broken demo, so say what happened
+    if (live === 0 && hist.length > 2)
+      hint.textContent = 'every cell is dead, so there is nothing to sound. Re-seed, or change'
+        + ' the number of cells: rule 90 always dies on a ring of 2, 4, 8 … 128 cells.';
+  } else {
+    ctx2d.fillStyle = Kit.css('--muted');
+    ctx2d.font = '12px ' + Kit.css('--sans');
+    ctx2d.fillText('press play', 8, y0 + 18);
+  }
+  requestAnimationFrame(draw);
+}
+
+onInput();
+draw();
+</script>
+</body>
+</html>

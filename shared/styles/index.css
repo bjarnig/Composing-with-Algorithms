@@ -80,6 +80,10 @@
    -------------------------------------------------------------------------- */
 .slidev-layout strong { color: #fff; font-weight: 700; }
 
+/* The class lists on the Topics slides are one paragraph of <br>-separated lines,
+   so the air between entries is line-height rather than a margin. */
+.slidev-layout .topics { font-size: 1.15rem; line-height: 2.15; }
+
 /* *-prefixed lists */
 .slidev-layout ul { list-style: none; padding-left: 0.2rem; margin: 0.4rem 0 0.8rem; }
 .slidev-layout ul li { font-size: 1.15rem; line-height: 1.45; margin: 0.55rem 0; }
