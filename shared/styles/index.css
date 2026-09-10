@@ -214,3 +214,8 @@
   max-width: 100%;
 }
 .slidev-layout.light .fig img { max-height: min(11.5rem, 100%); max-width: 100%; min-width: 0; }
+/* A light slide whose whole content is one upright diagram, with no quote above it, can
+   give the figure the height the 11.5rem cap would otherwise deny it. Use .shot for a wide
+   short diagram, .fig for one under a quote, and .fig.tall for this case. A portrait figure
+   in .shot overflows the slide, because .shot sets width:100% and lets the height follow. */
+.slidev-layout.light .fig.tall img { max-height: min(21rem, 100%); }
