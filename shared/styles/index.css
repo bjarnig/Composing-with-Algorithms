@@ -17,7 +17,7 @@
   --cwa-accent: #78a5d2;  /* Accrete succession: questions, workshops, links */
   --cwa-muted: #9aa4b5;   /* Accrete colorInactive, lightened: housekeeping notes */
   --cwa-sage: #9eb5ab;    /* Ora secondary */
-  --cwa-mint: #8ce1b4;    /* Accrete colorActive */
+  --cwa-mint: #9aefe1;    /* Accrete colorActive, lifted and turned toward cyan */
   --cwa-gold: #d2b95f;    /* Accrete transformation */
   --cwa-rose: #d27878;    /* Accrete contrast */
   --cwa-rule: rgba(255, 255, 255, 0.45);   /* header hairline on dark slides */
@@ -170,6 +170,20 @@
    these are wide and short, and .fig's 11.5rem height cap shrinks them to nothing. */
 .slidev-layout.light .shot { margin: 1.6rem 0 0; }
 .slidev-layout.light .shot img { max-height: none; width: 100%; }
+
+/* Quotes on a dark slide: Slidev's base gives every blockquote the shiki code
+   background, which is the same #121212 panel corrected for code just below. On a dark
+   slide that reads as a black box sitting on the ground. A quote gets the house serif and
+   a rule instead of a box. The .light rule further down is more specific and still wins. */
+.slidev-layout blockquote {
+  background: transparent;
+  color: var(--cwa-fg);
+  font-family: var(--cwa-serif); font-style: italic;
+  font-size: 1.12rem; line-height: 1.5;
+  border: none; border-left: 2px solid var(--cwa-rule); border-radius: 0;
+  padding: 0.1rem 0 0.1rem 1.1rem; margin: 1.2rem 0;
+}
+.slidev-layout blockquote p { font-size: 1.12rem; line-height: 1.5; margin: 0; }
 
 /* Code blocks: shiki's theme ships its own #121212 ground, which reads as an
    off-colour panel against --cwa-bg. Use a faint tint of the slide instead. */
