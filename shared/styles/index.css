@@ -14,7 +14,7 @@
 :root {
   --cwa-bg: #171b21;      /* Accrete colorBg; also bjarni-gunnarsson.net ground */
   --cwa-fg: #ffffff;      /* body copy: full white, for projector contrast */
-  --cwa-accent: #78a5d2;  /* Accrete succession: questions, workshops, links */
+  --cwa-accent: #87b5e3;  /* Accrete succession, lifted the way the mint was: questions, workshops, links */
   --cwa-muted: #9aa4b5;   /* Accrete colorInactive, lightened: housekeeping notes */
   --cwa-sage: #9eb5ab;    /* Ora secondary */
   --cwa-mint: #9aefe1;    /* Accrete colorActive, lifted and turned toward cyan */
@@ -96,7 +96,8 @@
 .slidev-layout ul li::before { content: "*  "; opacity: 0.9; }
 
 /* blue, reserved for what is addressed at the students */
-.q { color: var(--cwa-accent); font-style: italic; }
+/* a shade under body copy: the question is an aside to the room, not a heading */
+.q { color: var(--cwa-accent); font-style: italic; font-size: 1.05rem; }
 /* margin stays small: the marker already sits in its own paragraph, and three
    of them on the Topics slides overflow the slide if each adds its own space */
 .workshop {
@@ -105,7 +106,7 @@
 }
 /* housekeeping: smaller than body copy, but bright rather than grey. Mint, not the
    blue accent, so .q and .workshop keep their exclusive claim on "addressed at you". */
-.note { color: var(--cwa-mint); font-size: 1rem; }
+.note { color: var(--cwa-mint); font-size: 0.92rem; }
 
 .slidev-layout a { color: var(--cwa-accent); text-decoration: none; }
 .mono { font-family: "Fira Code", "Menlo", monospace; }

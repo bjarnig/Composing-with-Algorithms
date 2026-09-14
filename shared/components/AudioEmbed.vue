@@ -21,10 +21,20 @@ const props = withDefaults(defineProps<{
 })
 
 const isActive = useIsSlideActive()
-const url = computed(() =>
-  props.compact
-    ? props.src + (props.src.includes('?') ? '&' : '?') + 'compact=1'
-    : props.src)
+/* A deck is built with --base "/<year>/<deck>/", and a root-relative src in a prop is
+   not rewritten by that, so the iframe would resolve to the site root and 404. Vite
+   hands the base to the client, which is '/' in dev and the deployed path in a build. */
+const url = computed(() => {
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
+  let rel = props.src.startsWith('/') ? props.src : '/' + props.src
+  // CloudFront in front of this bucket does not resolve a directory to its index
+  // document: a request for a folder returns the deck's own 404 page, with a 200.
+  if (rel.endsWith('/')) rel += 'index.html'
+  const full = base + rel
+  return props.compact
+    ? full + (full.includes('?') ? '&' : '?') + 'compact=1'
+    : full
+})
 </script>
 
 <template>

@@ -24,13 +24,6 @@ mdc: true
   <a href="https://www.bjarni-gunnarsson.net">https://www.bjarni-gunnarsson.net</a>
 </div>
 
-<!--
-First class. Welcome, who is here, backgrounds. Acknowledge Paul Berg openly.
-Play something before any definition, and something recent rather than canonical:
-Elías Merino, Spaceless Latitudes (2018). Alternates: Merino, Fluctuating Melisma
-(2015); Jia Liu; Roc Jiménez de Cisneros. Say nothing about it until afterwards.
--->
-
 ---
 layout: center
 class: divider
@@ -222,11 +215,6 @@ Class 27, <b>Composition Processes</b><br>
 Class 28, <b>Generative AI and Agents</b>
 </div>
 
-<!--
-Twenty-eight classes, one workshop at 04. 28 closes the year on language models and
-generative AI: the class that asks whether writing the rule can itself be delegated.
--->
-
 ---
 class: light
 ---
@@ -236,12 +224,6 @@ class: light
 <div class="shot"><img src="/figures/sclang-server-000.svg" /></div>
 
 <div class="src">(two components, client/server)</div>
-
-<!--
-The whole architecture in one picture, and the only claim worth making now: these are two
-separate programs, and nothing you type makes a sound until a message crosses that arrow.
-Class 02 unpacks it. Do not name a single UGen here.
--->
 
 ---
 
@@ -331,11 +313,6 @@ A computer can take different roles in the creative process:
 - **Instrument** during a performance
 - **Playback device** for pre-composed materials
 
-<!--
-This list is the hinge. Read it once, then say that the year turns those roles into four
-questions, and go straight into the threads.
--->
-
 ---
 
 # Representations
@@ -373,7 +350,7 @@ Where a rule comes from, and how to use it?
 
 Koenig's selection principles, one line, one instrument, and the same four notes throughout. Only the **way a value is picked** changes.
 
-```supercollider {*|1-2|3-4|5-6|7-8|9-10|11-13}
+```supercollider
 // sequence: in order, forever
 Pbind(\instrument, \sine, \dur, 0.15, \midinote, Pseq([60,63,67,70], inf)).play
 // alea: any value in a range, no memory
@@ -389,11 +366,6 @@ Pbind(\instrument, \sine, \dur, 0.1,
 	\midinote, Pwhite(Pseg([36,60],[10],\lin), Pseg([84,66],[10],\lin))).play
 ```
 
-<!--
-Click through one at a time and play each. Six lines, and class 07 is built on them.
-The last one needs the diagram that follows.
--->
-
 ---
 class: light
 ---
@@ -403,11 +375,6 @@ class: light
 <div class="shot"><img src="/figures/tendency-000.svg" /></div>
 
 <div class="src">(after Koenig, Project 2)</div>
-
-<!--
-Koenig's own device. Draw the two boundaries, divide the time into N parts, and let the
-values fall between them. The composer sets the shape of the corridor, not the notes.
--->
 
 ---
 class: light
@@ -421,11 +388,6 @@ class: light
 
 <div class="src">(Koenig, on Project 1)</div>
 <div class="fig"><img src="/figures/koenig-000.png" /></div>
-
-<!--
-Both from Koenig, quoted in Paul Berg's CWA 6. The second sentence is the course in one line
-and it belongs here, at the start, not buried in class 07.
--->
 
 ---
 class: light
@@ -449,12 +411,6 @@ class: light
 
 <div class="shot"><img src="/figures/rate-000.svg" /></div>
 
-<!--
-Nothing about the generator changes across this axis. Only how fast it is read. Around 20 Hz
-a sequence of events stops being countable and turns into a pitch, and that is the same
-threshold the grain-rate demo crosses.
--->
-
 ---
 class: light
 ---
@@ -465,11 +421,6 @@ class: light
 
 <div class="src">(Curtis Roads)</div>
 <div class="fig"><img src="/figures/roads-000.png" /></div>
-
-<!--
-One quantity changes, density, and the kind of thing you are hearing changes with it. That is
-the whole of class 11 in a sentence.
--->
 
 ---
 
@@ -491,11 +442,6 @@ r = 3.9   [ 0.120, 0.413, 0.945, 0.202, 0.628, 0.911 ]
 ```
 
 One value, then two, then four, then none of them repeating. **Nothing was random.**
-
-<!--
-Real output, not an illustration. Open /tools/chaos and sweep r to see the same thing as a
-picture. Then map the numbers to pitch, which is the next block in Intro.scd.
--->
 
 ---
 class: light
@@ -522,13 +468,6 @@ class: light
 
 <div class="src">(Stephen Wolfram, computational irreducibility; Mark Bedau, weak emergence, 1997)</div>
 
-<!--
-The formal ground under the whole year. For some processes there is no shortcut: you cannot
-outrun the system by analysis, so you run it and listen. The cellular automaton on the tools
-page is exactly this, Wolfram's own elementary rules with no way to reach generation 200
-except by taking all two hundred steps.
--->
-
 ---
 
 # Machine Listening
@@ -547,11 +486,6 @@ Three numbers a machine will offer about any sound.
 ```
 
 Now stop the sound and watch the numbers. Amplitude falls to zero, and **`Pitch` keeps reporting whatever it last found**.
-
-<!--
-This is class 18 in one block. The machine's ear is not a worse ear, it is a different one,
-and the interesting part is the shape of what it misses.
--->
 
 ---
 class: light

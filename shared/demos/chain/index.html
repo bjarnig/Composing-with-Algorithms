@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>A Signal Chain — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  .state { font-size: .75rem; color: var(--muted); min-height: 1.2rem; }
+  body.compact fieldset:not(.primary) { display: none; }
+  body.compact .grid { grid-template-columns: 1fr; max-width: 26rem; }
+</style>
+</head>
+<body>
+
+<h1>A Signal Chain</h1>
+<p class="sub">Four stages in a row: a Gendy, a filter, an oscillator that moves the filter,
+and a comb delay. Each one is a UGen, and the output of one is the input of the next. The
+source is Xenakis's dynamic stochastic synthesis: twelve control points whose amplitude and
+duration each take a bounded random walk, and the waveform is whatever they currently spell.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>the chain</span>
+  <span><i style="background:var(--mint)"></i>cutoff, where the LFO has put it</span>
+  <span id="state" class="state"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <span style="color:var(--muted);font-size:.75rem">presets:</span>
+  <button class="preset" data-p="saw">the Gendy alone</button>
+  <button class="preset" data-p="filter">through the filter</button>
+  <button class="preset" data-p="lfo">the LFO moves the cutoff</button>
+  <button class="preset" data-p="comb">into the comb delay</button>
+  <button class="preset" data-p="pitched">a comb short enough to have a pitch</button>
+</div>
+<p class="hint" id="hint"></p>
+
+<div class="grid">
+  <fieldset class="primary">
+    <legend>the four stages</legend>
+    <label><span>ampscale</span><input type="range" id="ampscale" min="0" max="1" step="0.01" value="0.5"><output></output></label>
+    <label><span>cutoff (Hz)</span><input type="range" id="cutoff" min="100" max="6000" step="10" value="900"><output></output></label>
+    <label><span>LFO depth</span><input type="range" id="depth" min="0" max="1" step="0.01" value="0.6"><output></output></label>
+    <label><span>delay mix</span><input type="range" id="mix" min="0" max="1" step="0.01" value="0"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Gendy</legend>
+    <label><span>ampdist</span>
+      <select id="ampdist">
+        <option value="0" selected>linear</option>
+        <option value="1">cauchy</option>
+        <option value="2">arcsine</option>
+      </select><output></output></label>
+    <label><span>durscale</span><input type="range" id="durscale" min="0" max="1" step="0.01" value="0.4"><output></output></label>
+    <label><span>minfreq (Hz)</span><input type="range" id="minfreq" min="20" max="200" step="1" value="60"><output></output></label>
+    <label><span>maxfreq (Hz)</span><input type="range" id="maxfreq" min="60" max="800" step="1" value="180"><output></output></label>
+    <label><span>knum</span><input type="range" id="knum" min="2" max="12" step="1" value="12"><output></output></label>
+    <label><span>level</span><input type="range" id="gain" min="0" max="0.3" step="0.005" value="0.15"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>filter</legend>
+    <label><span>resonance</span><input type="range" id="res" min="0" max="0.9" step="0.01" value="0.5"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>LFO</legend>
+    <label><span>shape</span>
+      <select id="shape">
+        <option value="0" selected>sine</option>
+        <option value="1">smooth random</option>
+      </select><output></output></label>
+    <label><span>rate (Hz)</span><input type="range" id="rate" min="0.05" max="20" step="0.05" value="0.6"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>comb delay</legend>
+    <label><span>delay (ms)</span><input type="range" id="dtime" min="0.5" max="80" step="0.5" value="24"><output></output></label>
+    <label><span>feedback</span><input type="range" id="fb" min="0" max="0.9" step="0.01" value="0.6"><output></output></label>
+  </fieldset>
+</div>
+
+<script id="worklet" type="text/js-worklet">
+/* saw -> filter -> comb, with an LFO on the cutoff.
+   Nothing here is routed or reordered: the chain is fixed, and the only question
+   is what each stage does to what reaches it. */
+class ChainProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = { ampscale:0.5, durscale:0.4, ampdist:0, minfreq:60, maxfreq:180, knum:12,
+               cutoff:900, depth:0.6, mix:0, gain:0.15,
+               res:0.5, shape:0, rate:0.6, dtime:24, fb:0.6 };
+    // Gendy1's memory: twelve control points, each with an amplitude and a duration
+    this.CPS = 12;
+    this.amp = new Float32Array(this.CPS);
+    this.dur = new Float32Array(this.CPS);
+    for (let i = 0; i < this.CPS; i++) {
+      this.amp[i] = Math.random() * 2 - 1;
+      this.dur[i] = Math.random();
+    }
+    this.idx = 0;                         // the point being walked towards
+    this.seg = 0;                         // samples left in this segment
+    this.segLen = 1;
+    this.from = 0; this.to = this.amp[0];
+    this.lp = 0; this.bp = 0;             // filter state
+    this.lfoPhase = 0;                    // LFO phase
+    this.rFrom = 0; this.rTo = Math.random() * 2 - 1;
+    this.delay = new Float32Array(Math.ceil(sampleRate * 0.1) + 4);   // 100 ms is the max
+    this.w = 0;                           // delay write head
+    this.port.onmessage = e => {
+      if (e.data.type === 'params') Object.assign(this.p, e.data.value);
+    };
+  }
+
+  /* One perturbation, from the distribution Xenakis names. adparam shapes it;
+     the result is a delta in -1..1 that is then scaled and mirrored into range. */
+  delta(kind) {
+    const u = Math.random();
+    if (kind === 1) {                                   // cauchy, heavy tailed
+      const v = Math.tan((u - 0.5) * Math.PI * 0.94);
+      return Math.max(-1, Math.min(1, v * 0.35));
+    }
+    if (kind === 2) return Math.sin(Math.PI * (u - 0.5));   // arcsine
+    return u * 2 - 1;                                    // linear
+  }
+
+  // reflect into range rather than clip, which is what keeps the walk moving
+  static mirror(x, lo, hi) {
+    let v = x;
+    for (let g = 0; g < 8 && (v < lo || v > hi); g++) {
+      if (v < lo) v = lo + (lo - v);
+      if (v > hi) v = hi - (v - hi);
+    }
+    return Math.max(lo, Math.min(hi, v));
+  }
+
+  // walk one control point and start the segment that leads to it
+  nextPoint() {
+    const p = this.p, k = Math.max(2, Math.min(this.CPS, Math.round(p.knum)));
+    this.idx = (this.idx + 1) % k;
+    const i = this.idx;
+    this.amp[i] = ChainProcessor.mirror(
+      this.amp[i] + p.ampscale * this.delta(p.ampdist), -1, 1);
+    this.dur[i] = ChainProcessor.mirror(
+      this.dur[i] + p.durscale * this.delta(p.ampdist), 0, 1);
+
+    // the mean duration chooses the cycle frequency, bounded by minfreq and maxfreq
+    let mean = 0;
+    for (let j = 0; j < k; j++) mean += this.dur[j];
+    mean /= k;
+    const lo = Math.min(p.minfreq, p.maxfreq), hi = Math.max(p.minfreq, p.maxfreq);
+    const freq = lo * Math.pow(hi / Math.max(1, lo), mean);
+    const cycle = sampleRate / Math.max(1, freq);
+    this.segLen = Math.max(2, (cycle / k) * (this.dur[i] / Math.max(0.02, mean)));
+    this.seg = this.segLen;
+    this.from = this.to;
+    this.to = this.amp[i];
+  }
+
+  // linear interpolation between the control points, which is Gendy1's waveform
+  gendy() {
+    if (this.seg <= 0) this.nextPoint();
+    this.seg -= 1;
+    const u = 1 - this.seg / this.segLen;
+    return this.from + (this.to - this.from) * u;
+  }
+
+  lfo(dt) {
+    const p = this.p;
+    this.lfoPhase += p.rate * dt;
+    while (this.lfoPhase >= 1) {
+      this.lfoPhase -= 1;
+      this.rFrom = this.rTo;
+      this.rTo = Math.random() * 2 - 1;
+    }
+    return p.shape === 1
+      ? this.rFrom + (this.rTo - this.rFrom) * this.lfoPhase   // interpolated, like LFNoise1
+      : Math.sin(2 * Math.PI * this.lfoPhase);
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0], n = out[0].length, dt = 1 / sampleRate, p = this.p;
+    const dSamp = Math.max(1, Math.min(this.delay.length - 2, p.dtime * 0.001 * sampleRate));
+    let peak = 0, cutNow = p.cutoff;
+
+    for (let i = 0; i < n; i++) {
+      const src = this.gendy();
+
+      // the LFO moves the cutoff, in octaves, so the sweep is even by ear
+      const m = this.lfo(dt);
+      const cut = Math.max(60, Math.min(0.45 / dt, p.cutoff * Math.pow(2, m * 2 * p.depth)));
+      cutNow = cut;
+
+      // state variable lowpass. The states are clamped because this topology goes
+      // unstable at high cutoff with high resonance, and one NaN would then travel
+      // down the feedback path and silence the page for good.
+      const f = 2 * Math.sin(Math.PI * cut * dt);
+      const q = 1 - p.res * 0.97;
+      this.bp += f * (src - this.lp - q * this.bp);
+      this.lp += f * this.bp;
+      if (!(this.bp > -3)) this.bp = -3; else if (this.bp > 3) this.bp = 3;
+      if (!(this.lp > -3)) this.lp = -3; else if (this.lp > 3) this.lp = 3;
+      const filtered = this.lp;
+
+      // comb delay, read with linear interpolation so the delay can move smoothly
+      const r = this.w - dSamp + this.delay.length;
+      const i0 = Math.floor(r) % this.delay.length;
+      const i1 = (i0 + 1) % this.delay.length;
+      const frac = r - Math.floor(r);
+      const dly = this.delay[i0] * (1 - frac) + this.delay[i1] * frac;
+      // tanh on the feedback path: a comb at high feedback and a moving delay
+      // will otherwise keep growing, and this is the cheapest bound that stays musical
+      this.delay[this.w] = Math.tanh(filtered + dly * p.fb);
+      this.w = (this.w + 1) % this.delay.length;
+
+      const v = (filtered * (1 - p.mix) + dly * p.mix) * p.gain;
+      const s = Math.max(-1, Math.min(1, v));
+      for (let c = 0; c < out.length; c++) out[c][i] = s;
+      const a = Math.abs(s);
+      if (a > peak) peak = a;
+    }
+
+    this.frames = (this.frames || 0) + 1;
+    if ((this.frames & 7) === 0) this.port.postMessage({ peak, cut: cutNow });
+    return true;
+  }
+}
+registerProcessor('chain', ChainProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const IDS = ['ampscale','cutoff','depth','mix','ampdist','durscale','minfreq',
+             'maxfreq','knum','gain','res','shape','rate','dtime','fb'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const ctx2d = Kit.fit(document.getElementById('view'));
+const stateLabel = document.getElementById('state');
+const hint = document.getElementById('hint');
+let snap = null;
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'chain' });
+  st.node.port.onmessage = e => { snap = e.data; };
+  st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+  return st;
+});
+
+function send() {
+  const st = getState();
+  if (st) st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+}
+IDS.forEach(id => el[id].addEventListener('input', () => { Kit.readouts(el); send(); }));
+
+Kit.presets({
+  saw:     { ampscale:0.5, durscale:0.4, minfreq:60, maxfreq:180, knum:12,
+             cutoff:6000, res:0, depth:0, mix:0, fb:0, gain:0.15 },
+  filter:  { ampscale:0.5, durscale:0.4, cutoff:600, res:0.7, depth:0, mix:0, fb:0, gain:0.18 },
+  lfo:     { ampscale:0.5, durscale:0.4, cutoff:900, res:0.75, depth:0.7, rate:0.5, shape:0,
+             mix:0, gain:0.18 },
+  comb:    { ampscale:0.6, durscale:0.5, cutoff:1200, res:0.5, depth:0.4, rate:0.3, mix:0.6,
+             dtime:24, fb:0.7, gain:0.15 },
+  pitched: { ampscale:0.3, durscale:0.2, minfreq:40, maxfreq:90, knum:6,
+             cutoff:2500, res:0.3, depth:0.2, rate:0.2, mix:0.8, dtime:2.5, fb:0.85, gain:0.12 },
+}, p => { for (const k in p) if (el[k]) el[k].value = p[k]; Kit.readouts(el); send(); });
+
+const STAGES = [
+  { name: 'gendy',  sub: () => { const v = Kit.values(el);
+      return 'Gendy1.ar(' + v.minfreq + '-' + v.maxfreq + ' Hz)'; } },
+  { name: 'filter', sub: () => 'RLPF.ar' },
+  { name: 'comb',   sub: () => 'CombL.ar(' + Kit.values(el).dtime.toFixed(1) + ' ms)' },
+];
+
+function draw() {
+  const W = ctx2d.canvas.clientWidth, H = ctx2d.canvas.clientHeight;
+  ctx2d.clearRect(0, 0, W, H);
+  const v = Kit.values(el);
+
+  // the chain, across the top
+  const pad = 8, topH = Math.max(74, Math.min(120, H * 0.5));
+  const boxH = Math.max(20, Math.min(30, topH * 0.28));
+  const gap = Math.max(22, W * 0.045);
+  const boxW = (W - 2 * pad - 2 * gap) / 3;
+  const boxY = pad + topH * 0.34;
+  ctx2d.font = '12px ' + Kit.css('--sans');
+  STAGES.forEach((st, i) => {
+    const x = pad + i * (boxW + gap);
+    ctx2d.strokeStyle = Kit.css('--accent');
+    ctx2d.lineWidth = 1.4;
+    ctx2d.strokeRect(x, boxY, boxW, boxH);
+    ctx2d.fillStyle = Kit.css('--fg') || '#fff';
+    ctx2d.font = '12px ' + Kit.css('--sans');
+    ctx2d.fillText(st.name, x + 8, boxY + boxH * 0.68);
+    ctx2d.fillStyle = Kit.css('--muted');
+    ctx2d.font = '10px ' + Kit.css('--sans');
+    ctx2d.fillText(st.sub(), x + 8, boxY + boxH + 12);
+    if (i < STAGES.length - 1) {                       // the arrow to the next stage
+      const ax = x + boxW, ay = boxY + boxH / 2;
+      ctx2d.strokeStyle = Kit.css('--accent');
+      ctx2d.beginPath();
+      ctx2d.moveTo(ax + 3, ay); ctx2d.lineTo(ax + gap - 6, ay); ctx2d.stroke();
+      ctx2d.beginPath();
+      ctx2d.moveTo(ax + gap - 6, ay); ctx2d.lineTo(ax + gap - 12, ay - 3.5);
+      ctx2d.lineTo(ax + gap - 12, ay + 3.5); ctx2d.closePath();
+      ctx2d.fillStyle = Kit.css('--accent'); ctx2d.fill();
+    }
+  });
+
+  // the LFO above the filter, with the cutoff it is currently asking for
+  const fx = pad + (boxW + gap), lfoY = pad + 10;
+  ctx2d.fillStyle = Kit.css('--mint');
+  ctx2d.font = '10px ' + Kit.css('--sans');
+  const cut = snap ? snap.cut : v.cutoff;
+  ctx2d.fillText('LFO ' + v.rate.toFixed(2) + ' Hz  →  cutoff '
+    + Math.round(cut) + ' Hz', fx + 8, lfoY + 8);
+  ctx2d.strokeStyle = Kit.css('--mint');
+  ctx2d.lineWidth = 1.2;
+  ctx2d.setLineDash([3, 3]);
+  ctx2d.beginPath();
+  ctx2d.moveTo(fx + boxW / 2, lfoY + 14); ctx2d.lineTo(fx + boxW / 2, boxY - 3);
+  ctx2d.stroke();
+  ctx2d.setLineDash([]);
+
+  // the output
+  const botTop = pad + topH + 8, botH = Math.max(30, H - botTop - 4);
+  ctx2d.save();
+  ctx2d.translate(0, botTop);
+  Kit.axis(ctx2d, W, botH);
+  const st = getState();
+  if (st) Kit.drawScope(ctx2d, W, botH, st.analyser, st.scope,
+    { hz: v.minfreq, gain: Math.max(0.02, v.gain), sampleRate: st.ctx.sampleRate });
+  ctx2d.restore();
+  ctx2d.fillStyle = Kit.css('--muted');
+  ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillText('output', 6, botTop + 12);
+
+  stateLabel.textContent = snap ? 'peak ' + snap.peak.toFixed(3) : '';
+  hint.textContent =
+    v.mix > 0.05 && v.dtime < 6
+      ? 'A delay this short repeats faster than you can hear as an echo, so the comb has a pitch: about '
+        + Math.round(1000 / v.dtime) + ' Hz.'
+      : (v.ampscale < 0.02
+        ? 'With ampscale at zero the control points stop moving, and the Gendy is just a fixed waveform.'
+        : (v.depth > 0.05
+            ? 'The LFO is an oscillator too. It is slow, and it is wired to a number rather than to the output.'
+            : 'Raise the LFO depth and the same filter starts moving.'));
+  requestAnimationFrame(draw);
+}
+Kit.readouts(el); draw();
+</script>
+</body>
+</html>

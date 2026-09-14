@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>The Server — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  .nodes { display: flex; flex-direction: column; gap: .35rem; margin: .2rem 0 .1rem; }
+  .state { font-size: .75rem; color: var(--muted); min-height: 1.2rem; }
+  .state b { color: var(--rose); font-weight: 600; }
+  body.compact fieldset:not(.primary) { display: none; }
+  body.compact .grid { grid-template-columns: 1fr; max-width: 26rem; }
+  .state i { color: var(--mint); font-style: normal; }
+</style>
+</head>
+<body>
+
+<h1>The Server</h1>
+<p class="sub">Two nodes in a group, a private bus between them, and one modulator you can
+rewire. The order of the nodes is not visible in the code, and it decides whether there is
+any sound at all.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>output</span>
+  <span><i style="background:var(--mint)"></i>bus written before it is read</span>
+  <span><i style="background:var(--rose)"></i>bus read too early</span>
+  <span id="state" class="state"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <span style="color:var(--muted);font-size:.75rem">presets:</span>
+  <button class="preset" data-p="right">right order</button>
+  <button class="preset" data-p="wrong">wrong order</button>
+  <button class="preset" data-p="feedback">wrong order, InFeedback</button>
+  <button class="preset" data-p="cutoff">modulate the cutoff</button>
+  <button class="preset" data-p="amp">modulate the amplitude</button>
+  <button class="preset" data-p="stair">control rate staircase</button>
+</div>
+<p class="hint" id="hint"></p>
+
+<div class="grid">
+  <fieldset class="primary">
+    <legend>the group</legend>
+    <label><span>order</span>
+      <select id="order">
+        <option value="0" selected>source, then filter</option>
+        <option value="1">filter, then source</option>
+      </select><output></output></label>
+    <label><span>the filter reads with</span>
+      <select id="reader">
+        <option value="0" selected>In.ar</option>
+        <option value="1">InFeedback.ar</option>
+      </select><output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.25" step="0.005" value="0.15"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>source</legend>
+    <label><span>waveform</span>
+      <select id="wave">
+        <option value="0" selected>saw</option><option value="1">pulse</option>
+        <option value="2">sine</option><option value="3">noise</option>
+      </select><output></output></label>
+    <label><span>freq (Hz)</span><input type="range" id="freq" min="40" max="600" step="1" value="110"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>filter</legend>
+    <label><span>cutoff (Hz)</span><input type="range" id="cutoff" min="100" max="6000" step="10" value="1200"><output></output></label>
+    <label><span>resonance</span><input type="range" id="res" min="0" max="0.9" step="0.01" value="0.5"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>modulator</legend>
+    <label><span>goes to</span>
+      <select id="dest">
+        <option value="0">nothing</option>
+        <option value="1" selected>the cutoff</option>
+        <option value="2">the amplitude</option>
+      </select><output></output></label>
+    <label><span>rate</span>
+      <select id="krate">
+        <option value="0" selected>control rate, once a block</option>
+        <option value="1">audio rate, every sample</option>
+      </select><output></output></label>
+    <label><span>speed (Hz)</span><input type="range" id="mrate" min="0.2" max="60" step="0.1" value="3"><output></output></label>
+    <label><span>depth</span><input type="range" id="depth" min="0" max="1" step="0.01" value="0.7"><output></output></label>
+  </fieldset>
+</div>
+
+<script id="worklet" type="text/js-worklet">
+/* A very small server. One private bus, two nodes, run in the order the user chose.
+   The one rule worth modelling exactly: a bus keeps its contents between blocks, but
+   In.ar returns zeros unless the bus was written earlier in THIS block. InFeedback.ar
+   reads it either way, which is why it hears the previous block instead of silence. */
+class ServerProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = { order:0, reader:0, gain:0.15, wave:0, freq:110,
+               cutoff:1200, res:0.5, dest:1, krate:0, mrate:3, depth:0.7 };
+    this.bus = new Float32Array(256);   // the private bus, retained between blocks
+    this.touched = false;               // written earlier in this block?
+    this.phase = 0;                     // source phase
+    this.lp = 0; this.bp = 0;           // filter state
+    this.mPhase = 0; this.mFrom = 0; this.mTo = Math.random() * 2 - 1;
+    this.mHeld = 0;                     // the control-rate sample and hold
+    this.peak = 0; this.silentBlocks = 0;
+    this.port.onmessage = e => {
+      if (e.data.type === 'params') Object.assign(this.p, e.data.value);
+    };
+  }
+
+  // a smooth random, interpolated between points, like LFNoise1
+  modulator(dt) {
+    this.mPhase += this.p.mrate * dt;
+    while (this.mPhase >= 1) {
+      this.mPhase -= 1;
+      this.mFrom = this.mTo;
+      this.mTo = Math.random() * 2 - 1;
+    }
+    return this.mFrom + (this.mTo - this.mFrom) * this.mPhase;
+  }
+
+  // the source node: writes the bus and marks it written
+  runSource(n, dt) {
+    const p = this.p, inc = p.freq * dt;
+    for (let i = 0; i < n; i++) {
+      this.phase += inc;
+      if (this.phase >= 1) this.phase -= 1;
+      let s;
+      switch (p.wave) {
+        case 1: s = this.phase < 0.5 ? 1 : -1; break;
+        case 2: s = Math.sin(2 * Math.PI * this.phase); break;
+        case 3: s = Math.random() * 2 - 1; break;
+        default: s = 2 * this.phase - 1;
+      }
+      this.bus[i] = s;
+    }
+    this.touched = true;
+  }
+
+  // the filter node: reads the bus, then writes the output
+  runFilter(n, dt, out, mod) {
+    const p = this.p;
+    const readable = (p.reader === 1) || this.touched;
+    for (let i = 0; i < n; i++) {
+      const m = mod[i];
+      const cut = p.dest === 1
+        ? Math.max(60, Math.min(8000, p.cutoff * Math.pow(2, m * 2 * p.depth)))
+        : p.cutoff;
+      // tremolo that only attenuates, so modulating the amplitude can never
+      // push the output above what the gain control already allows
+      const amp = p.dest === 2 ? 1 - p.depth * (1 - m) * 0.5 : 1;
+      const x = readable ? this.bus[i] : 0;
+      // a state variable lowpass, stable for the cutoffs this page allows
+      const f = 2 * Math.sin(Math.PI * Math.min(cut, 0.45 / dt) * dt);
+      const q = 1 - p.res * 0.97;
+      this.bp += f * (x - this.lp - q * this.bp);
+      this.lp += f * this.bp;
+      out[i] = this.lp * amp * p.gain;
+    }
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0], n = out[0].length, dt = 1 / sampleRate;
+    const p = this.p;
+    this.touched = false;               // the block begins with nothing written
+
+    // the modulator, at one of the two rates
+    const mod = new Float32Array(n);
+    if (p.krate === 1) {
+      for (let i = 0; i < n; i++) mod[i] = this.modulator(dt);
+    } else {
+      this.mHeld = this.modulator(dt * n);   // one value for the whole block
+      mod.fill(this.mHeld);
+    }
+    if (p.dest === 0) mod.fill(0);
+
+    const buf = new Float32Array(n);
+    if (p.order === 0) { this.runSource(n, dt); this.runFilter(n, dt, buf, mod); }
+    else { this.runFilter(n, dt, buf, mod); this.runSource(n, dt); }
+
+    let peak = 0;
+    for (let i = 0; i < n; i++) {
+      const v = Math.max(-1, Math.min(1, buf[i]));
+      for (let c = 0; c < out.length; c++) out[c][i] = v;
+      const a = Math.abs(v);
+      if (a > peak) peak = a;
+    }
+    this.peak = peak;
+    this.frames = (this.frames || 0) + 1;
+    if ((this.frames & 7) === 0) {
+      this.port.postMessage({ peak, read: (p.reader === 1) || (p.order === 0),
+                              mod: mod[0] });
+    }
+    return true;
+  }
+}
+registerProcessor('server', ServerProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const IDS = ['order','reader','gain','wave','freq','cutoff','res','dest','krate','mrate','depth'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const ctx2d = Kit.fit(document.getElementById('view'));
+const stateLabel = document.getElementById('state');
+const hint = document.getElementById('hint');
+let snap = null;
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'server' });
+  st.node.port.onmessage = e => { snap = e.data; };
+  st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+  return st;
+});
+
+function send() {
+  const st = getState();
+  if (st) st.node.port.postMessage({ type: 'params', value: Kit.values(el) });
+}
+IDS.forEach(id => el[id].addEventListener('input', () => { Kit.readouts(el); send(); }));
+
+Kit.presets({
+  right:    { order:0, reader:0, dest:0, wave:0, freq:110, cutoff:1200, res:0.5, gain:0.15 },
+  wrong:    { order:1, reader:0, dest:0, wave:0, freq:110, cutoff:1200, res:0.5, gain:0.15 },
+  feedback: { order:1, reader:1, dest:0, wave:0, freq:110, cutoff:1200, res:0.5, gain:0.15 },
+  cutoff:   { order:0, reader:0, dest:1, krate:1, mrate:3, depth:0.7, wave:0, res:0.7 },
+  amp:      { order:0, reader:0, dest:2, krate:1, mrate:2, depth:0.9, wave:2, res:0.2 },
+  stair:    { order:0, reader:0, dest:1, krate:0, mrate:40, depth:0.9, wave:0, res:0.7 },
+}, p => { for (const k in p) if (el[k]) el[k].value = p[k]; Kit.readouts(el); send(); });
+
+function draw() {
+  const W = ctx2d.canvas.clientWidth, H = ctx2d.canvas.clientHeight;
+  ctx2d.clearRect(0, 0, W, H);
+  const v = Kit.values(el);
+  const sourceFirst = v.order === 0;
+  const names = sourceFirst ? ['source', 'filter'] : ['filter', 'source'];
+
+  // the group, with its two nodes in order
+  // the top band holds the group; everything inside it is sized from what is left,
+  // because in compact mode the canvas is about half the height it is on its own page
+  const pad = 8, topH = Math.max(76, Math.min(126, H * 0.52));
+  ctx2d.strokeStyle = 'rgba(255,255,255,.18)';
+  ctx2d.setLineDash([4, 4]);
+  ctx2d.strokeRect(pad, pad, W - 2 * pad, topH);
+  ctx2d.setLineDash([]);
+  ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillStyle = Kit.css('--muted');
+  ctx2d.fillText('default group, head at the top', pad + 8, pad + 11);
+
+  const capH = 16, busH = 16;
+  const boxH = Math.max(15, Math.min(26, (topH - capH - busH - 14) / 2));
+  const boxGap = Math.max(4, boxH * 0.28);
+  const boxW = Math.min(190, (W - 2 * pad) * 0.34);
+  const boxTop = pad + capH;
+  names.forEach((name, i) => {
+    const x = pad + 24, y = boxTop + i * (boxH + boxGap);
+    ctx2d.strokeStyle = Kit.css('--accent');
+    ctx2d.lineWidth = 1.4;
+    ctx2d.strokeRect(x, y, boxW, boxH);
+    ctx2d.fillStyle = Kit.css('--fg') || '#fff';
+    ctx2d.font = '12px ' + Kit.css('--sans');
+    ctx2d.fillText(name, x + 10, y + boxH * 0.68);
+    ctx2d.fillStyle = Kit.css('--muted');
+    ctx2d.font = '10px ' + Kit.css('--sans');
+    ctx2d.fillText(name === 'source' ? 'Out.ar(16)'
+      : (v.reader === 1 ? 'InFeedback.ar(16)' : 'In.ar(16)'), x + boxW + 10, y + boxH * 0.68);
+  });
+
+  // the bus, and whether it had been written when it was read
+  const silent = !sourceFirst && v.reader === 0;
+  const busY = boxTop + 2 * (boxH + boxGap) + 8;
+  ctx2d.strokeStyle = silent ? Kit.css('--rose') : Kit.css('--mint');
+  ctx2d.lineWidth = 2;
+  ctx2d.beginPath();
+  ctx2d.moveTo(pad + 24, busY); ctx2d.lineTo(pad + 24 + boxW, busY); ctx2d.stroke();
+  ctx2d.fillStyle = ctx2d.strokeStyle;
+  ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillText(silent ? 'bus 16: not written yet this block, so In.ar gives zeros'
+    : (sourceFirst ? 'bus 16: written, then read'
+                   : 'bus 16: read before it was written, InFeedback takes the last block'),
+    pad + 34 + boxW, busY + 4);
+
+  // the output
+  const botTop = pad + topH + 10, botH = Math.max(30, H - botTop - 4), mid = botTop + botH / 2;
+  ctx2d.strokeStyle = 'rgba(255,255,255,.10)'; ctx2d.lineWidth = 1;
+  ctx2d.beginPath(); ctx2d.moveTo(0, mid); ctx2d.lineTo(W, mid); ctx2d.stroke();
+  const st = getState();
+  if (st) {
+    // drawScope draws about its own centre, so give it the bottom band as its frame
+    ctx2d.save();
+    ctx2d.translate(0, botTop);
+    Kit.drawScope(ctx2d, W, botH, st.analyser, st.scope,
+      { hz: v.freq, gain: Math.max(0.02, v.gain), sampleRate: st.ctx.sampleRate });
+    ctx2d.restore();
+  }
+  ctx2d.fillStyle = Kit.css('--muted');
+  ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillText('output', 6, botTop + 12);
+
+  stateLabel.textContent = snap ? 'peak ' + snap.peak.toFixed(3) : '';
+  hint.textContent = silent
+    ? 'The filter runs before the source, so it reads a bus nothing has written yet. This is silence, not a delay.'
+    : (!sourceFirst
+        ? 'Still the wrong order, but InFeedback reads the previous block, so it sounds, one block late.'
+        : (v.krate === 0 && v.mrate > 20
+            ? 'At the control rate the modulator holds one value per block, so a fast movement becomes a staircase.'
+            : ''));
+  requestAnimationFrame(draw);
+}
+Kit.readouts(el); draw();
+</script>
+</body>
+</html>

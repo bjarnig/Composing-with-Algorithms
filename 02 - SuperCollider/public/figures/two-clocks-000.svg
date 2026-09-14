@@ -1,0 +1,67 @@
+<!-- drawn by Course-Development/figures/cwa-supercollider-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 418" width="1000" height="418" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the language decides when, the server decides exactly when</text>
+<path d="M120.0 110.0 L880.0 110.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<text x="120.0" y="86.0" text-anchor="start" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">language time</text>
+<text x="250.0" y="86.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a scheduler in sclang, in seconds</text>
+<path d="M180.0 98.0 L180.0 122.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<path d="M310.0 98.0 L310.0 122.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<path d="M440.0 98.0 L440.0 122.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<path d="M570.0 98.0 L570.0 122.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<path d="M700.0 98.0 L700.0 122.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<path d="M830.0 98.0 L830.0 122.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<path d="M120.0 230.0 L880.0 230.0" fill="none" stroke="#141414" stroke-width="1.6"/>
+<text x="120.0" y="206.0" text-anchor="start" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">server time</text>
+<text x="250.0" y="206.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">blocks of 64 samples, 1.45 ms each</text>
+<path d="M140.0 222.0 L140.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M159.0 222.0 L159.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M178.0 222.0 L178.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M197.0 222.0 L197.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M216.0 222.0 L216.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M235.0 222.0 L235.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M254.0 222.0 L254.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M273.0 222.0 L273.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M292.0 222.0 L292.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M311.0 222.0 L311.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M330.0 222.0 L330.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M349.0 222.0 L349.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M368.0 222.0 L368.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M387.0 222.0 L387.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M406.0 222.0 L406.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M425.0 222.0 L425.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M444.0 222.0 L444.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M463.0 222.0 L463.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M482.0 222.0 L482.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M501.0 222.0 L501.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M520.0 222.0 L520.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M539.0 222.0 L539.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M558.0 222.0 L558.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M577.0 222.0 L577.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M596.0 222.0 L596.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M615.0 222.0 L615.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M634.0 222.0 L634.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M653.0 222.0 L653.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M672.0 222.0 L672.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M691.0 222.0 L691.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M710.0 222.0 L710.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M729.0 222.0 L729.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M748.0 222.0 L748.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M767.0 222.0 L767.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M786.0 222.0 L786.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M805.0 222.0 L805.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M824.0 222.0 L824.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M843.0 222.0 L843.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M862.0 222.0 L862.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M881.0 222.0 L881.0 238.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<path d="M180.0 116.0 L180.0 166.0" fill="none" stroke="#9a9a9a" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M238.0 224.0 L238.0 166.0" fill="none" stroke="#9a9a9a" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M180.0 166.0 L238.0 166.0" fill="none" stroke="#141414" stroke-width="1.3" marker-start="url(#a)" marker-end="url(#a)"/>
+<text x="209.0" y="152.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">latency</text>
+<text x="500.0" y="296.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a message with a timestamp is played at that time, not on arrival</text>
+<text x="500.0" y="318.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the default latency is 0.2 s, so the server always has the message before it needs it</text>
+<text x="500.0" y="340.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">which is why a pattern stays steady even though the network is not</text>
+<path d="M120.0 374.0 L880.0 374.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="500.0" y="400.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">set the latency to nil and the timing becomes the network's, which is audible</text>
+</svg>

@@ -1,0 +1,33 @@
+<!-- drawn by Course-Development/figures/cwa-supercollider-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 426" width="1000" height="426" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">three programs and their relationship</text>
+<rect x="60.0" y="92.0" width="230.0" height="108.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="175.0" y="120.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">editor</text>
+<text x="175.0" y="144.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the text you type</text>
+<text x="175.0" y="164.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">scide, or any other</text>
+<rect x="385.0" y="92.0" width="230.0" height="108.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="500.0" y="120.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">language</text>
+<text x="500.0" y="144.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">sclang, an interpreter</text>
+<text x="500.0" y="164.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">objects and messages</text>
+<rect x="710.0" y="92.0" width="230.0" height="108.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="825.0" y="120.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">server</text>
+<text x="825.0" y="144.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">scsynth, the audio engine</text>
+<text x="825.0" y="164.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">UGen graphs, one block</text>
+<text x="825.0" y="184.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">at a time</text>
+<path d="M292.0 132.0 L383.0 132.0" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<text x="337.0" y="118.0" text-anchor="middle" font-size="12" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">code</text>
+<path d="M617.0 132.0 L708.0 132.0" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<text x="662.0" y="118.0" text-anchor="middle" font-size="12" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">OSC</text>
+<text x="662.0" y="150.0" text-anchor="middle" font-size="11" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">over a socket</text>
+<path d="M708 182 L662 242 L337 242 L292 182" fill="none" stroke="#555" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#a)"/>
+<text x="500.0" y="262.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">status and errors come back the same way</text>
+<path d="M825.0 200.0 L825.0 278.0" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<text x="840.0" y="246.0" text-anchor="start" font-size="12" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">audio</text>
+<rect x="710.0" y="278.0" width="230.0" height="46.0" rx="4" fill="none" stroke="#141414" stroke-width="1.6"/>
+<text x="825.0" y="306.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">sound card</text>
+<path d="M60.0 360.0 L940.0 360.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="500.0" y="386.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">nothing you type makes a sound until a message crosses the second arrow</text>
+<text x="500.0" y="408.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the socket is why the server can run on another machine, and why itoutlives the language that started it</text>
+</svg>
