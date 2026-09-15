@@ -1,33 +1,26 @@
-// CWA 02, SuperCollider. Everything on the slides, in the order it appears.
-// Evaluate a block by placing the cursor inside the parentheses and pressing
-// cmd-enter; a single line needs no parentheses.
+////////////////////////////////////////////////////////////////
+//
+//                     SuperCollider
+//
+////////////////////////////////////////////////////////////////
 
 s.boot;
 
-///////////////////// A first sound /////////////////////////////
+///////////////////// First sound /////////////////////////////
 
-// an instrument: it does the same thing every time
+// it does the same thing every time
 { SinOsc.ar(220, 0, 0.2) ! 2 }.play;
 
-// a piece: it decides for itself and will not repeat
+// it decides for itself and will not repeat
 { SinOsc.ar(LFNoise1.kr(3).range(200, 800), 0, 0.2) ! 2 }.play;
 
-CmdPeriod.run;
-
-
-///////////////////// The two halves fail separately /////////////
-
-// a language error: nothing reaches the server
-// { SinOsc.ar(440 }.play;
-
-// a server error: the language is perfectly happy, and there is no sound
-Synth(\aNameThatWasNeverAdded);
 
 
 ///////////////////// SynthDef and Synth /////////////////////////
 
-/* A SynthDef is a description, sent once and named. The arguments are what can
-   change afterwards; the shape of the graph cannot. */
+/* A SynthDef is a description that is sent and named.
+   The arguments are what can change afterwards
+*/
 
 (
 SynthDef(\tone, { |freq = 440, amp = 0.2, pan = 0, dur = 2|
@@ -42,7 +35,7 @@ Synth(\tone, [\freq, 660, \amp, 0.1, \pan, -0.7]);
 
 // three at once, one description
 (
-[220, 277, 330].do { |f, i|
+[320, 577, 730].do { |f, i|
 	Synth(\tone, [\freq, f, \pan, i - 1, \dur, 3]);
 };
 )
@@ -58,7 +51,6 @@ Synth(\tone, [\freq, 660, \amp, 0.1, \pan, -0.7]);
 s.sampleRate;                       // whatever the device is set to
 s.sampleRate / s.options.blockSize; // 689.06 at 44100, 750 at 48000
 
-CmdPeriod.run;
 
 
 ///////////////////// Order of execution /////////////////////////
@@ -126,6 +118,7 @@ CmdPeriod.run;
 (
 SynthDef(\one, { |freq = 200| Out.ar(0, SinOsc.ar(freq, 0, 0.05) ! 2) }).add;
 )
+
 (
 8.do { |i| Synth(\one, [\freq, 200 + (i * 100)]) };
 )
@@ -135,8 +128,7 @@ CmdPeriod.run;
 
 ///////////////////// Server or language /////////////////////////
 
-/* The same glissando, decided on either side. One is continuous, the other is
-   a sequence of events, and they do not sound the same. */
+/* The same glissando */
 
 // on the server: one node, a continuous line
 { SinOsc.ar(XLine.kr(200, 800, 4), 0, 0.2) ! 2 }.play;

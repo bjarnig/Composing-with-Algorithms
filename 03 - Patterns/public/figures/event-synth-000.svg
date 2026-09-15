@@ -1,0 +1,35 @@
+<!-- drawn by Course-Development/figures/cwa-patterns-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 366" width="1000" height="366" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">what a Pbind produces, and where each key goes</text>
+<rect x="56.0" y="62.0" width="330.0" height="152.0" rx="4" fill="none" stroke="#555" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="72.0" y="80.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">Pbind, one stream per key</text>
+<text x="76.0" y="106.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\instrument</text>
+<text x="176.0" y="106.0" text-anchor="start" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">\sine</text>
+<text x="76.0" y="134.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\freq</text>
+<text x="176.0" y="134.0" text-anchor="start" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">Pwhite(200, 900)</text>
+<text x="76.0" y="162.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\amp</text>
+<text x="176.0" y="162.0" text-anchor="start" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">Pseq([0.1, 0.05], inf)</text>
+<text x="76.0" y="190.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\dur</text>
+<text x="176.0" y="190.0" text-anchor="start" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0.15</text>
+<path d="M392.0 136.0 L436.0 136.0" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<rect x="440.0" y="82.0" width="150.0" height="108.0" rx="4" fill="none" stroke="#141414" stroke-width="2.2"/>
+<text x="515.0" y="112.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">an Event</text>
+<text x="515.0" y="134.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one per step</text>
+<text x="515.0" y="156.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a set of</text>
+<text x="515.0" y="172.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">key and value</text>
+<path d="M596 118 L640 118 L640 74 L684 74" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<rect x="688.0" y="44.0" width="250.0" height="68.0" rx="4" fill="none" stroke="#141414" stroke-width="1.7"/>
+<text x="813.0" y="68.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Synth(\sine, ...)</text>
+<text x="813.0" y="88.0" text-anchor="middle" font-size="11" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">freq and amp become arguments</text>
+<path d="M596 154 L640 154 L640 196 L684 196" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<rect x="688.0" y="166.0" width="250.0" height="68.0" rx="4" fill="none" stroke="#141414" stroke-width="1.7"/>
+<text x="813.0" y="190.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">the clock</text>
+<text x="813.0" y="210.0" text-anchor="middle" font-size="11" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">dur is the wait before the next</text>
+<text x="660.0" y="104.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">matched by name</text>
+<text x="660.0" y="178.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">kept by the player</text>
+<path d="M56.0 300.0 L944.0 300.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="500.0" y="326.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">a key is an argument of the SynthDef, unless the event system claims it first</text>
+<text x="500.0" y="348.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">dur, legato, sustain and degree are the event's own; everything else is passed straight through</text>
+</svg>

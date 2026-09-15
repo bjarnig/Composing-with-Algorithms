@@ -1,0 +1,186 @@
+<!-- drawn by Course-Development/figures/cwa-patterns-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 474" width="1000" height="474" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the same five notes, read five ways</text>
+<text x="500.0" y="48.0" text-anchor="middle" font-size="13" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">[0, 2, 4, 7, 9]</text>
+<text x="196.0" y="96.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Pseq</text>
+<text x="196.0" y="114.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">in order, for ever</text>
+<path d="M210.0 118.0 L870.0 118.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<path d="M230.6 118.0 L230.6 114.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="230.6" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M271.9 118.0 L271.9 110.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="271.9" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M313.1 118.0 L313.1 106.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="313.1" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M354.4 118.0 L354.4 100.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="354.4" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M395.6 118.0 L395.6 96.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="395.6" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M436.9 118.0 L436.9 114.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="436.9" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M478.1 118.0 L478.1 110.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="478.1" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M519.4 118.0 L519.4 106.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="519.4" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M560.6 118.0 L560.6 100.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="560.6" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M601.9 118.0 L601.9 96.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="601.9" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M643.1 118.0 L643.1 114.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="643.1" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M684.4 118.0 L684.4 110.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="684.4" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M725.6 118.0 L725.6 106.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="725.6" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M766.9 118.0 L766.9 100.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="766.9" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M808.1 118.0 L808.1 96.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="808.1" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M849.4 118.0 L849.4 114.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="849.4" y="132.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<text x="196.0" y="154.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Prand</text>
+<text x="196.0" y="172.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">any one, each time</text>
+<path d="M210.0 176.0 L870.0 176.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<path d="M230.6 176.0 L230.6 172.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="230.6" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M271.9 176.0 L271.9 164.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="271.9" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M313.1 176.0 L313.1 154.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="313.1" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M354.4 176.0 L354.4 172.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="354.4" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M395.6 176.0 L395.6 154.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="395.6" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M436.9 176.0 L436.9 164.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="436.9" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M478.1 176.0 L478.1 172.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="478.1" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M519.4 176.0 L519.4 158.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="519.4" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M560.6 176.0 L560.6 154.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="560.6" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M601.9 176.0 L601.9 168.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="601.9" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M643.1 176.0 L643.1 172.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="643.1" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M684.4 176.0 L684.4 172.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="684.4" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M725.6 176.0 L725.6 158.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="725.6" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M766.9 176.0 L766.9 164.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="766.9" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M808.1 176.0 L808.1 164.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="808.1" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M849.4 176.0 L849.4 164.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="849.4" y="190.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<text x="196.0" y="212.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Pxrand</text>
+<text x="196.0" y="230.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">any but the last one</text>
+<path d="M210.0 234.0 L870.0 234.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<path d="M230.6 234.0 L230.6 222.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="230.6" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M271.9 234.0 L271.9 226.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="271.9" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M313.1 234.0 L313.1 216.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="313.1" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M354.4 234.0 L354.4 226.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="354.4" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M395.6 234.0 L395.6 222.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="395.6" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M436.9 234.0 L436.9 230.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="436.9" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M478.1 234.0 L478.1 216.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="478.1" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M519.4 234.0 L519.4 222.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="519.4" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M560.6 234.0 L560.6 216.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="560.6" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M601.9 234.0 L601.9 222.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="601.9" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M643.1 234.0 L643.1 226.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="643.1" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M684.4 234.0 L684.4 230.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="684.4" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M725.6 234.0 L725.6 226.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="725.6" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M766.9 234.0 L766.9 212.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="766.9" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M808.1 234.0 L808.1 216.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="808.1" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M849.4 234.0 L849.4 212.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="849.4" y="248.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<text x="196.0" y="270.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Pshuf</text>
+<text x="196.0" y="288.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">shuffled once, then looped</text>
+<path d="M210.0 292.0 L870.0 292.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<path d="M230.6 292.0 L230.6 288.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="230.6" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M271.9 292.0 L271.9 284.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="271.9" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M313.1 292.0 L313.1 274.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="313.1" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M354.4 292.0 L354.4 270.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="354.4" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M395.6 292.0 L395.6 280.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="395.6" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M436.9 292.0 L436.9 288.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="436.9" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M478.1 292.0 L478.1 284.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="478.1" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M519.4 292.0 L519.4 274.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="519.4" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M560.6 292.0 L560.6 270.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="560.6" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M601.9 292.0 L601.9 280.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="601.9" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M643.1 292.0 L643.1 288.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="643.1" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M684.4 292.0 L684.4 284.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="684.4" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M725.6 292.0 L725.6 274.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="725.6" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M766.9 292.0 L766.9 270.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="766.9" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M808.1 292.0 L808.1 280.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="808.1" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M849.4 292.0 L849.4 288.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="849.4" y="306.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<text x="196.0" y="328.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Pwhite</text>
+<text x="196.0" y="346.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">any number in the range</text>
+<path d="M210.0 350.0 L870.0 350.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<path d="M230.6 350.0 L230.6 342.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="230.6" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M271.9 350.0 L271.9 346.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="271.9" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M313.1 350.0 L313.1 344.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="313.1" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<path d="M354.4 350.0 L354.4 338.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="354.4" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M395.6 350.0 L395.6 342.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="395.6" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M436.9 350.0 L436.9 334.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="436.9" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">6</text>
+<path d="M478.1 350.0 L478.1 346.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="478.1" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M519.4 350.0 L519.4 340.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="519.4" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">3</text>
+<path d="M560.6 350.0 L560.6 328.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="560.6" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M601.9 350.0 L601.9 328.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="601.9" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M643.1 350.0 L643.1 328.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="643.1" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<path d="M684.4 350.0 L684.4 336.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="684.4" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">5</text>
+<path d="M725.6 350.0 L725.6 332.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="725.6" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M766.9 350.0 L766.9 338.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="766.9" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M808.1 350.0 L808.1 346.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="808.1" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M849.4 350.0 L849.4 346.0" fill="none" stroke="#141414" stroke-width="3.0"/>
+<text x="849.4" y="364.0" text-anchor="middle" font-size="10" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<text x="540.0" y="386.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">sixteen values, time to the right</text>
+<path d="M70.0 408.0 L930.0 408.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="500.0" y="434.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">choosing between these is a compositional decision, not a technical one</text>
+<text x="500.0" y="456.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">Pshuf decides once; Prand decides every time; Pxrand only refuses to repeat itself</text>
+</svg>

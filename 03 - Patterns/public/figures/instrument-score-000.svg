@@ -1,0 +1,29 @@
+<!-- drawn by Course-Development/figures/cwa-patterns-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 386" width="1000" height="386" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">two halves, and you can change either one without the other</text>
+<rect x="70.0" y="70.0" width="360.0" height="190.0" rx="4" fill="none" stroke="#141414" stroke-width="2.2"/>
+<text x="250.0" y="100.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">the instrument</text>
+<text x="250.0" y="122.0" text-anchor="middle" font-size="13" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">SynthDef(\sine, ...)</text>
+<text x="250.0" y="156.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">what the sound is made of</text>
+<text x="250.0" y="180.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">which arguments exist</text>
+<text x="250.0" y="204.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">sent to the server once</text>
+<text x="250.0" y="228.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">silent until something plays it</text>
+<rect x="570.0" y="70.0" width="360.0" height="190.0" rx="4" fill="none" stroke="#141414" stroke-width="2.2"/>
+<text x="750.0" y="100.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">the score</text>
+<text x="750.0" y="122.0" text-anchor="middle" font-size="13" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">Pbind(...)</text>
+<text x="750.0" y="156.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">what values those arguments take</text>
+<text x="750.0" y="180.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">and in what order</text>
+<text x="750.0" y="204.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">and how long to wait</text>
+<text x="750.0" y="228.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">silent without an instrument</text>
+<path d="M500.0 62.0 L500.0 268.0" fill="none" stroke="#555" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="500.0" y="292.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">the boundary</text>
+<path d="M436.0 120.0 L564.0 120.0" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M564.0 210.0 L436.0 210.0" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="500.0" y="112.0" text-anchor="middle" font-size="11" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">names</text>
+<text x="500.0" y="202.0" text-anchor="middle" font-size="11" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">values</text>
+<path d="M70.0 320.0 L930.0 320.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="500.0" y="346.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">two scores over one instrument, or two instruments under one score</text>
+<text x="500.0" y="368.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the same split as SynthDef to Synth, and as Pattern to Stream</text>
+</svg>

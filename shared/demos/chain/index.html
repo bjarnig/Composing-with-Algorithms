@@ -281,7 +281,10 @@ function draw() {
   const v = Kit.values(el);
 
   // the chain, across the top
-  const pad = 8, topH = Math.max(74, Math.min(120, H * 0.5));
+  // the bottom band used to be forced to a 30px minimum, which on the short canvas
+  // of a slide embed pushed it past the canvas and painted over its bottom border
+  const pad = 8, minBot = 30;
+  const topH = Math.min(Math.max(64, Math.min(120, H * 0.5)), H - 2 * pad - minBot - 8);
   const boxH = Math.max(20, Math.min(30, topH * 0.28));
   const gap = Math.max(22, W * 0.045);
   const boxW = (W - 2 * pad - 2 * gap) / 3;
@@ -326,7 +329,7 @@ function draw() {
   ctx2d.setLineDash([]);
 
   // the output
-  const botTop = pad + topH + 8, botH = Math.max(30, H - botTop - 4);
+  const botTop = pad + topH + 8, botH = Math.max(16, H - botTop - pad);
   ctx2d.save();
   ctx2d.translate(0, botTop);
   Kit.axis(ctx2d, W, botH);

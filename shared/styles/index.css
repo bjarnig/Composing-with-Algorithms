@@ -170,7 +170,13 @@
 /* A diagram that IS the slide, rather than a figure under a quote: let width lead, since
    these are wide and short, and .fig's 11.5rem height cap shrinks them to nothing. */
 .slidev-layout.light .shot { margin: 1.6rem 0 0; }
-.slidev-layout.light .shot img { max-height: none; width: 100%; }
+/* max-height is a cap, not a size: these are wide and short, so width:100% is what
+   normally decides. It exists for the PDF export, where a figure tall enough to
+   overflow the printed page is pushed onto the next one and lands invisible.
+   micromontage-algo did exactly that: measured in the print view its image bottom
+   sat exactly on the slide's bottom edge, nought pixels of clearance, while the
+   figures that export correctly clear it by 20 to 113. 24rem leaves about 29. */
+.slidev-layout.light .shot img { max-height: 24rem; width: 100%; object-fit: contain; }
 
 /* Quotes on a dark slide: Slidev's base gives every blockquote the shiki code
    background, which is the same #121212 panel corrected for code just below. On a dark
@@ -234,3 +240,24 @@
    short diagram, .fig for one under a quote, and .fig.tall for this case. A portrait figure
    in .shot overflows the slide, because .shot sets width:100% and lets the height follow. */
 .slidev-layout.light .fig.tall img { max-height: min(21rem, 100%); }
+
+/* A screenshot carried over from a Keynote deck. .fig and .shot are defined only for
+   light slides, so a figure on a dark slide fell back to its natural size; and a
+   screenshot with a white background needs a mount or it bleeds into the slide.
+   .plate does both, and is a little taller than .fig.tall because these are dense. */
+/* .src is positioned against the bottom of the slide while .fig centres itself in
+   whatever is left, so a tall figure ends up almost touching the attribution.
+   Reserve the space below rather than shrinking the figure. */
+.slidev-layout.light .fig:has(+ .src) { padding-bottom: 2.4rem; }
+
+.slidev-layout .plate {
+  display: flex; justify-content: center; align-items: center;
+  flex: 1; min-height: 0; margin-top: 0.4rem;
+}
+/* A plain rem cap, deliberately not min(21rem, 100%): a dark slide's layout is not a
+   flex column, so that percentage is indefinite, which makes the whole min() invalid
+   and the declaration is dropped. The image then renders at its natural size. */
+.slidev-layout .plate img {
+  max-height: 21rem; max-width: 100%; min-width: 0;
+  background: #fff; padding: 0.4rem; border-radius: 2px;
+}

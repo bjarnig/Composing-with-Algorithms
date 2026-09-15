@@ -1,0 +1,60 @@
+<!-- drawn by Course-Development/figures/cwa-patterns-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 402" width="1000" height="402" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">one description, as many readings as you ask for</text>
+<rect x="70.0" y="74.0" width="250.0" height="104.0" rx="4" fill="none" stroke="#141414" stroke-width="2.2"/>
+<text x="195.0" y="106.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Pattern</text>
+<text x="195.0" y="128.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a description</text>
+<text x="195.0" y="148.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">stateless: it does not</text>
+<text x="195.0" y="164.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">know where you are</text>
+<text x="195.0" y="202.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">Pseq([0, 2, 4, 7], inf)</text>
+<path d="M324.0 114.0 L396.0 114.0" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<text x="360.0" y="102.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">.asStream</text>
+<rect x="400.0" y="74.0" width="200.0" height="80.0" rx="4" fill="none" stroke="#141414" stroke-width="1.7"/>
+<text x="500.0" y="104.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Stream 1</text>
+<text x="500.0" y="126.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">knows where it is</text>
+<rect x="648.0" y="96.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="668.0" y="120.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<rect x="702.0" y="96.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="722.0" y="120.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M688.0 114.0 L700.0 114.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<rect x="756.0" y="96.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="776.0" y="120.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M742.0 114.0 L754.0 114.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<rect x="810.0" y="96.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="830.0" y="120.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M796.0 114.0 L808.0 114.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<rect x="864.0" y="96.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="884.0" y="120.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M850.0 114.0 L862.0 114.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<text x="912.0" y="120.0" text-anchor="start" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">...</text>
+<text x="724.0" y="88.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">.next each time</text>
+<path d="M324.0 246.0 L396.0 246.0" fill="none" stroke="#141414" stroke-width="1.7" marker-end="url(#a)"/>
+<text x="360.0" y="234.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">.asStream</text>
+<rect x="400.0" y="206.0" width="200.0" height="80.0" rx="4" fill="none" stroke="#141414" stroke-width="1.7"/>
+<text x="500.0" y="236.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Stream 2</text>
+<text x="500.0" y="258.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">knows where it is</text>
+<rect x="648.0" y="228.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="668.0" y="252.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<rect x="702.0" y="228.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="722.0" y="252.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<path d="M688.0 246.0 L700.0 246.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<rect x="756.0" y="228.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="776.0" y="252.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<path d="M742.0 246.0 L754.0 246.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<rect x="810.0" y="228.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="830.0" y="252.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<path d="M796.0 246.0 L808.0 246.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<rect x="864.0" y="228.0" width="40.0" height="36.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="884.0" y="252.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<path d="M850.0 246.0 L862.0 246.0" fill="none" stroke="#555" stroke-width="1.2"/>
+<text x="912.0" y="252.0" text-anchor="start" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">...</text>
+<text x="724.0" y="220.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">.next each time</text>
+<text x="195.0" y="262.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the same pattern, asked twice</text>
+<text x="195.0" y="282.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">two streams, each with</text>
+<text x="195.0" y="300.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">its own position</text>
+<path d="M70.0 336.0 L930.0 336.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="500.0" y="362.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">the pattern is the score; a stream is one performance of it</text>
+<text x="500.0" y="384.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">Routine and Task are streams too, which is why they take the same messages</text>
+</svg>
