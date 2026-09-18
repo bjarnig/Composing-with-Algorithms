@@ -53,54 +53,6 @@ s.sampleRate / s.options.blockSize; // 689.06 at 44100, 750 at 48000
 
 
 
-///////////////////// Order of execution /////////////////////////
-
-/* The server runs its nodes from head to tail within a group. An effect has to sit
-   after the source it reads. Put it before and it is silent, not late: In.ar returns
-   zeros for a bus that has not been written yet in this block. Measured here: In.ar
-   in front of the source peaks at 0.0, InFeedback.ar in the same place at 0.3. */
-
-(
-SynthDef(\src, { |out = 16|
-	Out.ar(out, PinkNoise.ar(0.2) * EnvGen.kr(Env.perc(0.01, 0.3), doneAction: 2));
-}).add;
-SynthDef(\verb, { |in = 16|
-	Out.ar(0, FreeVerb.ar(In.ar(in, 1), 0.9, 0.9) ! 2);
-}).add;
-)
-
-// the reverb at the tail, so it reads what the source already wrote
-(
-x = Synth(\verb, addAction: \addToTail);
-Routine({ 8.do { Synth(\src, addAction: \addToHead); 0.4.wait } }).play;
-)
-x.free;
-
-// the same thing with the reverb at the head: silence
-(
-y = Synth(\verb, addAction: \addToHead);
-Routine({ 8.do { Synth(\src, addAction: \addToTail); 0.4.wait } }).play;
-)
-y.free;
-
-// InFeedback reads the previous block, so the same wrong order now sounds
-(
-SynthDef(\verbFb, { |in = 16|
-	Out.ar(0, FreeVerb.ar(InFeedback.ar(in, 1), 0.9, 0.9) ! 2);
-}).add;
-)
-(
-z = Synth(\verbFb, addAction: \addToHead);
-Routine({ 8.do { Synth(\src, addAction: \addToTail); 0.4.wait } }).play;
-)
-z.free;
-
-s.plotTree;                          // the order, drawn
-s.options.numOutputBusChannels;      // where the private busses start
-
-CmdPeriod.run;
-
-
 ///////////////////// Multichannel expansion /////////////////////
 
 /* Pass an array where a UGen expects one value and the whole expression is

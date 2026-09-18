@@ -4,11 +4,8 @@
 //
 ////////////////////////////////////////////////////////////////
 
-/* One line per idea, in the order the exercises need them. Every line here was
-   played and metered, so none of them clips.
-
-   The whole subject is one sentence: anywhere a UGen takes a number, another
-   UGen can go instead. Everything below is that sentence applied somewhere. */
+/* One line per idea: anywhere a UGen takes a number, another
+   UGen can go instead. */
 
 s.boot;
 

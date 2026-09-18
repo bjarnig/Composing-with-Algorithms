@@ -203,6 +203,21 @@
   line-height: 1.5;
 }
 
+/* .note is mint, which is legible on the dark ground it was designed for and far
+   too pale on white. Darken it for light slides rather than change the token. */
+.slidev-layout.light .note { color: #2f6b52; }
+
+/* Code on a light slide. The tint above is a faint white, which vanishes on white
+   and leaves shiki's dark syntax colours with nothing to sit on, so give the block
+   its dark ground back. Inline code is the opposite problem: the dark chip reads as
+   a black box on white, so it becomes a light tint with dark text. */
+.slidev-layout.light .slidev-code,
+.slidev-layout.light pre.shiki { background-color: #171a20 !important; }
+.slidev-layout.light :not(pre) > code {
+  background: rgba(20, 20, 20, 0.06); color: #111; border-radius: 3px;
+  padding: 0.05em 0.3em;
+}
+
 /* Light "Traces" thinker slides */
 /* pure white, not off-white: the scanned figures carry #ffffff grounds, so any
    off-white slide turns each one into a visible panel */

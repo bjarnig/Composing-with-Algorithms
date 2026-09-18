@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>Musikalisches Würfelspiel — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  canvas { height: 22rem; }
+  .state { font-size: .75rem; color: var(--muted); min-height: 1.2rem; }
+  body.compact .sub, body.compact fieldset:not(.primary) { display: none; }
+  body.compact canvas { height: 15rem; }
+</style>
+</head>
+<body>
+
+<h1>Musikalisches Würfelspiel</h1>
+<p class="sub">Mozart's dice game of 1787. The piece has sixteen bars, and for every bar
+there are eleven pre-composed alternatives. Two dice are thrown once per bar, and the sum,
+two to twelve, selects a row of the table. Nothing is composed at the moment of playing:
+every possible outcome was written in advance, and the dice only choose among them. The
+table is the algorithm.
+<br><br>
+The scheme here is Mozart's. The measures are written for this page, from a fixed harmonic
+plan, which is the reason any row works in any column.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>the chosen measure</span>
+  <span><i style="background:var(--mint)"></i>melody</span>
+  <span id="state" class="state"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <button id="roll">roll all sixteen</button>
+  <span style="color:var(--muted);font-size:.75rem">or click a column to re-roll one bar</span>
+</div>
+<p class="hint" id="hint">Two dice are not one die with eleven faces. Seven comes up six
+times as often as two, so the middle rows of the table are heard far more than the edges.</p>
+
+<div class="grid">
+  <fieldset class="primary">
+    <legend>playing</legend>
+    <label><span>tempo (bpm)</span><input type="range" id="tempo" min="60" max="180" step="1" value="120"><output></output></label>
+    <label><span>level</span><input type="range" id="gain" min="0" max="0.5" step="0.01" value="0.22"><output></output></label>
+  </fieldset>
+  <fieldset>
+    <legend>the throw</legend>
+    <label><span>dice</span>
+      <select id="dice">
+        <option value="2" selected>two dice (2-12)</option>
+        <option value="1">one die, eleven faces</option>
+      </select><output></output></label>
+    <label><span>bass</span><input type="checkbox" id="bass" checked><output></output></label>
+  </fieldset>
+</div>
+
+<script id="worklet" type="text/js-worklet">
+/* A tiny scheduler. The whole piece arrives as a list of [onset, freq, dur, amp]
+   and loops; the processor only has to start voices at the right sample and let
+   them decay. Nothing is generated here, which is the point of the demo. */
+class DiceProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.notes = [];
+    this.len = 1;            // loop length in seconds
+    this.gain = 0.22;
+    this.pos = 0;            // samples since the loop began
+    this.next = 0;           // index of the next note to start
+    this.blocks = 0;
+    this.V = 24;
+    this.v = [];
+    for (let i = 0; i < this.V; i++) this.v.push({ on: false, ph: 0, inc: 0, env: 0, dec: 0, amp: 0 });
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'seq') { this.notes = d.notes; this.len = d.len; this.pos = 0; this.next = 0; }
+      if (d.type === 'params') { if (d.value.gain != null) this.gain = d.value.gain; }
+      if (d.type === 'rewind') { this.pos = 0; this.next = 0; }
+    };
+  }
+
+  start(freq, dur, amp) {
+    let s = this.v.find(x => !x.on);
+    if (!s) s = this.v.reduce((a, b) => (a.env < b.env ? a : b));
+    s.on = true; s.ph = 0; s.inc = freq / sampleRate; s.env = 1; s.amp = amp;
+    // decay to -60 dB over the note's own length, so short notes stay separate
+    s.dec = Math.exp(-6.9078 / Math.max(1, dur * sampleRate));
+  }
+
+  process(_in, out) {
+    const L = out[0][0], R = out[0][1];
+    const n = L.length;
+    const loopSamples = this.len * sampleRate;
+
+    for (let i = 0; i < n; i++) {
+      // start everything due at this sample
+      while (this.next < this.notes.length && this.notes[this.next][0] * sampleRate <= this.pos) {
+        const e = this.notes[this.next++];
+        this.start(e[1], e[2], e[3]);
+      }
+      let mix = 0;
+      for (let k = 0; k < this.V; k++) {
+        const s = this.v[k];
+        if (!s.on) continue;
+        s.ph += s.inc; if (s.ph >= 1) s.ph -= 1;
+        const t = s.ph * 6.283185307179586;
+        // three partials, a plucked-string balance rather than a pure sine
+        const sig = Math.sin(t) + 0.32 * Math.sin(2 * t) + 0.13 * Math.sin(3 * t);
+        mix += sig * s.env * s.amp;
+        s.env *= s.dec;
+        if (s.env < 1e-4) s.on = false;
+      }
+      mix *= this.gain * 0.5;
+      if (mix > 1) mix = 1; else if (mix < -1) mix = -1;
+      L[i] = mix; R[i] = mix;
+
+      this.pos++;
+      if (this.pos >= loopSamples) { this.pos = 0; this.next = 0; }
+    }
+
+    if ((this.blocks++ & 3) === 0)
+      this.port.postMessage({ type: 'pos', t: this.pos / sampleRate });
+    return true;
+  }
+}
+registerProcessor('dice', DiceProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+/* ---------- the bank of measures ----------------------------------------
+   Sixteen bar positions, eleven alternatives each: 176 measures, written once
+   at load from a fixed seed so the bank is the same every time the page opens.
+   Each bar position has a chord and a bass note, which is why any alternative
+   fits in its own column and only in its own column. */
+
+const BARS = 16, ROWS = 11;
+
+// I, V7, IV and so on in C major: [bass midi, chord tones above it]
+const PLAN = [
+  { bass: 48, ch: [60, 64, 67] },   // 1   I
+  { bass: 43, ch: [59, 62, 67] },   // 2   V7
+  { bass: 48, ch: [60, 64, 67] },   // 3   I
+  { bass: 41, ch: [60, 65, 69] },   // 4   IV
+  { bass: 48, ch: [60, 64, 67] },   // 5   I
+  { bass: 43, ch: [62, 65, 67] },   // 6   V7
+  { bass: 43, ch: [59, 62, 65] },   // 7   V7
+  { bass: 48, ch: [60, 64, 67] },   // 8   I
+  { bass: 47, ch: [62, 67, 71] },   // 9   V
+  { bass: 45, ch: [61, 64, 69] },   // 10  V7 of V
+  { bass: 43, ch: [62, 67, 71] },   // 11  V
+  { bass: 43, ch: [59, 62, 67] },   // 12  V7
+  { bass: 48, ch: [60, 64, 67] },   // 13  I
+  { bass: 41, ch: [60, 65, 69] },   // 14  IV
+  { bass: 43, ch: [59, 62, 65] },   // 15  V7
+  { bass: 48, ch: [60, 64, 67] },   // 16  I
+];
+
+// three-four, so every pattern adds up to three beats
+const RHYTHMS = [
+  [1, 1, 1],
+  [0.5, 0.5, 1, 1],
+  [1, 0.5, 0.5, 1],
+  [2, 1],
+  [1, 2],
+  [0.5, 0.5, 0.5, 0.5, 1],
+  [1.5, 0.5, 1],
+  [3],
+];
+
+function mulberry(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* One measure: a rhythm, and a melodic line that lands on chord tones and
+   passes through the scale between them. */
+function measure(plan, rnd) {
+  const scale = [0, 2, 4, 5, 7, 9, 11];
+  const r = RHYTHMS[(rnd() * RHYTHMS.length) | 0];
+  const LO = 64, HI = 84;                 // the melody stays inside one singable range
+  const notes = [];
+  let t = 0, prev = plan.ch[(rnd() * plan.ch.length) | 0] + 12;
+  for (let i = 0; i < r.length; i++) {
+    let p;
+    if (i === 0 || rnd() < 0.55) {
+      // a chord tone, in the octave above the written chord
+      p = plan.ch[(rnd() * plan.ch.length) | 0] + 12;
+      if (rnd() < 0.3) p -= 12;
+    } else {
+      // a step away from the last note, inside C major
+      const deg = scale.indexOf(((prev % 12) + 12) % 12);
+      const base = deg < 0 ? 0 : deg;
+      const step = rnd() < 0.5 ? 1 : -1;
+      const d = (base + step + 7) % 7;
+      p = prev - (prev % 12) + scale[d] + (d > base && step < 0 ? -12 : 0);
+    }
+    while (p > HI) p -= 12;
+    while (p < LO) p += 12;
+    notes.push([t, p, r[i]]);
+    prev = p;
+    t += r[i];
+  }
+  return notes;
+}
+
+const rnd = mulberry(20260917);
+const BANK = [];
+for (let b = 0; b < BARS; b++) {
+  const col = [];
+  for (let k = 0; k < ROWS; k++) col.push(measure(PLAN[b], rnd));
+  BANK.push(col);
+}
+
+/* ---------- the game ---------------------------------------------------- */
+
+const IDS = ['tempo', 'gain', 'dice', 'bass'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const canvas = document.getElementById('view');
+const ctx2d = Kit.fit(canvas);
+const stateEl = document.getElementById('state');
+
+let choice = new Array(BARS).fill(5);     // row index 0..10, i.e. dice sum 2..12
+let lastThrow = new Array(BARS).fill([3, 4]);
+let playhead = 0;
+
+function throwDice() {
+  if (el.dice.value === '1') {
+    const f = 1 + ((Math.random() * 11) | 0);
+    return [f, 0];
+  }
+  return [1 + ((Math.random() * 6) | 0), 1 + ((Math.random() * 6) | 0)];
+}
+
+function rollBar(b) {
+  const d = throwDice();
+  lastThrow[b] = d;
+  choice[b] = d[1] === 0 ? d[0] - 1 : d[0] + d[1] - 2;
+}
+
+function rollAll() { for (let b = 0; b < BARS; b++) rollBar(b); }
+
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+function sequence() {
+  const bpm = +el.tempo.value;
+  const beat = 60 / bpm;
+  const bar = 3 * beat;
+  const notes = [];
+  for (let b = 0; b < BARS; b++) {
+    const t0 = b * bar;
+    for (const [t, p, d] of BANK[b][choice[b]])
+      notes.push([t0 + t * beat, mtof(p), d * beat * 0.9, 0.5]);
+    if (el.bass.checked) {
+      notes.push([t0, mtof(PLAN[b].bass), bar * 0.9, 0.42]);
+      notes.push([t0 + beat, mtof(PLAN[b].ch[0]), beat * 0.8, 0.2]);
+      notes.push([t0 + 2 * beat, mtof(PLAN[b].ch[1]), beat * 0.8, 0.2]);
+    }
+  }
+  notes.sort((a, b2) => a[0] - b2[0]);
+  return { notes, len: BARS * bar };
+}
+
+function send() {
+  const st = getState();
+  if (!st) return;
+  const s = sequence();
+  st.node.port.postMessage({ type: 'seq', notes: s.notes, len: s.len });
+  st.node.port.postMessage({ type: 'params', value: { gain: +el.gain.value } });
+}
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'dice' });
+  const s = sequence();
+  st.node.port.postMessage({ type: 'seq', notes: s.notes, len: s.len });
+  st.node.port.postMessage({ type: 'params', value: { gain: +el.gain.value } });
+  st.node.port.onmessage = e => { if (e.data.type === 'pos') playhead = e.data.t; };
+  return st;
+});
+
+document.getElementById('roll').addEventListener('click', () => { rollAll(); send(); });
+IDS.forEach(id => el[id].addEventListener('input', () => { Kit.readouts(el); send(); }));
+
+// clicking a column re-rolls that one bar
+canvas.addEventListener('click', ev => {
+  const r = canvas.getBoundingClientRect();
+  const b = Math.floor((ev.clientX - r.left) / r.width * BARS);
+  if (b >= 0 && b < BARS) { rollBar(b); send(); }
+});
+
+/* ---------- drawing ------------------------------------------------------
+   Two panels. The table on top, because the table is the composition; the
+   assembled bars below it, so the chosen row and the sound it makes are on
+   screen at the same time. */
+function draw() {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  ctx2d.clearRect(0, 0, W, H);
+  const accent = Kit.css('--accent'), mint = Kit.css('--mint'), muted = Kit.css('--muted');
+  const colW = W / BARS;
+  const topH = Math.round(H * 0.52);
+  const rowH = (topH - 18) / ROWS;
+
+  ctx2d.font = '9px ' + Kit.css('--sans');
+
+  // the table
+  for (let b = 0; b < BARS; b++) {
+    for (let k = 0; k < ROWS; k++) {
+      const x = b * colW, y = 14 + k * rowH;
+      const chosen = choice[b] === k;
+      ctx2d.fillStyle = chosen ? accent : 'rgba(154,164,181,.10)';
+      ctx2d.fillRect(x + 1, y + 1, colW - 2, rowH - 2);
+      if (chosen) {
+        ctx2d.fillStyle = '#10131a';
+        ctx2d.fillText(String(b * ROWS + k + 1), x + 4, y + rowH - 3);
+      }
+    }
+    ctx2d.fillStyle = muted;
+    ctx2d.fillText(String(b + 1), b * colW + 3, 10);
+  }
+  // the dice sums down the left edge
+  ctx2d.fillStyle = muted;
+  for (let k = 0; k < ROWS; k++) ctx2d.fillText(String(k + 2), 2, 14 + k * rowH + rowH - 3);
+
+  // the assembled bars
+  const y0 = topH + 8, panelH = H - y0 - 4;
+  ctx2d.strokeStyle = 'rgba(255,255,255,.08)';
+  ctx2d.beginPath(); ctx2d.moveTo(0, y0); ctx2d.lineTo(W, y0); ctx2d.stroke();
+
+  let lo = 127, hi = 0;
+  for (let b = 0; b < BARS; b++)
+    for (const [, p] of BANK[b][choice[b]]) { if (p < lo) lo = p; if (p > hi) hi = p; }
+  if (hi - lo < 12) { hi = lo + 12; }
+
+  for (let b = 0; b < BARS; b++) {
+    for (const [t, p, d] of BANK[b][choice[b]]) {
+      const x = (b + t / 3) * colW;
+      const w = (d / 3) * colW;
+      const y = y0 + panelH - ((p - lo) / (hi - lo)) * (panelH - 10) - 5;
+      ctx2d.fillStyle = mint;
+      ctx2d.fillRect(x + 1, y - 2, Math.max(2, w - 2), 4);
+    }
+    ctx2d.strokeStyle = 'rgba(255,255,255,.06)';
+    ctx2d.beginPath(); ctx2d.moveTo(b * colW, y0); ctx2d.lineTo(b * colW, H); ctx2d.stroke();
+  }
+
+  // playhead
+  const st = getState();
+  if (st) {
+    const len = sequence().len;
+    const x = (playhead / len) * W;
+    ctx2d.strokeStyle = accent;
+    ctx2d.beginPath(); ctx2d.moveTo(x, 0); ctx2d.lineTo(x, H); ctx2d.stroke();
+  }
+
+  const sums = lastThrow.map(d => (d[1] === 0 ? d[0] + 1 : d[0] + d[1]));
+  stateEl.textContent = 'rolls: ' + sums.join(' ');
+  requestAnimationFrame(draw);
+}
+
+rollAll();
+Kit.readouts(el);
+draw();
+</script>
+</body>
+</html>

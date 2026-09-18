@@ -295,6 +295,50 @@ A function that returns a pattern is a piece with parameters rather than a piece
 <span class="q">Three calls, three pieces. Where does the composing happen now?</span>
 
 ---
+class: light
+---
+
+# Daniel M Karlsson
+
+A Swedish composer who works almost entirely in SuperCollider, and who publishes all of his code.
+
+His pieces are built as **patterns rather than as recordings**. The score is a `.scd` file, the sound comes from his own sampler library **SuperClean**, and the whole piece runs live each time it is played.
+
+*towards a music for large ensemble (acts I to VI)* is made of **sixty-four `Pdef`s**, numbered 0 to 63. Two factory functions build every one of them, so the piece is a single `Pbind` template instantiated sixty-four times with different arguments.
+
+A routine on top decides how many voices sound at once: between 5 and 36 sustained, and between 5 and 11 onsets.
+
+<span class="note">The code is at codeberg.org/t36s/superclean-code, and he suggested this piece for the class. Featured with his permission.</span>
+
+---
+class: light
+---
+
+# Sixty-Four Voices, One Template
+
+<div class="src">(Daniel M Karlsson, towards-GRM-at-Sonic-Acts.scd, abridged)</div>
+
+```supercollider
+~a = { |type, snd, spd, num, bgn, atk, octave, degree, aux, cav, amp|
+	Pseq([ Pbind(*[
+		pan: Pmeanrand(0.1, 0.9),
+		hld: Plprand(39.0, 59.0),          // held for 39 to 59 seconds
+		rel: Phprand(31.0, 51.0),
+		crv: Phprand(1.0, 4.0),
+		crt: Pkey(\crv).neg,               // one curve, and its opposite
+		dur: Pkey(\atk) + Pkey(\hld) + Pkey(\rel) / Pexprand(1.75, 4.0),
+		scale: Pdup(Plprand(55, 111), Pxshuf([
+			Scale.harmonicMinor(\sept2), Scale.ionian(\just),
+			~slnd.scale, ~bal5.scale, ~dip7.scale ], inf)),
+		amp: amp ]) ], inf)
+};
+
+Pdef(00, ~c.(..., \bbu, 1, Pfunc({ ~bbuNum.next }), 0, 0, 5, 0, ...));
+```
+
+Note what is a pattern here: not only pitch and amplitude but the **scale itself**, shuffled and then held for 55 to 111 events at a time, drawn from just, mean-tone and Scala tunings including slendro and a balafon.
+
+---
 layout: center
 class: divider
 ---

@@ -7,7 +7,7 @@
 This document covers simple synths, noises, playing samples
 and sequencing with patterns.
 
-Be careful with sound volumes, uperhaps use StageLimiter
+Be careful with sound volumes, perhaps use StageLimiter
 included in the BatLib Quark, activate and it will limit the
 sound output.
 
