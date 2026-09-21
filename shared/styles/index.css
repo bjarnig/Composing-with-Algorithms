@@ -211,6 +211,11 @@
    and leaves shiki's dark syntax colours with nothing to sit on, so give the block
    its dark ground back. Inline code is the opposite problem: the dark chip reads as
    a black box on white, so it becomes a light tint with dark text. */
+/* Class and method names in running text. Sage rather than body white, so a slide
+   that is mostly API names reads lighter without spending the blue accent, which
+   belongs to .q and .workshop alone. Light slides keep near-black below. */
+.slidev-layout :not(pre) > code { color: var(--cwa-sage); }
+
 .slidev-layout.light .slidev-code,
 .slidev-layout.light pre.shiki { background-color: #171a20 !important; }
 .slidev-layout.light :not(pre) > code {
@@ -264,6 +269,10 @@
    whatever is left, so a tall figure ends up almost touching the attribution.
    Reserve the space below rather than shrinking the figure. */
 .slidev-layout.light .fig:has(+ .src) { padding-bottom: 2.4rem; }
+/* .shot needs the same room: the attribution is absolutely placed, so a figure
+   that runs to the bottom of the slide prints straight through it. Take it off
+   the image's cap rather than adding padding, which would grow the box instead. */
+.slidev-layout.light .shot:has(+ .src) img { max-height: 21rem; }
 
 .slidev-layout .plate {
   display: flex; justify-content: center; align-items: center;

@@ -39,7 +39,7 @@ Pbind(\degree, Pseq([0, 2, 4, 5], inf), \dur, 0.25).play;
 Pbind(\degree, Prand([0, 2, 4, 5], inf), \dur, 0.25).play;
 ```
 
-<span class="q">Neither line says what to play, only how to choose. Which of the two is a score?</span>
+<span class="q">Neither line says what to play, only how to choose.</span>
 
 ---
 layout: center
@@ -141,7 +141,7 @@ Pbind(\degree, Pshuf(~notes, inf), \dur, 0.2).play;   // shuffled once, then loo
 Pbind(\degree, Pwhite(0, 9),       \dur, 0.2).play;   // any number in the range
 ```
 
-<span class="q">`Pshuf` decides once and `Prand` decides every time. Which one is a composer and which one is a performer?</span>
+<span class="q">`Pshuf` decides once and `Prand` decides every time. </span>
 
 ---
 
@@ -222,9 +222,27 @@ Pbind(
 )
 ```
 
-Every key except `\dur` is looked for among the SynthDef's arguments and passed straight through. `\dur`, `\legato`, `\sustain` and `\degree` belong to the event system itself.
+A key is sent to the synth when its name matches one of the SynthDef's arguments. Everything else belongs to the event, which uses it to work out timing or to calculate a value before sending it.
 
 <span class="note">`\degree` works without any SynthDef at all, because the default event has one.</span>
+
+---
+
+# Event Keys
+
+**Pitch**, calculated in this order and each step settable directly:
+
+<span class="mono">degree &rarr; note &rarr; midinote &rarr; freq &rarr; detunedFreq</span>
+
+`scale`, `stepsPerOctave`, `octave`, `root` and `octaveRatio` turn a degree into a note, `mtranspose`, `gtranspose` and `ctranspose` transpose at each of the three stages, and `harmonic` and `detune` adjust the frequency at the end.
+
+**Time**: `dur`, `stretch`, `legato`, `sustain`, `lag`, `strum`, `tempo`
+
+**Level**: `amp`, `db`, `velocity`, `pan`
+
+**Destination**: `instrument`, `out`, `group`, `addAction`, `server`
+
+<span class="note">Setting an end key stops everything above it from being used. If `\freq` has a value then `\degree` no longer has any effect.</span>
 
 ---
 layout: center
@@ -243,22 +261,6 @@ class: light
 
 ---
 
-# Swapping One Side
-
-```supercollider
-// two scores over one instrument
-Pbind(\instrument, \sine, \freq, Pseq([300, 400, 500], inf), \dur, 0.3, \amp, 0.1).play;
-Pbind(\instrument, \sine, \freq, Pexprand(200, 2000),        \dur, 0.08, \amp, 0.06).play;
-
-// two instruments under one score
-Pbind(\instrument, Prand([\sine, \pluck], inf),
-	\freq, 440, \note, Prand([48, 55], inf), \dur, 0.4, \amp, 0.1).play;
-```
-
-<span class="q">Which half is the piece?</span>
-
----
-
 # Replacing While It Sounds
 
 `Pdef` holds a pattern under a name. Evaluate a new definition and the next event comes from it, with no gap.
@@ -272,13 +274,13 @@ Pdef(\a, Pbind(\instrument, \sine, \freq, Pexprand(200, 2000), \dur, 0.08, \amp,
 Pdef(\a).stop;
 ```
 
-<span class="note">This is the practical reason to name patterns, and it is the whole of the live coding class.</span>
+<span class="note">This is the practical reason to name patterns and will be show in more detail later.</span>
 
 ---
 
 # A Family From One Function
 
-A function that returns a pattern is a piece with parameters rather than a piece.
+A function that returns a pattern is a piece with parameters rather than a fixed piece.
 
 ```supercollider
 (
@@ -292,8 +294,6 @@ A function that returns a pattern is a piece with parameters rather than a piece
 ~phrase.value(#[0, 3, 7], 0.5, 4).play;
 ```
 
-<span class="q">Three calls, three pieces. Where does the composing happen now?</span>
-
 ---
 class: light
 ---
@@ -302,19 +302,51 @@ class: light
 
 A Swedish composer who works almost entirely in SuperCollider, and who publishes all of his code.
 
-His pieces are built as **patterns rather than as recordings**. The score is a `.scd` file, the sound comes from his own sampler library **SuperClean**, and the whole piece runs live each time it is played.
+His pieces are built as **patterns**. The score is a `.scd` file, the sound comes from his own sampler library **SuperClean**, and the whole piece runs live each time it is played.
 
 *towards a music for large ensemble (acts I to VI)* is made of **sixty-four `Pdef`s**, numbered 0 to 63. Two factory functions build every one of them, so the piece is a single `Pbind` template instantiated sixty-four times with different arguments.
 
 A routine on top decides how many voices sound at once: between 5 and 36 sustained, and between 5 and 11 onsets.
 
-<span class="note">The code is at codeberg.org/t36s/superclean-code, and he suggested this piece for the class. Featured with his permission.</span>
+<span class="note">The code is at <a href="https://codeberg.org/t36s/superclean-code/raw/branch/main/towards-GRM-at-Sonic-Acts.scd" target="_blank">codeberg.org/t36s/superclean-code</a>. He suggested this piece for the class and it is featured with his permission.</span>
 
 ---
 class: light
 ---
 
-# Sixty-Four Voices, One Template
+# Towards a Music for Large Ensemble
+
+<div class="shot"><img src="/figures/karlsson-bandcamp-000.png" /></div>
+
+<div class="src">(danielmkarlsson.bandcamp.com, six acts of about 24 minutes, released March 2026)</div>
+
+---
+class: light
+---
+
+# DMK Approach
+
+> "Generally I really like how working with the Patterns paradigm for the most part lets me write code that is very similar to what I teach others to write on day one. I don't want for there to be any hierarchical difference between myself and anyone else who is interested in my music or more broadly in the task of organizing sound."
+
+> "My favorite situation is when I can get someone sat up to have their computer run my smol Pattern code block and for them to then potentially listen to it forever and or get started making their own personal expressive imagining of just how weird music could potentially could get if we all supported each other in that endeavor."
+
+<div class="src">(Daniel M Karlsson, written for this class, September 2026)</div>
+
+---
+class: light
+---
+
+# Sixty-Four Sources
+
+<div class="fig tall"><img src="/figures/karlsson-cover-000.jpg" /></div>
+
+<div class="src">(the cover names sixty-four recorded instruments and objects)</div>
+
+---
+class: light
+---
+
+# Sixty-Four Voices with Pbind
 
 <div class="src">(Daniel M Karlsson, towards-GRM-at-Sonic-Acts.scd, abridged)</div>
 
@@ -336,9 +368,26 @@ class: light
 Pdef(00, ~c.(..., \bbu, 1, Pfunc({ ~bbuNum.next }), 0, 0, 5, 0, ...));
 ```
 
-Note what is a pattern here: not only pitch and amplitude but the **scale itself**, shuffled and then held for 55 to 111 events at a time, drawn from just, mean-tone and Scala tunings including slendro and a balafon.
+Note what is a pattern here: not only pitch and amplitude but the **scale itself**.
+
+<span class="note">`\bbu` is the second name on the cover: each `Pdef` sequences one instrument's recordings.</span>
 
 ---
+class: light
+---
+
+# Leaving the Paradigm
+
+> "Specifically though, this particular example of my working with Patterns got a lil messy. There where some things that I really wanted to be able to control on a kind of macro level that made it so I had to dip outside of the Pattern paradigm to get it working the way I wanted. Sadly this makes this material a little less approachable as a social or even pedagogical material."
+
+> "Also instead of synthesis what is being sequenced is a heap of sound files that I recorded of me playing a bunch of acoustic instruments and objects in various ways. These sound files constitute a lot of data, many GigaBytes in fact, which also decreases portability which I find sad."
+
+> "Pdef + Bind combo 4 lyfe!"
+
+<div class="src">(Daniel M Karlsson, written for this class, September 2026)</div>
+
+---
+
 layout: center
 class: divider
 ---
