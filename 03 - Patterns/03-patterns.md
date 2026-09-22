@@ -121,13 +121,13 @@ Choosing
 class: light
 ---
 
-# The Same List, Five Ways
+# Five Readings
 
 <div class="shot"><img src="/figures/five-readings-000.svg" /></div>
 
 ---
 
-# The Same List, Five Ways
+# Five Readings
 
 The synth never changes. Only the stance does.
 
