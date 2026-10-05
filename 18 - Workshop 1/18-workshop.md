@@ -2,7 +2,7 @@
 theme: seriph
 addons:
   - ./shared
-title: Composing with Algorithms — 04 Workshop 1
+title: Composing with Algorithms — 18 Workshop 1
 titleTemplate: '%s'
 layout: default
 class: title
@@ -35,18 +35,6 @@ Students shall work in **groups** to solve at least some of the tasks during cla
 The final **30 minutes** of class should involve a short presentation of each group where they show or discuss what they have done.
 
 <span class="note">Not every task, and not perfectly. Three that sound, and that you can explain, beat ten that half work.</span>
-
----
-
-# One Constraint
-
-Before the tasks, agree three things in your group and write them at the top of the file.
-
-- A **duration**. Eight seconds, or two minutes. The piece ends when it ends.
-- **One sound source**. The sine below, or one SynthDef you write in the first ten minutes.
-- **One prohibition**. Something you are not allowed to use, chosen by you.
-
-<span class="q">A constraint you chose is not a limitation. What did the prohibition force you to find?</span>
 
 ---
 
@@ -124,8 +112,6 @@ Tasks
 
 10. Implement a process where pitch values are determined either according to a **cauchy** or an **exponential** distribution. Dynamics should be determined with a geometric rise. <span class="note">(hint: see `Pcauchy`, `Pexprand` and `Pgeom`)</span>
 
-<span class="q">Of the ten, which one produced something you would keep?</span>
-
 ---
 
 # Presenting
@@ -133,7 +119,6 @@ Tasks
 Thirty minutes at the end, a few minutes per group. Play the thing, then say:
 
 - Which task it answers, and what you changed to make it yours
-- What the **prohibition** was, and what it forced
 - One line of the code you would show someone else
 
 <span class="note">Worked answers to all ten are in *Workshop1.scd*, and they are worth reading after you have tried, not before.</span>
