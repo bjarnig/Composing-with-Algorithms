@@ -1,0 +1,69 @@
+<!-- drawn by Course-Development/figures/cwa-history-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">every ordering of three elements</text>
+<circle cx="90.0" cy="190.0" r="5" fill="#141414"/>
+<path d="M90.0 190.0 L234.0 90.0" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="250.0" cy="90.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="250.0" y="95.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">a</text>
+<path d="M264.0 90.0 L386.0 68.0" fill="none" stroke="#141414" stroke-width="1.1"/>
+<circle cx="400.0" cy="68.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="400.0" y="73.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">b</text>
+<path d="M414.0 68.0 L526.0 68.0" fill="none" stroke="#141414" stroke-width="1.0"/>
+<circle cx="540.0" cy="68.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="540.0" y="73.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">c</text>
+<path d="M264.0 90.0 L386.0 112.0" fill="none" stroke="#141414" stroke-width="1.1"/>
+<circle cx="400.0" cy="112.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="400.0" y="117.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">c</text>
+<path d="M414.0 112.0 L526.0 112.0" fill="none" stroke="#141414" stroke-width="1.0"/>
+<circle cx="540.0" cy="112.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="540.0" y="117.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">b</text>
+<path d="M90.0 190.0 L234.0 190.0" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="250.0" cy="190.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="250.0" y="195.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">b</text>
+<path d="M264.0 190.0 L386.0 168.0" fill="none" stroke="#141414" stroke-width="1.1"/>
+<circle cx="400.0" cy="168.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="400.0" y="173.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">a</text>
+<path d="M414.0 168.0 L526.0 168.0" fill="none" stroke="#141414" stroke-width="1.0"/>
+<circle cx="540.0" cy="168.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="540.0" y="173.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">c</text>
+<path d="M264.0 190.0 L386.0 212.0" fill="none" stroke="#141414" stroke-width="1.1"/>
+<circle cx="400.0" cy="212.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="400.0" y="217.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">c</text>
+<path d="M414.0 212.0 L526.0 212.0" fill="none" stroke="#141414" stroke-width="1.0"/>
+<circle cx="540.0" cy="212.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="540.0" y="217.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">a</text>
+<path d="M90.0 190.0 L234.0 290.0" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="250.0" cy="290.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="250.0" y="295.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">c</text>
+<path d="M264.0 290.0 L386.0 268.0" fill="none" stroke="#141414" stroke-width="1.1"/>
+<circle cx="400.0" cy="268.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="400.0" y="273.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">a</text>
+<path d="M414.0 268.0 L526.0 268.0" fill="none" stroke="#141414" stroke-width="1.0"/>
+<circle cx="540.0" cy="268.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="540.0" y="273.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">b</text>
+<path d="M264.0 290.0 L386.0 312.0" fill="none" stroke="#141414" stroke-width="1.1"/>
+<circle cx="400.0" cy="312.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="400.0" y="317.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">b</text>
+<path d="M414.0 312.0 L526.0 312.0" fill="none" stroke="#141414" stroke-width="1.0"/>
+<circle cx="540.0" cy="312.0" r="14" fill="#fff" stroke="#141414" stroke-width="1.4"/>
+<text x="540.0" y="317.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">a</text>
+<text x="600.0" y="73.0" text-anchor="start" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">abc</text>
+<text x="600.0" y="117.0" text-anchor="start" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">acb</text>
+<text x="600.0" y="173.0" text-anchor="start" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">bac</text>
+<text x="600.0" y="217.0" text-anchor="start" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">bca</text>
+<text x="600.0" y="273.0" text-anchor="start" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">cab</text>
+<text x="600.0" y="317.0" text-anchor="start" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">cba</text>
+<text x="250.0" y="360.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3 choices</text>
+<text x="400.0" y="360.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">then 2</text>
+<text x="540.0" y="360.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">then 1</text>
+<text x="760.0" y="140.0" text-anchor="end" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">3!</text>
+<text x="774.0" y="140.0" text-anchor="start" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">= 6</text>
+<text x="760.0" y="188.0" text-anchor="end" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">7!</text>
+<text x="774.0" y="188.0" text-anchor="start" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">= 5 040</text>
+<text x="760.0" y="236.0" text-anchor="end" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">12!</text>
+<text x="774.0" y="236.0" text-anchor="start" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">= 479 001 600</text>
+<text x="820.0" y="96.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">number of orderings</text>
+</svg>

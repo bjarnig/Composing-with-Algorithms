@@ -1,0 +1,178 @@
+<!-- drawn by Course-Development/figures/cwa-history-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="1000" height="420" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the sum of two dice selects the row of the table</text>
+<text x="226.0" y="64.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">first die</text>
+<text x="48.0" y="210.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">second</text>
+<text x="48.0" y="226.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">die</text>
+<rect x="119.0" y="72.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="131.0" cy="84.0" r="2.1" fill="#141414"/>
+<rect x="80.0" y="111.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="92.0" cy="123.0" r="2.1" fill="#141414"/>
+<rect x="114.0" y="106.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="131.0" y="128.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2</text>
+<rect x="114.0" y="144.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="131.0" y="166.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3</text>
+<rect x="114.0" y="182.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="131.0" y="204.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4</text>
+<rect x="114.0" y="220.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="131.0" y="242.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<rect x="114.0" y="258.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="131.0" y="280.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<rect x="114.0" y="296.0" width="34.0" height="34.0" fill="#141414"/>
+<text x="131.0" y="318.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">7</text>
+<rect x="157.0" y="72.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="163.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="175.0" cy="90.0" r="2.1" fill="#141414"/>
+<rect x="80.0" y="149.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="86.0" cy="155.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="167.0" r="2.1" fill="#141414"/>
+<rect x="152.0" y="106.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="169.0" y="128.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3</text>
+<rect x="152.0" y="144.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="169.0" y="166.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4</text>
+<rect x="152.0" y="182.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="169.0" y="204.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<rect x="152.0" y="220.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="169.0" y="242.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<rect x="152.0" y="258.0" width="34.0" height="34.0" fill="#141414"/>
+<text x="169.0" y="280.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">7</text>
+<rect x="152.0" y="296.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="169.0" y="318.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8</text>
+<rect x="195.0" y="72.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="201.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="207.0" cy="84.0" r="2.1" fill="#141414"/>
+<circle cx="213.0" cy="90.0" r="2.1" fill="#141414"/>
+<rect x="80.0" y="187.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="86.0" cy="193.0" r="2.1" fill="#141414"/>
+<circle cx="92.0" cy="199.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="205.0" r="2.1" fill="#141414"/>
+<rect x="190.0" y="106.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="207.0" y="128.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4</text>
+<rect x="190.0" y="144.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="207.0" y="166.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<rect x="190.0" y="182.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="207.0" y="204.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<rect x="190.0" y="220.0" width="34.0" height="34.0" fill="#141414"/>
+<text x="207.0" y="242.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">7</text>
+<rect x="190.0" y="258.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="207.0" y="280.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8</text>
+<rect x="190.0" y="296.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="207.0" y="318.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">9</text>
+<rect x="233.0" y="72.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="239.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="251.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="239.0" cy="90.0" r="2.1" fill="#141414"/>
+<circle cx="251.0" cy="90.0" r="2.1" fill="#141414"/>
+<rect x="80.0" y="225.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="86.0" cy="231.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="231.0" r="2.1" fill="#141414"/>
+<circle cx="86.0" cy="243.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="243.0" r="2.1" fill="#141414"/>
+<rect x="228.0" y="106.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="245.0" y="128.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<rect x="228.0" y="144.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="245.0" y="166.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<rect x="228.0" y="182.0" width="34.0" height="34.0" fill="#141414"/>
+<text x="245.0" y="204.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">7</text>
+<rect x="228.0" y="220.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="245.0" y="242.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8</text>
+<rect x="228.0" y="258.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="245.0" y="280.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">9</text>
+<rect x="228.0" y="296.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="245.0" y="318.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">10</text>
+<rect x="271.0" y="72.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="277.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="289.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="283.0" cy="84.0" r="2.1" fill="#141414"/>
+<circle cx="277.0" cy="90.0" r="2.1" fill="#141414"/>
+<circle cx="289.0" cy="90.0" r="2.1" fill="#141414"/>
+<rect x="80.0" y="263.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="86.0" cy="269.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="269.0" r="2.1" fill="#141414"/>
+<circle cx="92.0" cy="275.0" r="2.1" fill="#141414"/>
+<circle cx="86.0" cy="281.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="281.0" r="2.1" fill="#141414"/>
+<rect x="266.0" y="106.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="283.0" y="128.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<rect x="266.0" y="144.0" width="34.0" height="34.0" fill="#141414"/>
+<text x="283.0" y="166.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">7</text>
+<rect x="266.0" y="182.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="283.0" y="204.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8</text>
+<rect x="266.0" y="220.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="283.0" y="242.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">9</text>
+<rect x="266.0" y="258.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="283.0" y="280.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">10</text>
+<rect x="266.0" y="296.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="283.0" y="318.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">11</text>
+<rect x="309.0" y="72.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="315.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="327.0" cy="78.0" r="2.1" fill="#141414"/>
+<circle cx="315.0" cy="84.0" r="2.1" fill="#141414"/>
+<circle cx="327.0" cy="84.0" r="2.1" fill="#141414"/>
+<circle cx="315.0" cy="90.0" r="2.1" fill="#141414"/>
+<circle cx="327.0" cy="90.0" r="2.1" fill="#141414"/>
+<rect x="80.0" y="301.0" width="24.0" height="24.0" rx="4" fill="none" stroke="#141414" stroke-width="1.3"/>
+<circle cx="86.0" cy="307.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="307.0" r="2.1" fill="#141414"/>
+<circle cx="86.0" cy="313.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="313.0" r="2.1" fill="#141414"/>
+<circle cx="86.0" cy="319.0" r="2.1" fill="#141414"/>
+<circle cx="98.0" cy="319.0" r="2.1" fill="#141414"/>
+<rect x="304.0" y="106.0" width="34.0" height="34.0" fill="#141414"/>
+<text x="321.0" y="128.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">7</text>
+<rect x="304.0" y="144.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="321.0" y="166.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8</text>
+<rect x="304.0" y="182.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="321.0" y="204.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">9</text>
+<rect x="304.0" y="220.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="321.0" y="242.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">10</text>
+<rect x="304.0" y="258.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="321.0" y="280.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">11</text>
+<rect x="304.0" y="296.0" width="34.0" height="34.0" fill="#e6e6e6"/>
+<text x="321.0" y="318.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">12</text>
+<text x="226.0" y="362.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">36 throws, all equally likely</text>
+<text x="226.0" y="380.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">six of them add up to 7</text>
+<rect x="405.0" y="294.0" width="34.0" height="36.0" fill="#3a3a3a"/>
+<text x="422.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2</text>
+<text x="422.0" y="311.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">1</text>
+<rect x="449.0" y="258.0" width="34.0" height="72.0" fill="#3a3a3a"/>
+<text x="466.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3</text>
+<text x="466.0" y="275.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2</text>
+<rect x="493.0" y="222.0" width="34.0" height="108.0" fill="#3a3a3a"/>
+<text x="510.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4</text>
+<text x="510.0" y="239.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3</text>
+<rect x="537.0" y="186.0" width="34.0" height="144.0" fill="#3a3a3a"/>
+<text x="554.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<text x="554.0" y="203.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4</text>
+<rect x="581.0" y="150.0" width="34.0" height="180.0" fill="#3a3a3a"/>
+<text x="598.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<text x="598.0" y="167.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<rect x="625.0" y="114.0" width="34.0" height="216.0" fill="#141414"/>
+<text x="642.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">7</text>
+<text x="642.0" y="131.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<rect x="669.0" y="150.0" width="34.0" height="180.0" fill="#3a3a3a"/>
+<text x="686.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8</text>
+<text x="686.0" y="167.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<rect x="713.0" y="186.0" width="34.0" height="144.0" fill="#3a3a3a"/>
+<text x="730.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">9</text>
+<text x="730.0" y="203.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4</text>
+<rect x="757.0" y="222.0" width="34.0" height="108.0" fill="#3a3a3a"/>
+<text x="774.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">10</text>
+<text x="774.0" y="239.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3</text>
+<rect x="801.0" y="258.0" width="34.0" height="72.0" fill="#3a3a3a"/>
+<text x="818.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">11</text>
+<text x="818.0" y="275.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2</text>
+<rect x="845.0" y="294.0" width="34.0" height="36.0" fill="#3a3a3a"/>
+<text x="862.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">12</text>
+<text x="862.0" y="311.0" text-anchor="middle" font-size="12" fill="#fff" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">1</text>
+<path d="M400.0 330.0 L884.0 330.0" fill="none" stroke="#141414" stroke-width="1.2"/>
+<text x="642.0" y="376.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the sum, which is the row of the table</text>
+<text x="642.0" y="80.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">throws out of 36 that give each sum</text>
+<path d="M400.0 212.2 L884.0 212.2" fill="none" stroke="#141414" stroke-width="1.4" stroke-dasharray="6 5"/>
+<text x="892.0" y="208.2" text-anchor="start" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one die with</text>
+<text x="892.0" y="223.2" text-anchor="start" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">eleven faces</text>
+<text x="500.0" y="404.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">a sum of 7 can be thrown in six ways, and a sum of 2 or 12 in only one way</text>
+</svg>

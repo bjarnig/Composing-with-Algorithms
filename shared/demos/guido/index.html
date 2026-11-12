@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>Guido's Vowel Table, Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  canvas { height: 21rem; }
+  input[type=text] { width: 100%; min-width: 0; background: var(--bg); color: var(--fg);
+    border: 1px solid var(--rule); border-radius: 3px; padding: .3rem .45rem;
+    font-family: var(--serif); font-style: italic; font-size: .9rem; }
+  label.wide { grid-template-columns: 7.2rem minmax(0, 1fr); }
+  body.compact .sub, body.compact .hint { display: none; }
+  body.compact canvas { height: 12.4rem; }
+  .why { grid-column: 1 / -1; color: var(--gold); font-size: .72rem; margin: .1rem 0 0; }
+  body.compact .why { font-size: .64rem; }
+  body.compact label.wide { grid-template-columns: 5.6rem minmax(0, 1fr); }
+  body.compact input[type=text] { font-size: .75rem; padding: .15rem .3rem; }
+</style>
+</head>
+<body>
+
+<h1>Guido's Vowel Table</h1>
+<p class="sub">Guido d'Arezzo's method from the Micrologus (around 1026). The five vowels are
+laid along the gamut in turn, so each vowel of a text points at three or four pitches. The
+text decides which vowel comes next; the composer decides among its pitches. The choice rule
+below stands in for the composer.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:rgba(154,164,181,.6)"></i>pitches the vowel allows</span>
+  <span><i style="background:var(--accent)"></i>the pitch chosen</span>
+  <span><i style="background:var(--mint)"></i>the melody</span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <button id="again">choose again</button>
+</div>
+<p class="hint">With the nearest pitch the line moves by step and sounds like chant. With a
+random choice the same text gives a different melody every time, from the same table.</p>
+
+<div class="grid">
+  <fieldset class="primary">
+    <legend>the text</legend>
+    <label class="wide"><span>text</span><input type="text" id="text" value="Ut queant laxis resonare fibris mira gestorum famuli tuorum"></label>
+    <label><span>choice</span>
+      <select id="choice">
+        <option value="near" selected>nearest</option>
+        <option value="random">random</option>
+        <option value="low">lowest</option>
+        <option value="high">highest</option>
+      </select><output></output></label>
+    <p class="why" id="why"></p>
+  </fieldset>
+  <fieldset class="primary">
+    <legend>playing</legend>
+    <label><span>syllables / s</span><input type="range" id="rate" min="1" max="8" step="0.5" value="3"><output></output></label>
+    <label><span>level</span><input type="range" id="gain" min="0" max="0.6" step="0.01" value="0.3"><output></output></label>
+  </fieldset>
+</div>
+
+<script id="logic">
+/* The gamut from Gamma ut (G2) to aa (A4), and the vowels laid along it in turn: a, e, i,
+   o, u, a, e and so on. A syllable is a vowel, except the u after q. */
+const Guido = {
+  GAMUT: [43, 45, 47, 48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65, 67, 69],
+  NAMES: ['Γ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'aa'],
+  VOWELS: 'aeiou',
+  allowed(v) { const i = this.VOWELS.indexOf(v); return this.GAMUT.map((p, k) => k).filter(k => k % 5 === i); },
+  syllables(text) {
+    const s = text.toLowerCase().replace(/qu/g, 'q').replace(/y/g, 'i');
+    return [...s].filter(c => this.VOWELS.includes(c));
+  },
+  choose(v, last, mode, rnd = Math.random) {
+    const ks = this.allowed(v);
+    if (mode === 'low') return ks[0];
+    if (mode === 'high') return ks[ks.length - 1];
+    if (mode === 'near' && last != null) return ks.reduce((a, b) => (Math.abs(b - last) < Math.abs(a - last) ? b : a));
+    return ks[(rnd() * ks.length) | 0];
+  },
+  melody(text, mode, rnd) {
+    let last = 7;                       // start near G, the middle of the gamut
+    return this.syllables(text).map(v => { const k = this.choose(v, last, mode, rnd); last = k; return { v, k }; });
+  },
+};
+</script>
+
+<script id="worklet" type="text/js-worklet">
+/* Starts plucked voices at the times the page asks for, in AudioContext seconds. */
+class Voices extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.q = []; this.gain = 0.3;
+    this.v = Array.from({ length: 16 }, () => ({ on: false, level: 0 }));
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'notes') { this.q.push(...d.list); this.q.sort((a, b) => a.t - b.t); }
+      if (d.type === 'gain') this.gain = d.value;
+    };
+  }
+  start(n) {
+    let s = this.v.find(x => !x.on);
+    if (!s) s = this.v.reduce((a, b) => (a.level < b.level ? a : b));
+    s.on = true; s.ph = 0; s.inc = n.f / sampleRate; s.amp = n.a; s.level = 1; s.age = 0;
+    s.dec = Math.exp(-6.9078 / Math.max(1, n.d * sampleRate));
+  }
+  process(_in, out) {
+    const L = out[0][0], R = out[0][1];
+    for (let i = 0; i < L.length; i++) {
+      const t = currentTime + i / sampleRate;
+      while (this.q.length && this.q[0].t <= t) this.start(this.q.shift());
+      let mix = 0;
+      for (const s of this.v) {
+        if (!s.on) continue;
+        s.ph += s.inc; if (s.ph >= 1) s.ph -= 1;
+        const w = s.ph * 6.283185307179586;
+        const atk = s.age < 600 ? s.age / 600 : 1;
+        mix += (Math.sin(w) + 0.25 * Math.sin(2 * w) + 0.08 * Math.sin(3 * w)) * s.level * atk * s.amp;
+        s.level *= s.dec; s.age++;
+        if (s.level < 1e-4) s.on = false;
+      }
+      L[i] = R[i] = Math.tanh(mix * this.gain);
+    }
+    return true;
+  }
+}
+registerProcessor('voices', Voices);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const IDS = ['text', 'choice', 'rate', 'gain'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const canvas = document.getElementById('view');
+const g = Kit.fit(canvas);
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+const WHY = {
+  near: 'Of the pitches the vowel allows, take the one closest to the previous note. The line moves by small steps.',
+  random: 'Take any of the pitches the vowel allows, with equal chance. Press choose again for another melody.',
+  low: 'Always take the lowest pitch the vowel allows, so each vowel has one fixed note.',
+  high: 'Always take the highest pitch the vowel allows, so each vowel has one fixed note.',
+};
+const showWhy = () => { document.getElementById('why').textContent = WHY[el.choice.value]; };
+
+let mel = [], pos = 0, nextT = null, current = -1, played = [];
+function compose() { showWhy(); mel = Guido.melody(el.text.value, el.choice.value); pos = 0; }
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'voices' });
+  st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  setInterval(() => {
+    const now = st.ctx.currentTime;
+    if (st.ctx.state !== 'running' || !mel.length) { nextT = null; return; }
+    if (nextT === null || nextT < now) nextT = now + 0.05;
+    const list = [];
+    while (nextT < now + 0.2) {
+      const n = mel[pos];
+      const end = pos === mel.length - 1;
+      list.push({ t: nextT, f: mtof(Guido.GAMUT[n.k] + 12), d: end ? 2.5 : 1.2, a: 0.8 });
+      played.push({ at: nextT, i: pos });
+      nextT += (1 / +el.rate.value) * (end ? 3 : 1);
+      pos = (pos + 1) % mel.length;
+    }
+    st.node.port.postMessage({ type: 'notes', list });
+  }, 25);
+  return st;
+});
+
+document.getElementById('again').addEventListener('click', compose);
+IDS.forEach(id => el[id].addEventListener('input', () => {
+  Kit.readouts(el);
+  const st = getState();
+  if (id === 'gain' && st) st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  if (id === 'text' || id === 'choice') compose();
+}));
+
+/* The table on top: sixteen gamut columns, five vowel rows. The melody below, one
+   syllable per step, with the vowel under each note. */
+function draw() {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  g.clearRect(0, 0, W, H);
+  const accent = Kit.css('--accent'), mint = Kit.css('--mint'), muted = Kit.css('--muted');
+  const st = getState();
+  if (st) {
+    const now = st.ctx.currentTime;
+    while (played.length && played[0].at <= now) current = played.shift().i;
+  }
+  const cur = mel[current];
+  const left = 22, colW = (W - left - 4) / 16, rowH = 15, top = 16;
+  g.font = '10px ' + Kit.css('--sans');
+  Guido.NAMES.forEach((nm, k) => { g.fillStyle = muted; g.fillText(nm, left + k * colW + colW / 2 - 4, 10); });
+  [...Guido.VOWELS].forEach((v, r) => {
+    g.fillStyle = cur && cur.v === v ? accent : muted;
+    g.fillText(v, 6, top + r * rowH + 11);
+    for (let k = 0; k < 16; k++) {
+      const allowed = k % 5 === r;
+      const chosen = cur && cur.v === v && cur.k === k;
+      g.fillStyle = chosen ? accent : allowed ? (cur && cur.v === v ? 'rgba(154,164,181,.6)' : 'rgba(154,164,181,.22)') : 'rgba(255,255,255,.03)';
+      g.fillRect(left + k * colW + 1, top + r * rowH + 1, colW - 2, rowH - 2);
+    }
+  });
+
+  // the melody
+  const y0 = top + 5 * rowH + 14, y1 = H - 16;
+  const y = k => y1 - (k / 15) * (y1 - y0 - 6);
+  const n = Math.max(1, mel.length), step = (W - left - 4) / n;
+  for (let k = 0; k < 16; k += 1) {
+    g.strokeStyle = 'rgba(255,255,255,.05)';
+    g.beginPath(); g.moveTo(left, y(k)); g.lineTo(W - 4, y(k)); g.stroke();
+  }
+  g.strokeStyle = mint; g.lineWidth = 1.5; g.beginPath();
+  mel.forEach((m, i) => { const X = left + (i + 0.5) * step; i ? g.lineTo(X, y(m.k)) : g.moveTo(X, y(m.k)); });
+  g.stroke(); g.lineWidth = 1;
+  mel.forEach((m, i) => {
+    const X = left + (i + 0.5) * step;
+    g.fillStyle = i === current ? accent : mint;
+    g.beginPath(); g.arc(X, y(m.k), i === current ? 4.5 : 3, 0, 6.2832); g.fill();
+    if (step > 9) { g.fillStyle = i === current ? accent : muted; g.fillText(m.v, X - 3, H - 3); }
+  });
+  requestAnimationFrame(draw);
+}
+
+compose();
+Kit.readouts(el);
+draw();
+</script>
+</body>
+</html>

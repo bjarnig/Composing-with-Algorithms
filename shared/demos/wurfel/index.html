@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>Dice Game, Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  canvas { height: 22rem; }
+  .state { font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  body.compact .sub, body.compact .hint { display: none; }
+  body.compact canvas { height: 13.6rem; }
+  label.check, body.compact label.check { grid-template-columns: 1.2rem minmax(0, 1fr); }
+</style>
+</head>
+<body>
+
+<h1>Musikalisches Würfelspiel</h1>
+<p class="sub">Mozart's dice game of 1787. Every bar of the minuet has eleven measures written
+in advance, and two dice choose one of them. The measures here are written as scale degrees,
+so the same game can be played in any mode and key. When the two dice show the same number
+the game can move to a new key.</p>
+
+<canvas id="view"></canvas>
+
+<div class="row">
+  <button id="play">play</button>
+  <button class="preset" data-p="minuet">minuet</button>
+  <button class="preset" data-p="night">night</button>
+  <button class="preset" data-p="drift">drift</button>
+  <span id="state" class="state"></span>
+</div>
+<p class="hint">Two dice give 7 six times as often as 2 or 12, so the pile on the right grows
+into a peak. The measures in the middle rows of the table are the ones you hear most.</p>
+
+<div class="grid">
+  <fieldset class="primary">
+    <legend>harmony</legend>
+    <label><span>mode</span>
+      <select id="mode">
+        <option value="major" selected>major</option>
+        <option value="minor">harmonic minor</option>
+        <option value="dorian">dorian</option>
+        <option value="phrygian">phrygian</option>
+        <option value="lydian">lydian</option>
+        <option value="hungarian">hungarian minor</option>
+        <option value="whole">whole tone</option>
+      </select><output></output></label>
+    <label><span>key</span>
+      <select id="key">
+        <option value="0" selected>C</option><option value="1">C♯</option><option value="2">D</option>
+        <option value="3">E♭</option><option value="4">E</option><option value="5">F</option>
+        <option value="6">F♯</option><option value="7">G</option><option value="8">A♭</option>
+        <option value="9">A</option><option value="10">B♭</option><option value="11">B</option>
+      </select><output></output></label>
+    <label class="check"><input type="checkbox" id="doubles"><span>doubles change the key</span></label>
+  </fieldset>
+  <fieldset class="primary">
+    <legend>playing</legend>
+    <label><span>tempo (bpm)</span><input type="range" id="tempo" min="60" max="200" step="1" value="132"><output></output></label>
+    <label><span>level</span><input type="range" id="gain" min="0" max="0.6" step="0.01" value="0.35"><output></output></label>
+    <label><span>brightness</span><input type="range" id="bright" min="0" max="1" step="0.01" value="0.7"><output></output></label>
+  </fieldset>
+</div>
+
+<script id="logic">
+/* The game. The bank holds 16 bars of 11 measures, written once from a fixed seed as scale
+   degrees over a harmonic plan, so a mode and a key turn degrees into pitches at play time. */
+const Wurfel = {
+  // chord roots as degrees: I V I IV I V V I V II V V I IV V I
+  PLAN: [0, 4, 0, 3, 0, 4, 4, 0, 4, 1, 4, 4, 0, 3, 4, 0],
+  RHYTHMS: [[1, 1, 1], [0.5, 0.5, 1, 1], [1, 0.5, 0.5, 1], [2, 1], [1, 2],
+            [0.5, 0.5, 0.5, 0.5, 1], [1.5, 0.5, 1], [0.5, 0.5, 2]],
+  MODES: {
+    major: [0, 2, 4, 5, 7, 9, 11], minor: [0, 2, 3, 5, 7, 8, 11], dorian: [0, 2, 3, 5, 7, 9, 10],
+    phrygian: [0, 1, 3, 5, 7, 8, 10], lydian: [0, 2, 4, 6, 7, 9, 11],
+    hungarian: [0, 2, 3, 6, 7, 8, 11], whole: [0, 2, 4, 6, 8, 10],
+  },
+  rng(a) {
+    return () => {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  },
+  // one measure: [beat, degree, beats], chord tones on strong notes, steps between them
+  measure(root, rnd) {
+    const r = this.RHYTHMS[(rnd() * this.RHYTHMS.length) | 0];
+    const chord = [0, 2, 4].map(k => root + k + 7);
+    const out = [];
+    let t = 0, prev = chord[(rnd() * 3) | 0];
+    r.forEach((d, i) => {
+      let deg = (i === 0 || rnd() < 0.55) ? chord[(rnd() * 3) | 0] : prev + (rnd() < 0.5 ? 1 : -1);
+      while (deg > 15) deg -= 7;
+      while (deg < 6) deg += 7;
+      out.push([t, deg, d]); prev = deg; t += d;
+    });
+    return out;
+  },
+  bank(seed = 1787) {
+    const rnd = this.rng(seed);
+    return this.PLAN.map(root => Array.from({ length: 11 }, () => this.measure(root, rnd)));
+  },
+  // a degree in a mode, as a midi note; works for scales of any length
+  pitch(deg, mode, key) {
+    const s = this.MODES[mode], n = s.length;
+    const oct = Math.floor(deg / n), k = ((deg % n) + n) % n;
+    return 60 + key + 12 * oct + s[k] - 12 * Math.floor(7 / n);
+  },
+  // the notes of one bar: melody from the chosen measure, bass and two chord tones under it
+  bar(bank, b, row, mode, key) {
+    const root = this.PLAN[b];
+    const notes = bank[b][row].map(([t, deg, d]) => ({ t, m: this.pitch(deg, mode, key), d, a: 0.55 }));
+    notes.push({ t: 0, m: this.pitch(root - 7, mode, key), d: 2.6, a: 0.5 });
+    notes.push({ t: 1, m: this.pitch(root + 2 - 7, mode, key), d: 0.8, a: 0.22 });
+    notes.push({ t: 2, m: this.pitch(root + 4 - 7, mode, key), d: 0.8, a: 0.22 });
+    return notes;
+  },
+};
+</script>
+
+<script id="worklet" type="text/js-worklet">
+/* Karplus-Strong strings. A burst of noise one period long circulates in a delay line,
+   and a two-point average in the loop takes the high partials away a little on every
+   pass. Each note also sounds a quieter string an octave up, as a harpsichord's 4' stop. */
+class Strings extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.q = []; this.gain = 0.35; this.bright = 0.7;
+    this.v = Array.from({ length: 32 }, () => ({ on: false, buf: new Float32Array(4096), level: 0 }));
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'notes') { this.q.push(...d.list); this.q.sort((a, b) => a.t - b.t); }
+      if (d.type === 'gain') this.gain = d.value;
+      if (d.type === 'bright') this.bright = d.value;
+    };
+  }
+  pluck(f, dur, amp) {
+    let s = this.v.find(x => !x.on);
+    if (!s) s = this.v.reduce((a, b) => (a.level < b.level ? a : b));
+    const L = Math.min(4000, sampleRate / f - 0.5);
+    s.on = true; s.L = L; s.w = 0; s.prev = 0; s.amp = amp; s.level = 1;
+    s.left = Math.round(dur * sampleRate);
+    s.g = 0.9985 - 0.004 * (1 - this.bright) - f / 400000;
+    s.buf.fill(0);
+    // the pluck: noise, smoothed when the brightness is low, with a comb for the pluck point
+    const n = Math.ceil(L), lp = 0.15 + 0.8 * this.bright, tmp = new Float32Array(n);
+    let y = 0;
+    for (let i = 0; i < n; i++) { y += lp * ((Math.random() * 2 - 1) - y); tmp[i] = y; }
+    const p = Math.max(1, Math.round(n * 0.12));
+    for (let i = 0; i < n; i++) s.buf[i] = tmp[i] - (i >= p ? tmp[i - p] : 0);
+    s.w = n;
+  }
+  process(_in, out) {
+    const Lc = out[0][0], Rc = out[0][1], N = 4096;
+    for (let i = 0; i < Lc.length; i++) {
+      const t = currentTime + i / sampleRate;
+      while (this.q.length && this.q[0].t <= t) {
+        const e = this.q.shift();
+        this.pluck(e.f, e.d, e.a);
+        if (e.f < 1500) this.pluck(e.f * 2, e.d, e.a * 0.3);
+      }
+      let mix = 0;
+      for (const s of this.v) {
+        if (!s.on) continue;
+        let r = s.w - s.L; if (r < 0) r += N;
+        const r0 = Math.floor(r), fr = r - r0;
+        const x = s.buf[r0 % N] * (1 - fr) + s.buf[(r0 + 1) % N] * fr;
+        const y = 0.5 * (x + s.prev) * s.g;
+        s.prev = x;
+        s.buf[s.w] = y; s.w = (s.w + 1) % N;
+        mix += y * s.amp;
+        s.level = 0.999 * s.level + 0.001 * Math.abs(y);
+        // the damper falls when the written duration is over
+        if (--s.left < 0) s.g *= 0.9993;
+        if (s.left < -sampleRate * 2 || (s.left < 0 && s.level < 1e-5)) s.on = false;
+      }
+      Lc[i] = Rc[i] = Math.tanh(mix * this.gain * 1.6);
+    }
+    return true;
+  }
+}
+registerProcessor('strings', Strings);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const IDS = ['mode', 'key', 'doubles', 'tempo', 'gain', 'bright'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const canvas = document.getElementById('view');
+const g = Kit.fit(canvas);
+const stateEl = document.getElementById('state');
+const NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+const BANK = Wurfel.bank();
+
+let bar = 0, nextT = null, shift = 0;
+const throws = new Array(16).fill(null);    // {d1, d2, at, key} for the bars of this pass
+const pile = new Array(11).fill(0);         // how often each sum has come up
+const seen = [];                            // throws waiting for their bar to sound
+
+function roll() { return [1 + ((Math.random() * 6) | 0), 1 + ((Math.random() * 6) | 0)]; }
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'strings' });
+  st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  st.node.port.postMessage({ type: 'bright', value: +el.bright.value });
+  setInterval(() => {
+    const now = st.ctx.currentTime;
+    if (st.ctx.state !== 'running') { nextT = null; return; }
+    if (nextT === null || nextT < now) nextT = now + 0.08;
+    while (nextT < now + 0.25) {
+      const beat = 60 / +el.tempo.value;
+      const [d1, d2] = roll();
+      if (el.doubles.checked && d1 === d2) shift = (shift + d1 + 1) % 12;
+      const key = (+el.key.value + shift) % 12;
+      const list = Wurfel.bar(BANK, bar, d1 + d2 - 2, el.mode.value, key)
+        .map(n => ({ t: nextT + n.t * beat, f: mtof(n.m), d: n.d * beat, a: n.a }));
+      st.node.port.postMessage({ type: 'notes', list });
+      seen.push({ b: bar, d1, d2, at: nextT, key });
+      nextT += 3 * beat;
+      bar = (bar + 1) % 16;
+    }
+  }, 25);
+  return st;
+});
+
+IDS.forEach(id => el[id].addEventListener('input', () => {
+  Kit.readouts(el);
+  const st = getState();
+  if (st && id === 'gain') st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  if (st && id === 'bright') st.node.port.postMessage({ type: 'bright', value: +el.bright.value });
+  if (id === 'key' || id === 'doubles') shift = 0;
+}));
+Kit.presets({
+  minuet: { mode: 'major', key: '0', doubles: false, tempo: 132, bright: 0.7 },
+  night: { mode: 'phrygian', key: '4', doubles: false, tempo: 84, bright: 0.35 },
+  drift: { mode: 'hungarian', key: '2', doubles: true, tempo: 116, bright: 0.6 },
+}, p => {
+  for (const k in p) el[k].type === 'checkbox' ? (el[k].checked = p[k]) : (el[k].value = p[k]);
+  shift = 0;
+  Kit.readouts(el);
+  const st = getState();
+  if (st) st.node.port.postMessage({ type: 'bright', value: +el.bright.value });
+});
+
+/* Drawing. Two dice tumble at the start of every bar and settle on the throw. The pile of
+   sums grows on the right. Below, the sixteen bars of the current pass as one melody,
+   with the throw that chose each bar above it. */
+function face(x, y, s, n, col, fill) {
+  g.fillStyle = fill; g.strokeStyle = col; g.lineWidth = 1.4;
+  g.beginPath(); g.roundRect(x - s / 2, y - s / 2, s, s, s * 0.18); g.fill(); g.stroke();
+  const q = s / 4;
+  const spots = { 1: [[0, 0]], 2: [[-1, -1], [1, 1]], 3: [[-1, -1], [0, 0], [1, 1]],
+    4: [[-1, -1], [1, -1], [-1, 1], [1, 1]], 5: [[-1, -1], [1, -1], [0, 0], [-1, 1], [1, 1]],
+    6: [[-1, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [1, 1]] }[n];
+  g.fillStyle = col;
+  for (const [i, j] of spots) { g.beginPath(); g.arc(x + i * q, y + j * q, s * 0.075, 0, 6.2832); g.fill(); }
+}
+
+function draw() {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  g.clearRect(0, 0, W, H);
+  const accent = Kit.css('--accent'), mint = Kit.css('--mint'), muted = Kit.css('--muted'), fg = Kit.css('--fg');
+  const st = getState(), now = st ? st.ctx.currentTime : 0;
+  while (seen.length && seen[0].at <= now) {
+    const s = seen.shift();
+    throws[s.b] = s; pile[s.d1 + s.d2 - 2]++;
+  }
+  let cur = null;
+  throws.forEach(s => { if (s && (!cur || s.at > cur.at)) cur = s; });
+  g.font = '11px ' + Kit.css('--sans');
+
+  // the two dice, tumbling for the first quarter second of the bar
+  const top = H * 0.56, ds = Math.min(58, top * 0.42), cx = W * 0.2;
+  const age = cur ? now - cur.at : 1;
+  for (let k = 0; k < 2; k++) {
+    const x = cx + (k ? 0.7 : -0.7) * ds, y = top * 0.46;
+    const tumbling = age < 0.25;
+    const n = !cur ? 6 - k : tumbling ? 1 + ((Math.random() * 6) | 0) : k ? cur.d2 : cur.d1;
+    g.save(); g.translate(x, y);
+    if (tumbling) g.rotate((0.25 - age) * 9 * (k ? -1 : 1));
+    face(0, 0, ds, n, cur && !tumbling && cur.d1 === cur.d2 ? Kit.css('--gold') : fg, 'rgba(255,255,255,.04)');
+    g.restore();
+  }
+  if (cur && age >= 0.25) {
+    g.fillStyle = accent; g.font = '600 ' + Math.round(ds * 0.42) + 'px ' + Kit.css('--sans');
+    g.textAlign = 'center';
+    g.fillText('= ' + (cur.d1 + cur.d2), cx, top * 0.46 + ds * 0.62 + 16);
+    g.font = '11px ' + Kit.css('--sans'); g.fillStyle = muted;
+    g.fillText('bar ' + (cur.b + 1) + ', measure ' + (cur.d1 + cur.d2), cx, top * 0.46 + ds * 0.62 + 31);
+    g.textAlign = 'left';
+  }
+
+  // the pile of sums: one pip per throw, stacked over its sum
+  const px0 = W * 0.42, pw = (W - px0 - 12) / 11, pbase = top - 6;
+  const most = Math.max(1, ...pile), r = Math.min(4.5, pw * 0.16);
+  // pips stack two abreast; past the top, one pip stands for several throws
+  const per = Math.max(1, Math.ceil(most / 2 * r * 2.5 / (pbase - 22)));
+  g.fillStyle = muted; g.fillText(per > 1 ? 'sums thrown, one pip for ' + per : 'sums thrown', px0 + 4, 14);
+  for (let s = 0; s < 11; s++) {
+    const x = px0 + (s + 0.5) * pw, dots = Math.ceil(pile[s] / per);
+    g.fillStyle = cur && cur.d1 + cur.d2 - 2 === s ? accent : 'rgba(154,164,181,.75)';
+    for (let k = 0; k < dots; k++) {
+      g.beginPath(); g.arc(x + ((k % 2) ? r * 1.2 : -r * 1.2), pbase - 4 - Math.floor(k / 2) * r * 2.5, r, 0, 6.2832); g.fill();
+    }
+    g.fillStyle = muted; g.textAlign = 'center'; g.fillText(String(s + 2), x, top + 10); g.textAlign = 'left';
+  }
+
+  // the sixteen bars of this pass as one line
+  const y0 = top + 36, y1 = H - 8, bw = W / 16;
+  const notes = [];
+  throws.forEach((s, b) => {
+    if (!s) return;
+    for (const n of Wurfel.bar(BANK, b, s.d1 + s.d2 - 2, el.mode.value, s.key).slice(0, -3))
+      notes.push({ x: (b + n.t / 3) * bw, m: n.m, b });
+  });
+  if (notes.length) {
+    const lo = Math.min(...notes.map(n => n.m)), hi = Math.max(lo + 12, ...notes.map(n => n.m));
+    const y = m => y1 - (m - lo) / (hi - lo) * (y1 - y0 - 18);
+    g.strokeStyle = 'rgba(140,225,180,.55)'; g.lineWidth = 1.4; g.beginPath();
+    notes.forEach((n, i) => (i ? g.lineTo(n.x + 3, y(n.m)) : g.moveTo(n.x + 3, y(n.m))));
+    g.stroke(); g.lineWidth = 1;
+    for (const n of notes) {
+      g.fillStyle = cur && n.b === cur.b ? accent : mint;
+      g.beginPath(); g.arc(n.x + 3, y(n.m), cur && n.b === cur.b ? 3.4 : 2.4, 0, 6.2832); g.fill();
+    }
+  }
+  throws.forEach((s, b) => {
+    if (!s) return;
+    g.fillStyle = cur && b === cur.b ? accent : muted;
+    g.fillText(String(s.d1 + s.d2), b * bw + 3, y0 + 4);
+  });
+
+  const key = cur ? cur.key : +el.key.value;
+  const thrown = pile.reduce((a, b) => a + b, 0);
+  stateEl.textContent = NAMES[key] + ' ' + el.mode.selectedOptions[0].text + (thrown ? ', ' + thrown + ' throws' : '');
+  requestAnimationFrame(draw);
+}
+
+Kit.readouts(el);
+draw();
+</script>
+</body>
+</html>

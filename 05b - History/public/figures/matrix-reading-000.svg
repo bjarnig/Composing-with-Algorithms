@@ -1,0 +1,158 @@
+<!-- drawn by Course-Development/figures/cwa-history-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="24.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the first phrase of piano 1: pitch from line 1, duration from column 1</text>
+<text x="40.0" y="74.0" text-anchor="start" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">one number in three scales</text>
+<text x="40.0" y="104.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">n</text>
+<text x="80.0" y="104.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">pitch</text>
+<text x="140.0" y="104.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">duration</text>
+<text x="240.0" y="104.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">dynamic</text>
+<text x="40.0" y="125.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<text x="80.0" y="125.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E♭</text>
+<text x="140.0" y="125.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">1/32</text>
+<text x="240.0" y="125.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">pppp</text>
+<text x="40.0" y="146.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<text x="80.0" y="146.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">D</text>
+<text x="140.0" y="146.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2/32</text>
+<text x="240.0" y="146.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">ppp</text>
+<text x="40.0" y="167.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">3</text>
+<text x="80.0" y="167.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">A</text>
+<text x="140.0" y="167.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3/32</text>
+<text x="240.0" y="167.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">pp</text>
+<text x="40.0" y="188.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<text x="80.0" y="188.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">A♭</text>
+<text x="140.0" y="188.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4/32</text>
+<text x="240.0" y="188.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">p</text>
+<text x="40.0" y="209.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">5</text>
+<text x="80.0" y="209.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">G</text>
+<text x="140.0" y="209.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5/32</text>
+<text x="240.0" y="209.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">quasi p</text>
+<text x="40.0" y="230.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">6</text>
+<text x="80.0" y="230.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">F♯</text>
+<text x="140.0" y="230.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6/32</text>
+<text x="240.0" y="230.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">mp</text>
+<text x="40.0" y="251.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<text x="80.0" y="251.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E</text>
+<text x="140.0" y="251.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">7/32</text>
+<text x="240.0" y="251.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">mf</text>
+<text x="40.0" y="272.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">8</text>
+<text x="80.0" y="272.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">C♯</text>
+<text x="140.0" y="272.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8/32</text>
+<text x="240.0" y="272.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">quasi f</text>
+<text x="40.0" y="293.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<text x="80.0" y="293.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">C</text>
+<text x="140.0" y="293.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">9/32</text>
+<text x="240.0" y="293.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">f</text>
+<text x="40.0" y="314.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">10</text>
+<text x="80.0" y="314.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">B♭</text>
+<text x="140.0" y="314.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">10/32</text>
+<text x="240.0" y="314.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">ff</text>
+<text x="40.0" y="335.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">11</text>
+<text x="80.0" y="335.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">F</text>
+<text x="140.0" y="335.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">11/32</text>
+<text x="240.0" y="335.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">fff</text>
+<text x="40.0" y="356.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">12</text>
+<text x="80.0" y="356.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">B</text>
+<text x="140.0" y="356.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">12/32</text>
+<text x="240.0" y="356.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">ffff</text>
+<path d="M380.0 79.0 L960.0 79.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 97.0 L960.0 97.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 115.0 L960.0 115.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 133.0 L960.0 133.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 151.0 L960.0 151.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 169.0 L960.0 169.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 187.0 L960.0 187.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 205.0 L960.0 205.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 223.0 L960.0 223.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 241.0 L960.0 241.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 259.0 L960.0 259.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<path d="M380.0 277.0 L960.0 277.0" fill="none" stroke="#e6e6e6" stroke-width="0.6"/>
+<rect x="380.5" y="217.0" width="6.4" height="12.0" fill="#141414"/>
+<text x="376.0" y="227.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E♭</text>
+<rect x="387.9" y="235.0" width="51.1" height="12.0" fill="#141414"/>
+<text x="383.4" y="245.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">D</text>
+<rect x="440.0" y="109.0" width="21.3" height="12.0" fill="#141414"/>
+<text x="435.5" y="119.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">A</text>
+<rect x="462.3" y="127.0" width="73.4" height="12.0" fill="#141414"/>
+<text x="457.8" y="137.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">A♭</text>
+<rect x="536.7" y="145.0" width="88.2" height="12.0" fill="#141414"/>
+<text x="532.2" y="155.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">G</text>
+<rect x="625.9" y="163.0" width="65.9" height="12.0" fill="#141414"/>
+<text x="621.4" y="173.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">F♯</text>
+<rect x="692.8" y="199.0" width="13.9" height="12.0" fill="#141414"/>
+<text x="688.3" y="209.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E</text>
+<rect x="707.7" y="253.0" width="80.8" height="12.0" fill="#141414"/>
+<text x="703.2" y="263.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">C♯</text>
+<rect x="789.5" y="271.0" width="43.6" height="12.0" fill="#141414"/>
+<text x="785.0" y="281.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">C</text>
+<rect x="834.1" y="91.0" width="28.7" height="12.0" fill="#141414"/>
+<text x="829.6" y="101.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">B♭</text>
+<rect x="863.8" y="181.0" width="58.5" height="12.0" fill="#141414"/>
+<text x="859.3" y="191.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">F</text>
+<rect x="923.3" y="73.0" width="36.2" height="12.0" fill="#141414"/>
+<text x="918.8" y="83.0" text-anchor="end" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">B</text>
+<path d="M380.0 304.0 L960.0 304.0" fill="none" stroke="#9a9a9a" stroke-width="0.8"/>
+<text x="380.0" y="322.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">time, in 32nd notes: 78 in all</text>
+<text x="960.0" y="56.0" text-anchor="end" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-style="italic">ffff</text>
+<text x="380.0" y="354.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">phrase 1</text>
+<text x="380.0" y="372.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">pitch, line 1</text>
+<text x="380.0" y="390.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">duration, column 1</text>
+<text x="530.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<text x="530.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<text x="560.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<text x="560.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<text x="590.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">3</text>
+<text x="590.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">3</text>
+<text x="620.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<text x="620.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">10</text>
+<text x="650.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">5</text>
+<text x="650.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">12</text>
+<text x="680.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">6</text>
+<text x="680.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<text x="710.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<text x="710.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<text x="740.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">8</text>
+<text x="740.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">11</text>
+<text x="770.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<text x="770.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">6</text>
+<text x="800.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">10</text>
+<text x="800.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<text x="830.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">11</text>
+<text x="830.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">8</text>
+<text x="860.0" y="372.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">12</text>
+<text x="860.0" y="390.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">5</text>
+<text x="960.0" y="372.0" text-anchor="end" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">dynamic</text>
+<text x="960.0" y="390.0" text-anchor="end" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">12, ffff</text>
+<text x="380.0" y="416.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">phrase 2</text>
+<text x="380.0" y="434.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">pitch, line 2</text>
+<text x="380.0" y="452.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">duration, column 2</text>
+<text x="530.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<text x="530.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<text x="560.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<text x="560.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<text x="590.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">10</text>
+<text x="590.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<text x="620.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">3</text>
+<text x="620.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">3</text>
+<text x="650.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">4</text>
+<text x="650.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">10</text>
+<text x="680.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">5</text>
+<text x="680.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">12</text>
+<text x="710.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">11</text>
+<text x="710.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">8</text>
+<text x="740.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">2</text>
+<text x="740.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">7</text>
+<text x="770.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">8</text>
+<text x="770.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">11</text>
+<text x="800.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">12</text>
+<text x="800.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">5</text>
+<text x="830.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">6</text>
+<text x="830.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<text x="860.0" y="434.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">9</text>
+<text x="860.0" y="452.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">6</text>
+<text x="960.0" y="434.0" text-anchor="end" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">dynamic</text>
+<text x="960.0" y="452.0" text-anchor="end" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">6, mp</text>
+<text x="500.0" y="506.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">phrase n reads line n for pitch, column n for duration, and number n of the diagonal for its dynamic</text>
+</svg>

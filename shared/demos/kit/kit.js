@@ -161,6 +161,34 @@ window.Kit = (function () {
     ctx2d.stroke();
   }
 
+  /* Magnitude spectrum as bars, linear in frequency up to maxHz so harmonic
+     partials sit at even spacings and are countable. Needs an analyser whose
+     frequencyBinCount matches `bins`. */
+  function drawSpectrum(ctx2d, x0, y0, W, H, analyser, bins, opts = {}) {
+    if (!analyser) return;
+    const { maxHz = 6000, minDb = -90, maxDb = -10, colour = '#8ce1b4',
+            sampleRate = 48000, label = true } = opts;
+    analyser.getFloatFrequencyData(bins);
+    const nyq = sampleRate / 2;
+    const top = Math.max(1, Math.min(bins.length, Math.round(maxHz / nyq * bins.length)));
+    const bw = W / top;
+    ctx2d.fillStyle = colour;
+    for (let i = 0; i < top; i++) {
+      const db = Math.max(minDb, Math.min(maxDb, bins[i]));
+      const t = (db - minDb) / (maxDb - minDb);
+      const h = t * (H - 12);
+      if (h <= 0.4) continue;
+      ctx2d.globalAlpha = 0.55 + 0.4 * t;
+      ctx2d.fillRect(x0 + i * bw, y0 + H - h, Math.max(1, bw - 0.5), h);
+    }
+    ctx2d.globalAlpha = 1;
+    if (label) {
+      ctx2d.fillStyle = css('--muted');
+      ctx2d.font = '10px ' + css('--sans');
+      ctx2d.fillText('spectrum, 0-' + Math.round(maxHz / 1000) + ' kHz', x0 + 6, y0 + 12);
+    }
+  }
+
   function axis(ctx2d, W, H) {
     const mid = H / 2;
     ctx2d.strokeStyle = 'rgba(255,255,255,.10)';
@@ -168,5 +196,6 @@ window.Kit = (function () {
     ctx2d.beginPath(); ctx2d.moveTo(0, mid); ctx2d.lineTo(W, mid); ctx2d.stroke();
   }
 
-  return { compact, controls, values, readouts, presets, fit, css, build, playButton, drawScope, axis };
+  return { compact, controls, values, readouts, presets, fit, css, build, playButton,
+           drawScope, drawSpectrum, axis };
 })();

@@ -1,0 +1,32 @@
+<!-- drawn by Course-Development/figures/cwa-history-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="1000" height="360" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">where the rule is applied</text>
+<text x="40.0" y="116.0" text-anchor="start" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">notes</text>
+<rect x="150.0" y="70.0" width="200.0" height="86.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="250.0" y="98.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">score</text>
+<text x="250.0" y="120.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a list of notes</text>
+<text x="250.0" y="138.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">p1 p2 p3 p4 p5</text>
+<path d="M352.0 113.0 L418.0 113.0" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="420.0" y="70.0" width="200.0" height="86.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="520.0" y="98.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">instrument</text>
+<text x="520.0" y="120.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">unit generators</text>
+<text x="520.0" y="138.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">fixed in advance</text>
+<path d="M622.0 113.0 L688.0 113.0" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="690.0" y="70.0" width="200.0" height="86.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="790.0" y="98.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">sound</text>
+<text x="790.0" y="120.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one note at a time</text>
+<text x="520.0" y="182.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">Music N, 1957: the rule writes the score</text>
+<text x="40.0" y="266.0" text-anchor="start" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">sound</text>
+<rect x="150.0" y="220.0" width="200.0" height="86.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="250.0" y="248.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">rule</text>
+<text x="250.0" y="270.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">segments, steps,</text>
+<text x="250.0" y="288.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">random walks</text>
+<path d="M352.0 263.0 L360.0 251.0 L368.0 258.0 L376.0 279.0 L384.0 275.0 L392.0 268.0 L400.0 247.0 L408.0 251.0 L416.0 258.0 L424.0 279.0 L432.0 275.0 L440.0 268.0 L448.0 247.0 L456.0 251.0 L464.0 258.0 L472.0 279.0 L480.0 275.0 L488.0 268.0 L496.0 247.0 L504.0 251.0 L512.0 258.0 L520.0 279.0 L528.0 275.0 L536.0 268.0 L544.0 247.0 L552.0 251.0 L560.0 258.0 L568.0 279.0 L576.0 275.0 L584.0 268.0 L592.0 247.0 L600.0 251.0 L608.0 258.0 L616.0 279.0 L624.0 275.0 L632.0 268.0 L640.0 247.0 L648.0 251.0 L656.0 258.0 L664.0 279.0 L684.0 263.0" fill="none" stroke="#141414" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="690.0" y="220.0" width="200.0" height="86.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="790.0" y="248.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">samples</text>
+<text x="790.0" y="270.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">no notes in between</text>
+<text x="520.0" y="332.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">SAWDUST, SSP, GENDYN: the rule writes the waveform</text>
+</svg>

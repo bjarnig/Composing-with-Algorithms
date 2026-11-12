@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>Loops of Different Lengths, Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  canvas { height: 22rem; }
+  .stats { font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .stats b { color: var(--fg); font-weight: 600; }
+  body.compact .sub, body.compact .hint, body.compact fieldset.lengths { display: none; }
+  body.compact canvas { height: 15rem; }
+</style>
+</head>
+<body>
+
+<h1>Loops of Different Lengths</h1>
+<p class="sub">The procedure of Brian Eno's Music for Airports (1978). Each note is a tape loop
+of its own length, and all the loops run at once. Nothing is chosen while the piece plays: the
+lengths are the only decision, and because they share no common measure the combinations keep
+changing. Each ring is one loop, and its dot sounds as it passes the top.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>a loop's position</span>
+  <span><i style="background:var(--mint)"></i>sounding now</span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <button class="preset" data-p="airports">different lengths</button>
+  <button class="preset" data-p="equal">all equal</button>
+  <button class="preset" data-p="ratios">10, 15, 20, 30 s</button>
+  <span id="stats" class="stats"></span>
+</div>
+<p class="hint">Equal lengths make a chord that returns unchanged. Lengths of 10, 15, 20 and 30 s
+all fit into one minute, so the whole pattern repeats every minute. Lengths with no common measure take hours or years to come back.</p>
+
+<div class="grid">
+  <fieldset class="primary">
+    <legend>playing</legend>
+    <label><span>speed</span><input type="range" id="speed" min="1" max="16" step="1" value="1"><output></output></label>
+    <label><span>level</span><input type="range" id="gain" min="0" max="0.6" step="0.01" value="0.3"><output></output></label>
+  </fieldset>
+  <fieldset class="lengths">
+    <legend>loop lengths (s)</legend>
+    <label><span>F</span><input type="range" id="l0" min="4" max="40" step="0.1" value="17.8"><output></output></label>
+    <label><span>A♭</span><input type="range" id="l1" min="4" max="40" step="0.1" value="20.1"><output></output></label>
+    <label><span>C</span><input type="range" id="l2" min="4" max="40" step="0.1" value="23.5"><output></output></label>
+    <label><span>D♭</span><input type="range" id="l3" min="4" max="40" step="0.1" value="25.9"><output></output></label>
+    <label><span>E♭</span><input type="range" id="l4" min="4" max="40" step="0.1" value="29.9"><output></output></label>
+    <label><span>F</span><input type="range" id="l5" min="4" max="40" step="0.1" value="31.8"><output></output></label>
+    <label><span>A♭</span><input type="range" id="l6" min="4" max="40" step="0.1" value="19.6"><output></output></label>
+  </fieldset>
+</div>
+
+<script id="logic">
+/* Loop i sounds at offset_i + k * length_i. Time here is the piece's own time, which runs
+   at `speed` times the clock, so a fast-forward changes nothing about the structure. */
+const Loops = {
+  PITCH: [65, 68, 72, 73, 75, 77, 80],
+  OFFSET: [0, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8],
+  // onsets of loop i that fall in [a, b), in piece time
+  onsets(i, len, a, b) {
+    const o = this.OFFSET[i], out = [];
+    let k = Math.max(0, Math.ceil((a - o) / len - 1e-9));
+    for (let t = o + k * len; t < b; t = o + ++k * len) if (t >= a) out.push(t);
+    return out;
+  },
+  // when every loop is back where it started: the lcm of the lengths, in tenths of a second
+  realign(lens) {
+    const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+    let l = 1n;
+    for (const x of lens) {
+      const n = BigInt(Math.round(x * 10));
+      const g2 = BigInt(gcd(Number(l % n), Number(n)));
+      l = l / g2 * n;
+    }
+    return Number(l) / 10;
+  },
+};
+</script>
+
+<script id="worklet" type="text/js-worklet">
+/* Starts slow sine swells at the times the page asks for, in AudioContext seconds. */
+class Voices extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.q = []; this.gain = 0.3;
+    this.v = Array.from({ length: 24 }, () => ({ on: false }));
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'notes') { this.q.push(...d.list); this.q.sort((a, b) => a.t - b.t); }
+      if (d.type === 'gain') this.gain = d.value;
+    };
+  }
+  start(n) {
+    let s = this.v.find(x => !x.on);
+    if (!s) s = this.v.reduce((a, b) => (a.age > b.age ? a : b));
+    s.on = true; s.ph = 0; s.ph2 = 0; s.inc = n.f / sampleRate; s.amp = n.a; s.age = 0;
+    s.len = Math.max(1, n.d * sampleRate);
+  }
+  process(_in, out) {
+    const L = out[0][0], R = out[0][1];
+    for (let i = 0; i < L.length; i++) {
+      const t = currentTime + i / sampleRate;
+      while (this.q.length && this.q[0].t <= t) this.start(this.q.shift());
+      let mix = 0;
+      for (const s of this.v) {
+        if (!s.on) continue;
+        s.ph += s.inc; if (s.ph >= 1) s.ph -= 1;
+        s.ph2 += s.inc * 1.003; if (s.ph2 >= 1) s.ph2 -= 1;
+        // a sine-shaped swell over the whole duration: no attack to hear, only the bloom
+        const env = Math.sin(Math.PI * s.age / s.len);
+        mix += (Math.sin(s.ph * 6.2832) + Math.sin(s.ph2 * 6.2832) + 0.2 * Math.sin(s.ph * 12.5664)) * 0.4 * env * s.amp;
+        if (++s.age >= s.len) s.on = false;
+      }
+      L[i] = R[i] = Math.tanh(mix * this.gain);
+    }
+    return true;
+  }
+}
+registerProcessor('voices', Voices);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const LEN_IDS = ['l0', 'l1', 'l2', 'l3', 'l4', 'l5', 'l6'];
+const IDS = ['speed', 'gain', ...LEN_IDS];
+Kit.compact();
+const el = Kit.controls(IDS);
+const canvas = document.getElementById('view');
+const g = Kit.fit(canvas);
+const statsEl = document.getElementById('stats');
+const NAMES = ['F', 'A♭', 'C', 'D♭', 'E♭', 'F', 'A♭'];
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+const lens = () => LEN_IDS.map(id => +el[id].value);
+const NOTE = 6;                       // seconds of piece time each note lasts
+
+/* piece time = base + speed * (clock - since). Rebased on every speed change. */
+let base = 0, since = null, speed = 1, scheduled = 0, lastStart = new Array(7).fill(-1e9);
+const pieceTime = ctx => (since === null ? base : base + speed * (ctx.currentTime - since));
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'voices' });
+  st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  since = st.ctx.currentTime;
+  setInterval(() => {
+    if (st.ctx.state !== 'running') return;
+    const now = st.ctx.currentTime, p = pieceTime(st.ctx), ahead = p + 0.25 * speed;
+    const a = Math.max(scheduled, p), list = [];
+    lens().forEach((len, i) => {
+      for (const t of Loops.onsets(i, len, a, ahead))
+        list.push({ t: now + (t - p) / speed, f: mtof(Loops.PITCH[i]), d: NOTE / Math.sqrt(speed), a: 0.5 });
+    });
+    scheduled = ahead;
+    if (list.length) st.node.port.postMessage({ type: 'notes', list });
+  }, 25);
+  return st;
+});
+
+IDS.forEach(id => el[id].addEventListener('input', () => {
+  Kit.readouts(el, /^gain$/);
+  const st = getState();
+  if (id === 'gain' && st) st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  if (id === 'speed') {
+    if (st) { base = pieceTime(st.ctx); since = st.ctx.currentTime; }
+    speed = +el.speed.value;
+  }
+}));
+const set = arr => { arr.forEach((v, i) => (el[LEN_IDS[i]].value = v)); Kit.readouts(el, /^gain$/); };
+Kit.presets({
+  airports: [17.8, 20.1, 23.5, 25.9, 29.9, 31.8, 19.6],
+  equal: [20, 20, 20, 20, 20, 20, 20],
+  ratios: [10, 20, 15, 30, 20, 10, 15],
+}, set);
+
+function fmtDur(s) {
+  if (s < 120) return s.toFixed(1) + ' s';
+  if (s < 7200) return (s / 60).toFixed(1) + ' min';
+  if (s < 172800) return (s / 3600).toFixed(1) + ' h';
+  if (s < 3.15e7 * 2) return (s / 86400).toFixed(0) + ' days';
+  return (s / 3.15e7).toExponential(1).replace('e+', ' × 10^') + ' years';
+}
+
+/* Rings on the left, one per loop, outermost first. A lane on the right shows the last
+   two minutes of onsets, so coincidences are visible as vertical alignments. */
+function draw() {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  g.clearRect(0, 0, W, H);
+  const accent = Kit.css('--accent'), mint = Kit.css('--mint'), muted = Kit.css('--muted');
+  const st = getState();
+  const p = st ? pieceTime(st.ctx) : base;
+  const L = lens();
+  const cx = H / 2, cy = H / 2, R = H / 2 - 10;
+  g.font = '10px ' + Kit.css('--sans');
+
+  L.forEach((len, i) => {
+    const r = R - i * (R - 18) / 7;
+    const ph = Math.max(0, p - Loops.OFFSET[i]) / len;
+    const age = p - (Loops.OFFSET[i] + Math.floor(Math.max(0, p - Loops.OFFSET[i]) / len) * len);
+    const sounding = p >= Loops.OFFSET[i] && age < NOTE;
+    g.strokeStyle = sounding ? mint : 'rgba(255,255,255,.12)';
+    g.lineWidth = sounding ? 1.6 : 1;
+    g.beginPath(); g.arc(cx, cy, r, 0, 6.2832); g.stroke();
+    const a = ph * 6.2832 - Math.PI / 2;
+    g.fillStyle = sounding ? mint : accent;
+    g.beginPath(); g.arc(cx + r * Math.cos(a), cy + r * Math.sin(a), sounding ? 4.5 : 3.2, 0, 6.2832); g.fill();
+  });
+  g.lineWidth = 1;
+  g.strokeStyle = 'rgba(255,255,255,.3)';
+  g.beginPath(); g.moveTo(cx, 2); g.lineTo(cx, 18); g.stroke();
+
+  // lanes, the last 120 s of piece time
+  const x0 = H + 20, x1 = W - 8, span = 120, lh = (H - 30) / 7;
+  L.forEach((len, i) => {
+    const yy = 14 + i * lh + lh / 2;
+    g.fillStyle = muted; g.fillText(NAMES[i], x0, yy + 3);
+    g.strokeStyle = 'rgba(255,255,255,.06)';
+    g.beginPath(); g.moveTo(x0 + 22, yy); g.lineTo(x1, yy); g.stroke();
+    for (const t of Loops.onsets(i, len, p - span, p + 1e-6)) {
+      const xs = x0 + 22 + (1 - (p - t) / span) * (x1 - x0 - 22);
+      const w = NOTE / span * (x1 - x0 - 22);
+      g.fillStyle = p - t < NOTE ? mint : accent;
+      g.globalAlpha = p - t < NOTE ? 1 : 0.6;
+      g.fillRect(xs, yy - lh * 0.28, Math.max(2, w), lh * 0.56);
+    }
+    g.globalAlpha = 1;
+  });
+  g.fillStyle = muted;
+  g.fillText('the last two minutes', x0 + 22, H - 4);
+
+  const sounding = L.filter((len, i) => p >= Loops.OFFSET[i] &&
+    p - (Loops.OFFSET[i] + Math.floor((p - Loops.OFFSET[i]) / len) * len) < NOTE).length;
+  statsEl.innerHTML = `played <b>${fmtDur(p)}</b>  notes sounding <b>${sounding}</b>  ` +
+    `the pattern repeats every <b>${fmtDur(Loops.realign(L))}</b>`;
+  requestAnimationFrame(draw);
+}
+
+Kit.readouts(el, /^gain$/);
+draw();
+</script>
+</body>
+</html>

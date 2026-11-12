@@ -1,0 +1,78 @@
+<!-- drawn by Course-Development/figures/cwa-history-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">each proposal passes the rules in turn, and any refusal sends it back</text>
+<rect x="30.0" y="80.0" width="150.0" height="76.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="105.0" y="108.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">propose</text>
+<text x="105.0" y="130.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a random note</text>
+<rect x="230.0" y="90.0" width="120.0" height="56.0" rx="4" fill="none" stroke="#141414" stroke-width="1.6"/>
+<text x="290.0" y="115.0" text-anchor="middle" font-size="13.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">no repeat</text>
+<text x="290.0" y="135.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">rule R</text>
+<path d="M182.0 118.0 L228.0 118.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M290.0 146 L290.0 186" fill="none" stroke="#555" stroke-width="1.1" stroke-dasharray="4 3"/>
+<rect x="380.0" y="90.0" width="120.0" height="56.0" rx="4" fill="none" stroke="#141414" stroke-width="1.6"/>
+<text x="440.0" y="115.0" text-anchor="middle" font-size="13.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">leap ≤ fifth</text>
+<text x="440.0" y="135.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">rule L</text>
+<path d="M350.0 118.0 L378.0 118.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M440.0 146 L440.0 186" fill="none" stroke="#555" stroke-width="1.1" stroke-dasharray="4 3"/>
+<rect x="530.0" y="90.0" width="120.0" height="56.0" rx="4" fill="none" stroke="#141414" stroke-width="1.6"/>
+<text x="590.0" y="115.0" text-anchor="middle" font-size="13.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">leap, then step</text>
+<text x="590.0" y="135.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">rule S</text>
+<path d="M500.0 118.0 L528.0 118.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M590.0 146 L590.0 186" fill="none" stroke="#555" stroke-width="1.1" stroke-dasharray="4 3"/>
+<rect x="680.0" y="90.0" width="120.0" height="56.0" rx="4" fill="none" stroke="#141414" stroke-width="1.6"/>
+<text x="740.0" y="115.0" text-anchor="middle" font-size="13.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">no tritone</text>
+<text x="740.0" y="135.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">rule T</text>
+<path d="M650.0 118.0 L678.0 118.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M740.0 146 L740.0 186" fill="none" stroke="#555" stroke-width="1.1" stroke-dasharray="4 3"/>
+<path d="M740 186 L105 186 L105 160" fill="none" stroke="#555" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#a)"/>
+<text x="500.0" y="204.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">refused: propose again</text>
+<path d="M802.0 118.0 L872.0 118.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="874.0" y="80.0" width="100.0" height="76.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="924.0" y="108.0" text-anchor="middle" font-size="16" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">keep</text>
+<text x="924.0" y="130.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">add to score</text>
+<text x="40.0" y="254.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">proposals</text>
+<path d="M145.0 355.0 L155.0 365.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<path d="M155.0 355.0 L145.0 365.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<text x="150.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">R</text>
+<text x="200.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E</text>
+<path d="M245.0 327.0 L255.0 337.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<path d="M255.0 327.0 L245.0 337.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<text x="250.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">R</text>
+<path d="M295.0 257.0 L305.0 267.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<path d="M305.0 257.0 L295.0 267.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<text x="300.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">L</text>
+<text x="350.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">G</text>
+<text x="400.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">F</text>
+<path d="M445.0 271.0 L455.0 281.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<path d="M455.0 271.0 L445.0 281.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<text x="450.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">T</text>
+<text x="500.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">A</text>
+<text x="550.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">D</text>
+<path d="M595.0 299.0 L605.0 309.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<path d="M605.0 299.0 L595.0 309.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<text x="600.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">S</text>
+<path d="M645.0 313.0 L655.0 323.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<path d="M655.0 313.0 L645.0 323.0" fill="none" stroke="#555" stroke-width="1.4"/>
+<text x="650.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">S</text>
+<text x="700.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E</text>
+<text x="750.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">B</text>
+<text x="800.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">C</text>
+<text x="850.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">G</text>
+<text x="900.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">A</text>
+<circle cx="80.0" cy="360.0" r="4" fill="#141414"/>
+<text x="80.0" y="384.0" text-anchor="middle" font-size="11.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">C</text>
+<path d="M80.0 360.0 L200.0 332.0 L350.0 304.0 L400.0 318.0 L500.0 290.0 L550.0 346.0 L700.0 332.0 L750.0 276.0 L800.0 262.0 L850.0 304.0 L900.0 290.0" fill="none" stroke="#141414" stroke-width="1.8"/>
+<circle cx="200.0" cy="332.0" r="4" fill="#141414"/>
+<circle cx="350.0" cy="304.0" r="4" fill="#141414"/>
+<circle cx="400.0" cy="318.0" r="4" fill="#141414"/>
+<circle cx="500.0" cy="290.0" r="4" fill="#141414"/>
+<circle cx="550.0" cy="346.0" r="4" fill="#141414"/>
+<circle cx="700.0" cy="332.0" r="4" fill="#141414"/>
+<circle cx="750.0" cy="276.0" r="4" fill="#141414"/>
+<circle cx="800.0" cy="262.0" r="4" fill="#141414"/>
+<circle cx="850.0" cy="304.0" r="4" fill="#141414"/>
+<circle cx="900.0" cy="290.0" r="4" fill="#141414"/>
+</svg>

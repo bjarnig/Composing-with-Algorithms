@@ -1,0 +1,104 @@
+<!-- drawn by Course-Development/figures/cwa-history-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">three coins make a line, six lines make a hexagram, the hexagram names a cell</text>
+<text x="180.0" y="66.0" text-anchor="middle" font-size="13.5" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">a hexagram</text>
+<text x="180.0" y="84.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">six lines, each from a throw of three coins</text>
+<rect x="120.0" y="300.0" width="120.0" height="12.0" fill="#141414"/>
+<text x="104.0" y="311.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<rect x="120.0" y="266.0" width="52.0" height="12.0" fill="#141414"/>
+<rect x="188.0" y="266.0" width="52.0" height="12.0" fill="#141414"/>
+<text x="104.0" y="277.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<rect x="120.0" y="232.0" width="120.0" height="12.0" fill="#141414"/>
+<text x="104.0" y="243.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<rect x="120.0" y="198.0" width="120.0" height="12.0" fill="#141414"/>
+<text x="104.0" y="209.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<rect x="120.0" y="164.0" width="52.0" height="12.0" fill="#141414"/>
+<rect x="188.0" y="164.0" width="52.0" height="12.0" fill="#141414"/>
+<text x="104.0" y="175.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<rect x="120.0" y="130.0" width="52.0" height="12.0" fill="#141414"/>
+<rect x="188.0" y="130.0" width="52.0" height="12.0" fill="#141414"/>
+<text x="104.0" y="141.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<text x="180.0" y="340.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">read as binary</text>
+<path d="M270.0 220.0 L340.0 220.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="400.0" y="214.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">001101</text>
+<text x="400.0" y="238.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">= 13</text>
+<path d="M460.0 220.0 L520.0 220.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="563.0" y="93.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="93.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="93.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="93.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="93.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="703.0" y="93.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="731.0" y="93.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="93.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="563.0" y="121.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="121.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="121.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="121.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="121.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="701.0" y="119.0" width="26.0" height="26.0" fill="#141414"/>
+<rect x="731.0" y="121.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="121.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="563.0" y="149.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="149.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="149.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="149.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="149.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="703.0" y="149.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="731.0" y="149.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="149.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="563.0" y="177.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="177.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="177.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="177.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="177.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="703.0" y="177.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="731.0" y="177.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="177.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="563.0" y="205.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="205.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="205.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="205.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="205.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="703.0" y="205.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="731.0" y="205.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="205.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="563.0" y="233.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="233.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="233.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="233.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="233.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="703.0" y="233.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="731.0" y="233.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="233.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="563.0" y="261.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="261.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="261.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="261.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="261.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="703.0" y="261.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="731.0" y="261.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="261.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="563.0" y="289.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="591.0" y="289.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="619.0" y="289.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="647.0" y="289.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="675.0" y="289.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="703.0" y="289.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<rect x="731.0" y="289.0" width="22.0" height="22.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<rect x="759.0" y="289.0" width="22.0" height="22.0" fill="#cfcfcf"/>
+<text x="672.0" y="76.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a chart of 64 cells</text>
+<rect x="560.0" y="332.0" width="14.0" height="14.0" fill="#cfcfcf"/>
+<text x="582.0" y="344.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a sound</text>
+<rect x="670.0" y="332.0" width="14.0" height="14.0" rx="1" fill="none" stroke="#9a9a9a" stroke-width="0.9"/>
+<text x="692.0" y="344.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a silence</text>
+<path d="M730.0 132.0 L798.0 132.0" fill="none" stroke="#555" stroke-width="0.9"/>
+<text x="804.0" y="137.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">cell 13</text>
+<text x="804.0" y="210.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one chart for sounds,</text>
+<text x="804.0" y="230.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one for durations,</text>
+<text x="804.0" y="250.0" text-anchor="start" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one for dynamics</text>
+<text x="500.0" y="388.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">six fair lines are a uniform choice from 0 to 63, which is Pwhite(0, 63)</text>
+</svg>

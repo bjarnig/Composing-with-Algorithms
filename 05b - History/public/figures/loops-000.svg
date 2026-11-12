@@ -1,0 +1,117 @@
+<!-- drawn by Course-Development/figures/cwa-history-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="1000" height="360" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="500.0" y="26.0" text-anchor="middle" font-size="14" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">three loops over ten minutes, shaded where two notes sound at once</text>
+<rect x="100.1" y="60.0" width="8.8" height="210.0" fill="#e6e6e6"/>
+<rect x="138.1" y="60.0" width="1.9" height="210.0" fill="#e6e6e6"/>
+<rect x="235.1" y="60.0" width="8.4" height="210.0" fill="#e6e6e6"/>
+<rect x="328.0" y="60.0" width="3.5" height="210.0" fill="#e6e6e6"/>
+<rect x="366.6" y="60.0" width="8.8" height="210.0" fill="#e6e6e6"/>
+<rect x="406.9" y="60.0" width="8.8" height="210.0" fill="#e6e6e6"/>
+<rect x="442.0" y="60.0" width="8.2" height="210.0" fill="#e6e6e6"/>
+<rect x="480.0" y="60.0" width="4.7" height="210.0" fill="#e6e6e6"/>
+<rect x="518.0" y="60.0" width="1.2" height="210.0" fill="#e6e6e6"/>
+<rect x="544.8" y="60.0" width="6.0" height="210.0" fill="#e6e6e6"/>
+<rect x="585.9" y="60.0" width="2.2" height="210.0" fill="#e6e6e6"/>
+<rect x="593.9" y="60.0" width="0.7" height="210.0" fill="#e6e6e6"/>
+<rect x="631.9" y="60.0" width="6.6" height="210.0" fill="#e6e6e6"/>
+<rect x="673.6" y="60.0" width="5.1" height="210.0" fill="#e6e6e6"/>
+<rect x="717.4" y="60.0" width="8.5" height="210.0" fill="#e6e6e6"/>
+<rect x="751.6" y="60.0" width="3.1" height="210.0" fill="#e6e6e6"/>
+<rect x="786.1" y="60.0" width="6.6" height="210.0" fill="#e6e6e6"/>
+<rect x="821.9" y="60.0" width="7.5" height="210.0" fill="#e6e6e6"/>
+<rect x="855.0" y="60.0" width="2.8" height="210.0" fill="#e6e6e6"/>
+<rect x="859.9" y="60.0" width="4.0" height="210.0" fill="#e6e6e6"/>
+<rect x="892.9" y="60.0" width="8.8" height="210.0" fill="#e6e6e6"/>
+<rect x="936.7" y="60.0" width="7.9" height="210.0" fill="#e6e6e6"/>
+<text x="76.0" y="95.0" text-anchor="end" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">C  23.5 s</text>
+<path d="M90.0 90.0 L970.0 90.0" fill="none" stroke="#9a9a9a" stroke-width="0.8"/>
+<rect x="96.7" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="131.2" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="165.7" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="200.1" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="234.6" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="269.1" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="303.5" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="338.0" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="372.5" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="406.9" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="441.4" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="475.9" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="510.3" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="544.8" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="579.3" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="613.7" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="648.2" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="682.7" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="717.1" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="751.6" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="786.1" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="820.5" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="855.0" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="889.5" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="923.9" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="958.4" y="81.0" width="8.8" height="18.0" fill="#141414"/>
+<text x="76.0" y="165.0" text-anchor="end" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">D♭  25.9 s</text>
+<path d="M90.0 160.0 L970.0 160.0" fill="none" stroke="#9a9a9a" stroke-width="0.8"/>
+<rect x="100.1" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="138.1" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="176.1" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="214.1" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="252.1" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="290.1" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="328.0" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="366.0" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="404.0" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="442.0" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="480.0" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="518.0" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="556.0" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="593.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="631.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="669.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="707.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="745.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="783.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="821.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="859.9" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="897.8" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="935.8" y="151.0" width="8.8" height="18.0" fill="#141414"/>
+<text x="76.0" y="235.0" text-anchor="end" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E♭  29.9 s</text>
+<path d="M90.0 230.0 L970.0 230.0" fill="none" stroke="#9a9a9a" stroke-width="0.8"/>
+<rect x="103.5" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="147.3" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="191.2" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="235.1" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="278.9" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="322.8" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="366.6" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="410.5" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="454.3" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="498.2" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="542.0" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="585.9" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="629.7" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="673.6" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="717.4" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="761.3" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="805.1" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="849.0" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="892.9" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<rect x="936.7" y="221.0" width="8.8" height="18.0" fill="#141414"/>
+<text x="90.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">0</text>
+<text x="178.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">1</text>
+<text x="266.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2</text>
+<text x="354.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3</text>
+<text x="442.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4</text>
+<text x="530.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5</text>
+<text x="618.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6</text>
+<text x="706.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">7</text>
+<text x="794.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8</text>
+<text x="882.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">9</text>
+<text x="970.0" y="296.0" text-anchor="middle" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">10</text>
+<text x="970.0" y="312.0" text-anchor="end" font-size="11" fill="#9a9a9a" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">minutes</text>
+<text x="500.0" y="344.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">these three come back to their starting phase after about 21 days</text>
+</svg>
