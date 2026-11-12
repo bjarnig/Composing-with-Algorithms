@@ -31,3 +31,6 @@ dist/
 
 # Exclude archive folder
 _/
+
+# private explainer PDFs, not for students
+**/handout/*.pdf
