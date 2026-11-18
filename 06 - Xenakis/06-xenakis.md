@@ -58,7 +58,7 @@ class: light
 
 # Xenakis
 
-Worked for Le Corbusier as an engineer and attended composition classes of Messiaen.
+Worked for **Le Corbusier** as an engineer and attended composition classes of **Messiaen**.
 
 Composed instrumental pieces using **stochastic laws** and mathematics.
 
@@ -70,9 +70,9 @@ An important influence on the development of electronic and computer music.
 
 Pioneered **granular** and **non-standard** synthesis.
 
-Developed computer programs for musical composition.
+Developed **computer programs** for musical composition.
 
-Catalogue of musical works contains more than 150 pieces.
+Catalogue of musical works contains more than **150** pieces.
 
 ---
 class: light
@@ -88,7 +88,7 @@ class: light
 
 # La Tourette
 
-<div class="fig"><img src="/figures/la-tourette-000.png" /></div>
+<div class="shot"><img src="/figures/la-tourette-000.png" /></div>
 
 ---
 class: light
@@ -96,7 +96,7 @@ class: light
 
 # Metastaseis
 
-<div class="fig"><img src="/figures/metastaseis-000.png" /></div>
+<div class="shot"><img src="/figures/metastaseis-000.png" /></div>
 
 <div class="src">(Metastaseis, 1954)</div>
 
@@ -106,7 +106,7 @@ class: light
 
 *Meta*, after or beyond, and *stasis*, immobility: the relationship between movement, or change, and nondirectionality, or standstill.
 
-For the audience at its 1955 premiere in Donaueschingen, it was as if they were hearing "atomic music" from "the first traveller in space".
+For the audience at its **1955** premiere in Donaueschingen, it was as if they were hearing "atomic music" from "the first traveller in space".
 
 Introduced the notion of **architectural** or **global sonorities**, where massed glissandi, for example, create a sonic entity that can only be perceived as a whole and not as a product of smaller elements.
 
@@ -120,7 +120,7 @@ class: light
 
 # Bohor
 
-<div class="fig"><img src="/figures/bohor-000.png" /></div>
+<div class="shot"><img src="/figures/bohor-000.png" /></div>
 
 <div class="src">(Bohor, 1962)</div>
 
@@ -145,11 +145,11 @@ Achorripsis
 
 # Achorripsis
 
-Greek for **jets of sound**.
+Greek for **jets of sound**, composed in **1956-57**.
 
-Consists of twenty-eight short sections, each one lasting for 15 seconds.
+Consists of **twenty-eight** short sections, each one lasting for **15 seconds**.
 
-Seven sonic entities are used: flute, oboe, strings glissando, percussion, string pizzicato, brass and strings arco.
+Seven **sonic entities** are used: flute, oboe, strings glissando, percussion, string pizzicato, brass and strings arco.
 
 ---
 
@@ -157,7 +157,7 @@ Seven sonic entities are used: flute, oboe, strings glissando, percussion, strin
 
 Five levels of **density** are generated using a **Poisson distribution**.
 
-Pitches, durations, successions, dynamics and glissando within a section are also calculated using probabilities.
+Pitches, durations, successions, dynamics and glissando within a section are also calculated using **probabilities**.
 
 A **probability matrix** was used for the distribution of timbres and densities.
 
@@ -177,6 +177,33 @@ class: light
 
 <div class="shot"><img src="/figures/achorripsis-score-000.png" /></div>
 
+---
+class: light
+---
+
+# Achorripsis
+
+<div class="shot"><img src="/figures/achorripsis-poisson-000.svg" /></div>
+
+---
+
+# Achorripsis
+
+Each cell of the matrix holds a **density level**. Here one row is played: one entity over eight sections of a second each, with four events a second for every level.
+
+```supercollider
+// eight density levels from a Poisson distribution with a mean of 0.6
+Ppoisson(0.6).asStream.nextN(8)    // for example [0, 1, 0, 2, 0, 0, 1, 0]
+
+// that row played: a rest for 0, four events a second for each level above it
+Pbind(\instrument, \sine,
+	\midinote, Pwhite(60, 72),
+	\dur, Pseq([Rest(1), Pn(1/4, 4), Rest(1), Pn(1/8, 8),
+		Rest(1), Rest(1), Pn(1/4, 4), Rest(1)])
+).play
+```
+
+The whole matrix of seven entities is at the end of the Achorripsis section in *Xenakis.scd*.
 ---
 class: light
 ---
@@ -210,8 +237,6 @@ class: light
 7. Final symbolic result
 8. Sonic realization
 
-<span class="q">Only the last of these is sound. Where in your own work does the list start?</span>
-
 ---
 class: light
 ---
@@ -223,21 +248,14 @@ class: light
 <div class="src">(Formalized Music)</div>
 
 ---
-layout: center
-class: divider
----
-
-Analogique
-
----
 
 # Analogique A et B
 
-Granular: "All sound is an integration of grains, of elementary sonic particles, of sonic quanta".
+**Granular**: "All sound is an integration of grains, of elementary sonic particles, of sonic quanta".
 
-*Analogique A*, for orchestra, was composed using stochastic methods.
+*Analogique A*, for orchestra, was composed using **stochastic methods**.
 
-*Analogique B*, hundreds of splices of tiny fragments of magnetic tape.
+*Analogique B*, hundreds of splices of tiny fragments of **magnetic tape**.
 
 ---
 
@@ -250,14 +268,39 @@ One of Xenakis's most thoroughly formalized compositions.
 Considered by many as a failure.
 
 ---
+layout: center
+class: divider
+---
+
+<Listen file="xenakis-analogique-ab.mp3">Iannis Xenakis, Analogique A et B (1958-59)</Listen>
+
+---
 class: light
 ---
 
-# Analogique A et B
+# Markov Chains
 
-<div class="plate"><img src="/figures/analogique-000.png" /></div>
+<div class="shot"><img src="/figures/markov-000.svg" /></div>
 
-<div class="src">(Xenakis, Analogique A + B, 1958-59)</div>
+---
+
+# Markov Chains
+
+In a first-order **Markov chain** the next state depends only on the current one. Each note has its own list of possible next notes and their probabilities.
+
+```supercollider
+~chain = Dictionary[
+	60 -> [[60, 64, 67], [0.2, 0.5, 0.3]],
+	64 -> [[60, 67], [0.6, 0.4]],
+	67 -> [[60, 64, 72], [0.3, 0.3, 0.4]],
+	72 -> [[67], [1]]
+];
+~note = 60;
+
+Pbind(\instrument, \sine,
+	\midinote, Pfunc { ~note = ~chain[~note][0].wchoose(~chain[~note][1]) },
+	\dur, 0.15).play
+```
 
 ---
 layout: center
@@ -270,11 +313,11 @@ ST
 
 # ST Pieces
 
-Possible realizations of a particular compositional model.
+Possible **realizations** of a particular compositional model.
 
 The **ST** (Stochastic Music) program generated data in text format which Xenakis later transcribed to musical notation.
 
-ST parameters: attack time, instrument class, instrument, pitch, duration, dynamics and glissandi.
+**ST parameters**: attack time, instrument class, instrument, pitch, duration, dynamics and glissandi.
 
 ---
 
@@ -290,15 +333,15 @@ class: light
 
 # IBM 7090
 
-<div class="fig"><img src="/figures/ibm-7090-000.png" /></div>
+<div class="shot"><img src="/figures/ibm-7090-000.png" /></div>
 
 ---
 
 # ST Pieces
 
-Quantization of attack times produces a rhythmic structure with a subdivision of a half note into 3, 4, 5 and 6 parts.
+Quantization of **attack times** produces a rhythmic structure with a subdivision of a half note into 3, 4, 5 and 6 parts.
 
-A piece contains a number of sequences or movements where the durations of the movements are independent.
+A piece contains a number of **sequences** or movements where the durations of the movements are independent.
 
 Each section has a fixed mean density, with a lower limit at **0.11 onsets per second** and an upper limit around **50 sounds per second**.
 
@@ -308,7 +351,7 @@ Each section has a fixed mean density, with a lower limit at **0.11 onsets per s
 
 Instruments divided into **classes of timbres** based on different articulations in playing: pizzicato, col legno, tremolo and glissando.
 
-Pitch was expressed as a floating-point number between 0 and 85. Duration was also expressed as a fractional number, and dynamics were represented by integers on a scale of 0 to 60.
+Pitch was expressed as a floating-point number between **0 and 85**. Duration was also expressed as a fractional number, and dynamics were represented by integers on a scale of **0 to 60**.
 
 ---
 
@@ -332,18 +375,49 @@ Pitch was expressed as a floating-point number between 0 and 85. Duration was al
 11. Recalculations of the same sort are made for the other sequences
 
 ---
+class: light
+---
+
+# ST Algorithm
+
+<div class="shot"><img src="/figures/st-algorithm-000.svg" /></div>
+
+---
+
+# ST Algorithm
+
+The algorithm much reduced, with the numbers of its steps in the comments. Onsets with exponential gaps around a mean density are what a Poisson process produces.
+
+```supercollider
+Pspawner({ |sp|
+	4.do {
+		var length = exprand(2.0, 6.0);       // 1. a sequence, a seconds long
+		var density = exprand(0.5, 20.0);     // 2. its mean density, onsets a second
+		var low = rrand(36, 72);              // 3. its orchestra, as a register
+		[length, density].round(0.1).postln;
+		sp.seq(Pfindur(length, Pbind(
+			\instrument, Pwrand([\sine, \gliss], [0.7, 0.3], inf), // 5. an instrument
+			\dur, Pfunc { (1 - 1.0.rand).log.neg / density },      // 4. the onsets
+			\midinote, Pwhite(low, low + 24),                      // 6. a pitch
+			\slide, Pgauss(0, 7),                                  // 7. a glissando
+			\sus, Pexprand(0.05, 1),                               // 8. a duration
+			\amp, Pwhite(0.03, 0.12)                               // 9. a dynamic
+		)));
+	}
+}).play
+```
+
+---
 
 # Interpretation
 
-Xenakis changed, edited, arranged and inserted material into the literal results of the program.
+Xenakis **changed, edited, arranged** and inserted material into the literal results of the program.
 
 Nouritza Matossian: "he used seventy-five per cent computer material, composing the remainder himself."
 
 Did not see the pieces as test pieces, but rather that the program was a **generator of musical material**.
 
 One run of the program could result in several pieces.
-
-<span class="q">Barbaud refused to touch the output. Xenakis rewrote a quarter of it. Which of them is doing algorithmic composition?</span>
 
 ---
 class: light
@@ -364,6 +438,13 @@ class: light
 <div class="plate"><img src="/figures/atrees-000.png" /></div>
 
 <div class="src">(Xenakis, Atrées, ST/10, 3-060962, 1956-62)</div>
+
+---
+layout: center
+class: divider
+---
+
+<Listen file="xenakis-atrees.mp3">Iannis Xenakis, Atrées, third part (1956-62)</Listen>
 
 ---
 layout: center
@@ -406,7 +487,33 @@ class: light
 
 A `Scale`, an `Env` and an array of durations are outside-time. A `Pbind` reading them is in-time.
 
-<span class="q">Which half of your own patch have you actually composed, and which half did you inherit?</span>
+---
+class: light
+---
+
+# Outside-time and In-time
+
+<div class="shot"><img src="/figures/outside-time-000.svg" /></div>
+
+---
+
+# Outside-time and In-time
+
+Two sets of pitches, and the union, intersection and difference of them, are all outside-time. The Pbind that reads them is in-time.
+
+```supercollider
+(
+a = Set[60, 62, 63, 67, 70];
+b = Set[62, 65, 67, 69, 70];
+(a | b).postln;   // union
+(a & b).postln;   // intersection
+(a - b).postln;   // difference
+)
+
+Pbind(\instrument, \sine,
+	\midinote, Pseq([Pshuf((a | b).asArray), Pshuf((a & b).asArray, 2)], inf),
+	\dur, 0.15).play
+```
 
 ---
 class: light
@@ -436,7 +543,7 @@ class: light
 
 # Xenakis
 
-<div class="fig"><img src="/figures/xenakis-portrait-000.png" /></div>
+<div class="shot"><img src="/figures/xenakis-portrait-000.png" /></div>
 
 <div class="src">(CCMIX interview, from 3.08)</div>
 
@@ -455,11 +562,31 @@ Sound is not treated as the starting point of composition, but as its **outcome*
 
 > "Xenakis often composed with graphs, at least until the end of the 1970s. Many of the sonorities, with which he was the first to experiment and which make his music so original, have been conceived thanks to graphs."
 
-Defines three important Xenakian sonorities:
+Defines three important **Xenakian sonorities**:
 
-1. Masses of short sounds
-2. Glissandi
-3. Sustained sounds
+1. **Masses** of short sounds
+2. **Glissandi**
+3. **Sustained** sounds
+
+---
+
+# Composing Sound
+
+The three sonorities, each as one Pbind. The glissando speeds are Gaussian, as in *Pithoprakta*.
+
+```supercollider
+// masses of short sounds
+Pbind(\instrument, \sine, \midinote, Pwhite(40, 100),
+	\dur, Pexprand(0.005, 0.05), \amp, 0.05).play
+
+// glissandi
+Pbind(\instrument, \gliss, \midinote, Pwhite(50, 80),
+	\slide, Pgauss(0, 12), \sus, 2, \dur, 0.1, \amp, 0.02).play
+
+// sustained sounds
+Pbind(\instrument, \gliss, \midinote, Pwhite(40, 80),
+	\slide, 0, \sus, 6, \dur, 0.5, \amp, 0.02).play
+```
 
 ---
 class: light
@@ -467,7 +594,7 @@ class: light
 
 # Symbolic Music
 
-<div class="fig"><img src="/figures/symbolic-music-000.png" /></div>
+<div class="shot"><img src="/figures/symbolic-music-000.png" /></div>
 
 ---
 class: light
@@ -490,7 +617,7 @@ Brownian motion
 
 **Brownian motion**, a mathematical model originally developed to describe random movement of particles suspended in gas or liquids.
 
-Inspired Xenakis as a generating concept in *Pithoprakta*.
+Inspired Xenakis as a generating concept in *Pithoprakta* (**1955-56**).
 
 ---
 
@@ -509,6 +636,24 @@ class: light
 <div class="fig tall"><img src="/figures/random-walk-000.png" /></div>
 
 ---
+
+# Random Walk
+
+`Pbrown` takes a bounded random step from the previous value. The second version writes the walk out as a series whose steps are random.
+
+```supercollider
+// steps of at most two semitones, kept between 50 and 70
+Pbind(\instrument, \sine,
+	\midinote, Pbrown(50, 70, 2),
+	\dur, 0.1).play
+
+// the same walk written out, and a second walk on the durations
+Pbind(\instrument, \sine,
+	\midinote, Pseries(60, Pwhite(-2, 2), inf).fold(50, 70),
+	\dur, Pbrown(0.05, 0.2, 0.02)).play
+```
+
+---
 class: light
 ---
 
@@ -519,12 +664,49 @@ class: light
 <div class="src">(Xenakis, Mikka, 1971)</div>
 
 ---
+layout: center
+class: divider
+---
+
+<Listen file="xenakis-mikka.mp3">Iannis Xenakis, Mikka (1971)</Listen>
+
+---
 
 # Dynamic Stochastic Synthesis
 
 <AudioEmbed src="/demos/gendy/" height="22rem" label="GENDYN, interactive" />
 
 <span class="note">The same random walk, applied to the waveform itself: the breakpoints of one cycle each take a bounded step, and the shape is whatever they currently spell.</span>
+
+---
+
+# Dynamic Stochastic Synthesis
+
+`Gendy1` is GENDYN as a UGen. With `minfreq` equal to `maxfreq` the pitch holds, and the walk changes only the timbre.
+
+```supercollider
+// the defaults: the walk moves both the pitch and the timbre
+{ Gendy1.ar * 0.1 ! 2 }.play
+
+// the pitch held by the mouse
+{
+	var f = MouseX.kr(50, 400, \exponential);
+	Gendy1.ar(minfreq: f, maxfreq: f) * 0.1 ! 2
+}.play
+
+// four layers in the ratios 1, 3, 7 and 9
+{
+	var f = [1, 3, 7, 9] * MouseX.kr(30, 170, \exponential);
+	Splay.ar(Gendy1.ar(minfreq: f, maxfreq: f)) * 0.1
+}.play
+```
+
+---
+layout: center
+class: divider
+---
+
+<Listen file="xenakis-s709.mp3">Iannis Xenakis, S.709 (1994)</Listen>
 
 ---
 layout: center
@@ -549,7 +731,7 @@ class: light
 
 # Stochastics
 
-Probabilities to control the movements of elements, where the composer invents schemes and explores the limits of different distributions.
+**Probabilities** to control the movements of elements, where the composer invents schemes and explores the limits of different distributions.
 
 Stochastics studies and formulates the **law of large numbers**, the **laws of rare events**, the different aleatory procedures.
 
@@ -565,6 +747,24 @@ Stochastics studies and formulates the **law of large numbers**, the **laws of r
 4. "Very rarified sonic atmospheres may be fashioned and controlled with the aid of formulae such as Poisson's. Thus, even music for a solo instrument can be composed with stochastic methods."
 
 <div class="src">(Xenakis)</div>
+
+---
+
+# Probabilities in Composition
+
+The second and third of the four, as patterns. A narrow Gaussian suddenly widens, and rare events in a high register interrupt average ones.
+
+```supercollider
+// an explosive transformation: the deviation goes from 0.5 to 24 and back
+Pbind(\instrument, \sine,
+	\midinote, Pgauss(72, Pseg([0.5, 0.5, 24, 0.5], [6, 0.5, 4])),
+	\dur, 0.05, \amp, 0.1).play
+
+// improbable events against average ones, one in twenty
+Pbind(\instrument, \sine,
+	\midinote, Pwrand([Pgauss(60, 2, 1), Pwhite(90, 100, 1)], [0.95, 0.05], inf),
+	\dur, 0.1).play
+```
 
 ---
 layout: center
@@ -616,6 +816,26 @@ class: light
 - **Weibull**: varies between exponential and Gaussian as its shape parameter moves
 
 <span class="note">Xenakis used Poisson for the densities in *Achorripsis* and Gaussian for the glissando speeds in *Pithoprakta*.</span>
+
+---
+
+# The Distributions
+
+The same Pbind with one distribution at a time on pitch. Run the lines one by one.
+
+```supercollider
+~play = { |pattern| Pbind(\instrument, \sine, \midinote, pattern, \dur, 0.1).play };
+
+~play.(Pwhite(40, 80));
+
+~play.(Pexprand(40, 80));
+
+~play.(Pgauss(60, 6));
+
+~play.(Pcauchy(60, 2).clip(30, 90));
+
+~play.(Ppoisson(60));
+```
 
 ---
 
@@ -692,6 +912,330 @@ class: light
 <span class="note">Each of duration, frequency and amplitude takes its own shape, so the effect of a distribution can be heard on one parameter at a time.</span>
 
 ---
+layout: center
+class: divider
+---
+
+Randomness
+
+---
+
+# Randomness
+
+Random numbers in a computer are **pseudo-random**: a deterministic sequence that starts from a **seed** and only looks random.
+
+Working with randomness means choosing the **range** of the values, their **distribution**, and how much each value **remembers** of the ones before it.
+
+A random process is heard as a texture only over many events. Over a few events it is heard as one particular phrase.
+
+---
+
+# Random Numbers
+
+The basic messages. Each one returns a new value every time it is evaluated.
+
+```supercollider
+10.rand
+rrand(60, 72)
+0.25.coin
+[60, 64, 67].choose
+[60, 64, 67].wchoose([0.6, 0.3, 0.1])
+```
+
+---
+
+# Seeds
+
+Setting the **seed** makes a random result repeatable. Run each of these twice, then change the seed.
+
+```supercollider
+(
+thisThread.randSeed = 7;
+{ 100.rand } ! 8
+)
+
+Pseed(7, Pbind(\instrument, \sine, \midinote, Pwhite(60, 72, 8), \dur, 0.15)).play
+```
+
+---
+
+# Random Choice
+
+Four ways to choose from a list, played with `~play` from *The Distributions*.
+
+```supercollider
+~play.(Prand([60, 64, 67, 72], 16));
+~play.(Pxrand([60, 64, 67, 72], 16));    // never the same twice in a row
+~play.(Pshuf([60, 64, 67, 72], 4));      // one random order, repeated
+~play.(Pwrand([60, 64, 67, 72], [0.4, 0.3, 0.2, 0.1], 16));
+```
+
+---
+
+# Plotting Patterns
+
+Two views of the same values: **in order**, as they will be heard, and as a **histogram**, which counts how often each part of the range comes up.
+
+```supercollider
+(
+~plotPattern = { |pattern, count = 500|
+	pattern.asStream.nextN(count).plot(discrete: true)
+};
+
+~histogram = { |pattern, count = 4000|
+	pattern.asStream.nextN(count).histo(40).plot
+};
+)
+
+~plotPattern.(Pwhite(0.0, 1.0));
+~histogram.(Pwhite(0.0, 1.0));
+
+~plotPattern.(Pexprand(0.01, 1.0));
+~histogram.(Pexprand(0.01, 1.0));
+```
+
+---
+
+# Large Numbers
+
+The **law of large numbers**: the more values are drawn, the closer their histogram comes to the shape of the distribution.
+
+```supercollider
+~histogram.(Pgauss(0.0, 1.0), 50);
+~histogram.(Pgauss(0.0, 1.0), 500);
+~histogram.(Pgauss(0.0, 1.0), 50000);
+```
+
+A cell of *Achorripsis* holds only a handful of events, and the Poisson distribution shows only across the whole matrix.
+
+---
+class: light
+---
+
+# Large Numbers
+
+<div class="shot"><img src="/figures/large-numbers-000.svg" /></div>
+
+---
+
+# Combining Random Numbers
+
+Two uniform values combined give a new shape. The lower of the two favours the low end, the higher favours the high end, and their mean favours the middle.
+
+```supercollider
+~histogram.(Plprand(0.0, 1.0));    // the lower of two
+~histogram.(Phprand(0.0, 1.0));    // the higher of two
+~histogram.(Pmeanrand(0.0, 1.0));  // the mean of two
+```
+
+---
+
+# Sums
+
+The **central limit theorem**: a sum of many independent random values approaches a **Gaussian**, whatever the distribution of each one. Quantities that result from many small causes are often bell-shaped for this reason.
+
+```supercollider
+~histogram.(Pfunc { 1.0.rand });
+
+~histogram.(Pfunc { 1.0.rand + 1.0.rand });
+~histogram.(Pfunc { ({ 1.0.rand } ! 12).sum });
+```
+
+---
+class: light
+---
+
+# Sums
+
+<div class="shot"><img src="/figures/sums-000.svg" /></div>
+
+---
+
+# Changing Distributions
+
+The parameters of a distribution can themselves be patterns, so the shape changes while the values are drawn. This is the *continuous transformation* of the first of Xenakis's four points.
+
+```supercollider
+~plotPattern.(Pgauss(0.0, Pseries(0.0, 0.01)), 1000);
+~plotPattern.(Pbeta(0.0, 1.0, Pseries(0.1, 0.01), Pseries(0.1, 0.01)), 1000);
+
+Pbind(\instrument, \sine,
+	\midinote, Pgauss(66, Pseries(0.0, 0.05, 400)),
+	\dur, 0.04, \amp, 0.1).play
+```
+
+---
+class: light
+---
+
+# Changing Distributions
+
+<div class="shot"><img src="/figures/changing-distributions-000.svg" /></div>
+
+---
+
+# Memory
+
+- **No memory**: `Pwhite`, `Pgauss` and the other distributions draw each value independently
+- **The last value**: a random walk such as `Pbrown` takes a step from where it is
+- **The current state**: a **Markov chain** chooses the next state by the current one
+- **The last two states**: a **second-order** chain chooses by the last two
+
+The more a process remembers, the more its output is heard as a line or a phrase.
+
+---
+
+# Brownian Motion
+
+Plotted in order, white noise is a scatter and a walk is a line. The step size decides how fast the walk travels its range.
+
+```supercollider
+~plotPattern.(Pwhite(0, 100));
+~plotPattern.(Pbrown(0, 100, 2));
+~plotPattern.(Pbrown(0, 100, 20));
+```
+
+---
+
+# Steps
+
+The steps of a walk have a distribution of their own, and without limits the walk drifts away. With **Cauchy** steps it mostly moves a little and sometimes jumps far, which is called a **Lévy flight**.
+
+```supercollider
+~plotPattern.(Pseries(0.0, Pwhite(-1.0, 1.0)), 1000);
+~plotPattern.(Pseries(0.0, Pgauss(0.0, 1.0)), 1000);
+~plotPattern.(Pseries(0.0, Pcauchy(0.0, 0.5)), 1000);
+```
+
+---
+class: light
+---
+
+# Steps
+
+<div class="shot"><img src="/figures/walks-000.svg" /></div>
+
+---
+
+# Walks in Sound
+
+A walk on each parameter. `Pgbrown` steps by ratios, which suits durations and frequencies. The second pattern is a Lévy flight on pitch, folded into a range.
+
+```supercollider
+Pbind(\instrument, \sine,
+	\midinote, Pbrown(48, 84, 3),
+	\dur, Pgbrown(0.04, 0.4, 0.1),
+	\amp, Pbrown(0.02, 0.2, 0.02)).play
+
+Pbind(\instrument, \sine,
+	\midinote, Pseries(60, Pcauchy(0.0, 0.3)).fold(36, 96),
+	\dur, 0.08).play
+```
+
+---
+
+# Transition Matrix
+
+A Markov chain written as a **transition matrix**: one row for each current state, one column for each next state. Each row sums to 1, and a 0 forbids the move. `windex` chooses an index by weight.
+
+```supercollider
+~states = [60, 64, 67, 72];
+~matrix = [
+	[0.1, 0.6, 0.2, 0.1],
+	[0.3, 0.0, 0.6, 0.1],
+	[0.4, 0.2, 0.0, 0.4],
+	[0.0, 0.3, 0.7, 0.0]
+];
+~index = 0;
+~chain = Pfunc { ~index = ~matrix[~index].windex; ~states[~index] };
+
+Pbind(\instrument, \sine, \midinote, ~chain, \dur, 0.15).play
+```
+
+---
+class: light
+---
+
+# Transition Matrix
+
+<div class="shot"><img src="/figures/transition-matrix-000.svg" /></div>
+
+---
+
+# The Long Run
+
+Run long enough, a chain spends a fixed share of its time in each state, whichever state it starts from. This is its **stationary distribution**. The matrix sets the proportions while the succession of states stays random.
+
+```supercollider
+~plotPattern.(~chain, 100);
+
+(
+a = ~chain.asStream.nextN(10000);
+~states.collect { |state| a.occurrencesOf(state) / 10000 }
+)
+```
+
+---
+
+# Learning a Chain
+
+`MarkovSetN` from the **MathLib** quark counts the transitions in a sequence and turns them into probabilities. Change the order from 1 to 2 and each pair of notes predicts the next, so more of the melody returns.
+
+```supercollider
+Quarks.install("MathLib");    // then recompile the class library
+
+~melody = [60, 62, 64, 60, 60, 62, 64, 60, 64, 65, 67, 64, 65, 67];
+
+(
+m = MarkovSetN.fill(100, Pseq(~melody, inf).asStream, 1);
+m.makeSeeds;
+Pbind(\instrument, \sine, \midinote, m, \dur, 0.2).trace.play
+)
+```
+
+---
+class: light
+---
+
+# State Machines
+
+<div class="shot"><img src="/figures/state-machine-000.svg" /></div>
+
+---
+
+# State Machines
+
+A **finite state machine** moves between states along fixed connections. `Pfsm` takes the entry states, then each state followed by the states that may come next, chosen with equal chance. A state can be a pattern, and repeating an index in a list gives it more weight.
+
+```supercollider
+(
+Pbind(\instrument, \sine,
+	\midinote, Pfsm([
+		[0],
+		60, [1, 2],
+		Pseq([64, 65, 67]), [0, 2],
+		72, [0, 1]
+	], inf),
+	\dur, 0.15).trace.play
+)
+```
+
+---
+
+# Sections as States
+
+With whole Pbinds as states, the state machine decides the **form**: which section follows which.
+
+```supercollider
+(
+a = Pbind(\instrument, \sine, \midinote, Pwhite(72, 84, 16), \dur, 0.05);
+b = Pbind(\instrument, \gliss, \midinote, Pwhite(40, 50, 2), \dur, 1);
+c = Pbind(\instrument, \sine, \midinote, Pbrown(55, 65, 2, 8), \dur, 0.2);
+Pfsm([[0], a, [1, 2], b, [0, 2], c, [0, 1]], inf).play
+)
+```
+
+---
 class: light
 ---
 
@@ -722,6 +1266,17 @@ class: light
 <div class="src">(Matossian)</div>
 
 ---
+
+# Next Steps
+
+- Run *Xenakis.scd* from the top. It holds every example from the slides, in order
+- Play the whole **Achorripsis** matrix in *Xenakis.scd* and change its Poisson mean
+- Give the **ST algorithm** more sequences and a wider range of densities
+- Try each distribution in the **events** demo on one parameter at a time before writing it as a pattern
+- Plot each distribution with `~plotPattern` and `~histogram` before listening to it
+- Write a melody of your own into `~melody` and compare the first-order and second-order chains
+
+---
 layout: center
 class: divider
 ---
@@ -732,14 +1287,40 @@ Exercises
 
 # Exercises
 
-1. Implement a **stochastic process** that uses a different distribution for amplitude, frequency and duration of events.
+Twelve short ones first, each a small step from the one before. Then the four longer ones from last year, numbered on from 13. *Exercises.scd* has all of them with space to write, and *Xenakis.scd* has the SynthDefs.
 
-2. Implement a stochastic process where the **high and low limits** of a distribution change in time. They should start by being very wide, far apart, but narrow as the process unfolds.
+---
 
-3. Implement a stochastic process where **sequences of different distributions** are used.
+# Distributions
 
-4. Implement a rhythmic sequence where a **Markov chain** is used for duration values.
+1. Play notes with `Pwhite` pitches between 60 and 72. Then change only the distribution to `Pexprand`.
+2. Use `Pgauss` for pitch with a mean of 60, and try deviations of 1, 6 and 24.
+3. Draw 1000 values from `Pbeta(0, 1, 0.3, 0.3)` and plot their histogram. Then try a = b = 3.
+4. Give the durations a `Pexprand` between 0.05 and 1, with the pitch fixed.
+5. Use `Pbrown` for pitch between 48 and 72 with a step of 1, then with a step of 12.
+6. Write the walk from 5 as a `Pseries` with `Pwhite` steps, folded between 48 and 72.
 
-5. Implement a sequence of `Pbind`s where each uses a **brownian motion**, `Pbrown`, for controlling pitches in different ways. These should then be sequenced in time using `Pspawner`.
+---
+
+# Combined with Patterns
+
+7. A `Pseq` of three sections of 16 notes each: `Pwhite`, then `Pgauss`, then `Pexprand` pitches.
+8. Draw the amplitude from `Pexprand(0.02, 0.2)` and use `Pkey` so that louder notes are shorter.
+9. Two Pbinds in `Ppar`, one with `Pbrown` pitches and one with `Pgauss` pitches.
+10. Change the **Markov chain** so that 72 can return to 60, then add a fifth state.
+11. Draw the eight levels of the **Achorripsis** row with a Poisson mean of 2, and play the row they give.
+12. Glissandi whose Gaussian speed deviation grows from 0 to 24 over twenty seconds, using `Pseg`.
+
+---
+
+# Exercises
+
+13. Implement a **stochastic process** that uses a different distribution for amplitude, frequency and duration of events.
+
+14. Implement a stochastic process where **sequences of different distributions** are used.
+
+15. Implement a rhythmic sequence where a **Markov chain** is used for duration values.
+
+16. Implement a sequence of `Pbind`s where each uses a **brownian motion**, `Pbrown`, for controlling pitches in different ways. These should then be sequenced in time using `Pspawner`.
 
 <span class="workshop">- workshop -</span>

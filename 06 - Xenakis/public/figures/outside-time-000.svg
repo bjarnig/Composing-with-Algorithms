@@ -1,0 +1,63 @@
+<!-- drawn by Course-Development/figures/cwa-stochastic-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 393" width="1120" height="393" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="560.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the sets hold before anything happens, and the Pbind places their members in time</text>
+<circle cx="190" cy="205" r="112" fill="none" stroke="#141414" stroke-width="1.8"/>
+<circle cx="330" cy="205" r="112" fill="none" stroke="#141414" stroke-width="1.8"/>
+<text x="120.0" y="105.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-style="italic">a</text>
+<text x="400.0" y="105.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-style="italic">b</text>
+<text x="142.0" y="195.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">60</text>
+<text x="142.0" y="229.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">63</text>
+<text x="378.0" y="195.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">65</text>
+<text x="378.0" y="229.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">69</text>
+<text x="260.0" y="179.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">62</text>
+<text x="260.0" y="211.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">67</text>
+<text x="260.0" y="243.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">70</text>
+<text x="260.0" y="353.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">outside-time</text>
+<text x="260.0" y="373.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">a | b, a &amp; b, a - b</text>
+<path d="M495.0 205.0 L565.0 205.0" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<text x="530.0" y="193.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">Pbind</text>
+<path d="M590.0 284.2 L1070.0 284.2" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 268.3 L1070.0 268.3" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 252.5 L1070.0 252.5" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 236.7 L1070.0 236.7" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 220.8 L1070.0 220.8" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 205.0 L1070.0 205.0" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 189.2 L1070.0 189.2" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 173.3 L1070.0 173.3" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 157.5 L1070.0 157.5" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 141.7 L1070.0 141.7" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<path d="M590.0 125.8 L1070.0 125.8" fill="none" stroke="#ddd" stroke-width="0.6"/>
+<circle cx="600.0" cy="173.3" r="6" fill="#141414"/>
+<text x="600.0" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">67</text>
+<circle cx="638.3" cy="236.7" r="6" fill="#141414"/>
+<text x="638.3" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">63</text>
+<circle cx="676.7" cy="141.7" r="6" fill="#141414"/>
+<text x="676.7" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">69</text>
+<circle cx="715.0" cy="284.2" r="6" fill="#141414"/>
+<text x="715.0" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">60</text>
+<circle cx="753.3" cy="252.5" r="6" fill="#141414"/>
+<text x="753.3" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">62</text>
+<circle cx="791.7" cy="205.0" r="6" fill="#141414"/>
+<text x="791.7" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">65</text>
+<circle cx="830.0" cy="125.8" r="6" fill="#141414"/>
+<text x="830.0" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">70</text>
+<circle cx="868.3" cy="252.5" r="6" fill="#141414"/>
+<text x="868.3" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">62</text>
+<circle cx="906.7" cy="125.8" r="6" fill="#141414"/>
+<text x="906.7" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">70</text>
+<circle cx="945.0" cy="173.3" r="6" fill="#141414"/>
+<text x="945.0" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">67</text>
+<circle cx="983.3" cy="173.3" r="6" fill="#141414"/>
+<text x="983.3" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">67</text>
+<circle cx="1021.7" cy="252.5" r="6" fill="#141414"/>
+<text x="1021.7" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">62</text>
+<circle cx="1060.0" cy="125.8" r="6" fill="#141414"/>
+<text x="1060.0" y="324.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">70</text>
+<path d="M849.2 94.0 L849.2 306.0" fill="none" stroke="#9a9a9a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="724.6" y="86.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the union, shuffled</text>
+<text x="954.6" y="86.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the intersection, shuffled twice</text>
+<text x="830.0" y="353.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">in-time</text>
+<text x="830.0" y="373.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one note after another</text>
+</svg>

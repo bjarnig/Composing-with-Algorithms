@@ -1,0 +1,24 @@
+<!-- drawn by Course-Development/figures/cwa-stochastic-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 400" width="1120" height="400" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="560.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">each state lists the states that may follow it, and Pfsm chooses one of them with equal chance</text>
+<path d="M305.1 251.9 Q412.5 226.0 519.4 141.9" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M484.9 128.1 Q377.5 154.0 270.6 238.1" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M313.4 280.1 Q560.0 310.0 806.6 280.1" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M806.6 259.9 Q560.0 230.0 313.4 259.9" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M600.6 141.9 Q707.5 226.0 814.9 251.9" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M849.4 238.1 Q742.5 154.0 635.1 128.1" fill="none" stroke="#141414" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M40.0 270.0 L142.0 270.0" fill="none" stroke="#141414" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="80.0" y="258.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">entry</text>
+<ellipse cx="230" cy="270" rx="82" ry="34" fill="#fff" stroke="#141414" stroke-width="2"/>
+<text x="230.0" y="277.0" text-anchor="middle" font-size="19" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">60</text>
+<text x="230.0" y="330.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">state 0</text>
+<ellipse cx="560" cy="110" rx="82" ry="34" fill="#fff" stroke="#141414" stroke-width="2"/>
+<text x="560.0" y="117.0" text-anchor="middle" font-size="19" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">64 65 67</text>
+<text x="560.0" y="62.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">state 1</text>
+<ellipse cx="890" cy="270" rx="82" ry="34" fill="#fff" stroke="#141414" stroke-width="2"/>
+<text x="890.0" y="277.0" text-anchor="middle" font-size="19" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">72</text>
+<text x="890.0" y="330.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">state 2</text>
+<text x="560.0" y="375.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">Pfsm([[0], 60, [1, 2], Pseq([64, 65, 67]), [0, 2], 72, [0, 1]], inf)</text>
+</svg>

@@ -18,8 +18,7 @@
 <body>
 
 <h1>Event Generator</h1>
-<p class="sub">One percussive sine per event, exactly the <code>\perc</code> SynthDef from the
-early classes. Each of <code>dur</code>, <code>freq</code> and <code>amp</code> is drawn from its
+<p class="sub">One short sine per event, or a plucked string with <code>pizzicato</code>. Each of <code>dur</code>, <code>freq</code> and <code>amp</code> is drawn from its
 own distribution, as in a <code>Pbind</code>.</p>
 <p class="warn">Start with the gain low. Short durations plus high amp gets dense quickly.</p>
 
@@ -83,9 +82,14 @@ own distribution, as in a <code>Pbind</code>.</p>
 
   <fieldset>
     <legend>voice</legend>
+    <label><span>voice</span>
+      <select id="voice">
+        <option value="sine" selected>sine</option>
+        <option value="pizz">pizzicato</option>
+      </select><output></output></label>
     <label><span>attack (s)</span><input type="range" id="atk" min="0.001" max="0.2" step="0.001" value="0.01"><output></output></label>
-    <label><span>release (s)</span><input type="range" id="rel" min="0.02" max="2" step="0.01" value="0.2"><output></output></label>
-    <label><span>gain</span><input type="range" id="gain" min="0" max="0.4" step="0.005" value="0.1"><output></output></label>
+    <label><span>release (s)</span><input type="range" id="rel" min="0.02" max="2" step="0.01" value="0.25"><output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.4" step="0.005" value="0.15"><output></output></label>
   </fieldset>
 </div>
 
@@ -184,12 +188,16 @@ class EventProcessor extends AudioWorkletProcessor {
       durDist:'white', durLo:0.12, durHi:0.28, durP1:0.12, durP2:0.4,
       freqDist:'white', freqLo:200, freqHi:900, freqP1:0.12, freqP2:0.4, scale:'off',
       ampDist:'white', ampLo:0.35, ampHi:1, ampP1:0.12, ampP2:0.4,
-      atk:0.01, rel:0.2, gain:0.1
+      atk:0.01, rel:0.25, gain:0.15, voice:'sine'
     };
     this.st = { dur:{}, freq:{}, amp:{} };
     this.v = [];
+    // a pizzicato voice is a Karplus-Strong string: a delay line of one period, filled
+    // with noise and averaged on every pass, so the high partials die first
+    const maxLen = Math.ceil(sampleRate / 40) + 2;
     for (let i = 0; i < NVOICES; i++)
-      this.v.push({ on:false, phase:0, inc:0, amp:0, env:0, stage:0, aInc:0, rCoef:0 });
+      this.v.push({ on:false, phase:0, inc:0, amp:0, env:0, stage:0, aInc:0, rCoef:0,
+                    pizz:false, buf:new Float32Array(maxLen), len:2, idx:0 });
     this.until = 0;          // samples until the next event
     this.clock = 0;          // sample counter, for event timestamps
     this.pending = [];       // events waiting to be drawn
@@ -216,7 +224,17 @@ class EventProcessor extends AudioWorkletProcessor {
     v.inc = Math.max(1, f) / sampleRate;
     v.amp = Math.max(0, a);
     v.aInc = 1 / Math.max(1, p.atk * sampleRate);
-    v.rCoef = Math.exp(-1 / Math.max(1, p.rel * sampleRate));
+    // release is the whole decay, down to -60 dB, so a note does not ring on like a bell
+    v.rCoef = Math.exp(Math.log(1e-3) / Math.max(1, p.rel * sampleRate));
+    v.pizz = p.voice === 'pizz';
+    if (v.pizz) {
+      // the averaging adds half a sample of delay, hence the 0.5
+      v.len = Math.min(v.buf.length, Math.max(2, Math.round(sampleRate / Math.max(40, f) - 0.5)));
+      v.idx = 0;
+      let prev = 0;
+      for (let j = 0; j < v.len; j++) { const r = Math.random() * 2 - 1; v.buf[j] = 0.5 * (r + prev); prev = r; }
+      v.env = 1; v.stage = 1;               // a pluck starts at full level
+    }
 
     this.pending.push({ t: this.clock / sampleRate, f, a });
     if (this.pending.length > 128) this.pending.shift();
@@ -242,11 +260,20 @@ class EventProcessor extends AudioWorkletProcessor {
           if (v.env >= 1) { v.env = 1; v.stage = 1; }
         } else {                             // exponential decay
           v.env *= v.rCoef;
-          if (v.env < 1e-4) { v.on = false; continue; }
+          if (v.env < 1e-3) { v.on = false; continue; }
         }
-        v.phase += v.inc;
-        if (v.phase >= 1) v.phase -= 1;
-        sum += Math.sin(2 * Math.PI * v.phase) * v.env * v.amp;
+        let s;
+        if (v.pizz) {
+          const j = v.idx, k2 = j + 1 === v.len ? 0 : j + 1;
+          s = v.buf[j] * 1.6;                  // noise is quieter than a sine at the same peak
+          v.buf[j] = 0.5 * (v.buf[j] + v.buf[k2]);
+          v.idx = k2;
+        } else {
+          v.phase += v.inc;
+          if (v.phase >= 1) v.phase -= 1;
+          s = Math.sin(2 * Math.PI * v.phase);
+        }
+        sum += s * v.env * v.amp;
       }
       // soft saturation: sparse events stay essentially linear (tanh x ~ x), while a
       // dense cloud of up to 48 voices is compressed instead of leaping ~6x in level
@@ -274,7 +301,7 @@ registerProcessor('events', EventProcessor);
 <script>
 const DISTS = new Function(document.getElementById('dists').textContent + '; return DISTS;')();
 const IDS = ['durDist','durLo','durHi','freqDist','freqLo','freqHi','scale',
-             'ampDist','ampLo','ampHi','atk','rel','gain'];
+             'ampDist','ampLo','ampHi','voice','atk','rel','gain'];
 Kit.compact();
 const el = Kit.controls(IDS);
 const ctx2d = Kit.fit(document.getElementById('view'));
@@ -344,7 +371,7 @@ function params() {
     freqP1: extraVals.freq.p1, freqP2: extraVals.freq.p2, scale: el.scale.value,
     ampDist: el.ampDist.value, ampLo: v.ampLo, ampHi: v.ampHi,
     ampP1: extraVals.amp.p1, ampP2: extraVals.amp.p2,
-    atk: v.atk, rel: v.rel, gain: v.gain
+    atk: v.atk, rel: v.rel, gain: v.gain, voice: el.voice.value
   };
 }
 function send() { const st = getState(); if (st) st.node.port.postMessage({ type: 'params', value: params() }); }
