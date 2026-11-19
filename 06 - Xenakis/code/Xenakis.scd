@@ -360,13 +360,6 @@ Pbind(\instrument, \sine, \midinote, Pseries(60, Pcauchy(0.0, 0.3)).fold(36, 96)
 
 Pbind(\instrument, \sine, \midinote, ~chain, \dur, 0.15).play
 
-~plotPattern.(~chain, 100);
-
-(
-a = ~chain.asStream.nextN(10000);
-~states.collect { |state| a.occurrencesOf(state) / 10000 }
-)
-
 
 ////////////////////////// Learning a chain ///////////////////////////
 

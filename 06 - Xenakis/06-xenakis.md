@@ -268,6 +268,45 @@ One of Xenakis's most thoroughly formalized compositions.
 Considered by many as a failure.
 
 ---
+
+# Screens
+
+A **screen** is a short slice of time in which three parameters are set: the **frequency region** f, the **intensity** g and the **density** d of the grains. Each parameter has two regions, which gives **eight screens**, A to H.
+
+In *Analogique A* a screen lasts **1.11 seconds**, a half note at 54 MM. In *Analogique B* it lasts about **half a second**.
+
+The succession of screens is a **Markov chain**, which builds *memory* into the form. *Analogique A* contains only short notes, arco, pizzicato or col legno battuto, with no glissandi and no sustained notes.
+
+<div class="src">(Harley, Xenakis: His Life in Music; Xenakis, Formalized Music)</div>
+
+---
+class: light
+---
+
+# Eight Screens
+
+<div class="shot"><img src="/figures/analogique-screens-000.svg" /></div>
+
+---
+
+# Perturbations
+
+Left alone, the chain settles into its **stationary state** E, where each screen comes up in a fixed proportion. Xenakis builds the form by alternating E with **perturbations**:
+
+- **P0**: one screen held, as in AAAA
+- **P1**: every screen drawn from the same row of the matrix, with no memory
+
+After a perturbation the chain is back near E within about **four screens**. In *Analogique A+B* the strings play sections of about **36 seconds** each, and the tape sections of *B* fall between and over them.
+
+---
+class: light
+---
+
+# Analogique A+B
+
+<div class="shot"><img src="/figures/analogique-form-000.svg" /></div>
+
+---
 layout: center
 class: divider
 ---
@@ -430,21 +469,23 @@ class: light
 <div class="src">(Xenakis)</div>
 
 ---
-class: light
----
 
 # Atrées
 
-<div class="plate"><img src="/figures/atrees-000.png" /></div>
+*Atrées* (ST/10-3, 060962) was computed on **6 September 1962**, for **eleven players**: flute, clarinet, bass clarinet, horn, trumpet, trombone, three percussionists, violin and cello. It was commissioned by the ORTF and is dedicated to **Pascal**.
 
-<div class="src">(Xenakis, Atrées, ST/10, 3-060962, 1956-62)</div>
+The title means "the inflexible laws of **Necessity**". The 27 sections of the computer output are grouped into **five movements**, which may be played in any order.
+
+It is the ST piece **most freely adapted** from the program's data. In the third movement, sustained pitches are broken by tremolo or flutter-tongue and by shifts between sul ponticello and sul tasto, passed from instrument to instrument like a hocket. Xenakis added these passages while transcribing the output; they were not programmed.
+
+<div class="src">(Harley, Xenakis: His Life in Music)</div>
 
 ---
 layout: center
 class: divider
 ---
 
-<Listen file="xenakis-atrees.mp3">Iannis Xenakis, Atrées, third part (1956-62)</Listen>
+<Listen file="xenakis-atrees.mp3">Iannis Xenakis, Atrées, third part (1962)</Listen>
 
 ---
 layout: center
@@ -654,14 +695,24 @@ Pbind(\instrument, \sine,
 ```
 
 ---
+
+# Mikka
+
+*Mikka* (**1971**), for solo violin, means "small" and is also named for Mica Salabert, Xenakis's publisher. It was premiered at the Festival d'Automne in Paris in **1972**.
+
+The violin plays **one continuous glissando** from beginning to end, without vibrato, with ponticello and tremolo for colour.
+
+The contour is a **random walk** between **barriers**, the procedure Xenakis was developing for the stochastic synthesis of waveforms. Its values come **eight to a second** on a grid of **quarter tones** within about four and a half octaves, and the violinist glides between them.
+
+<div class="src">(Harley, Xenakis: His Life in Music)</div>
+
+---
 class: light
 ---
 
 # Mikka
 
-<div class="plate"><img src="/figures/mikka-000.png" /></div>
-
-<div class="src">(Xenakis, Mikka, 1971)</div>
+<div class="shot"><img src="/figures/mikka-walk-000.svg" /></div>
 
 ---
 layout: center
@@ -674,9 +725,7 @@ class: divider
 
 # Dynamic Stochastic Synthesis
 
-<AudioEmbed src="/demos/gendy/" height="22rem" label="GENDYN, interactive" />
-
-<span class="note">The same random walk, applied to the waveform itself: the breakpoints of one cycle each take a bounded step, and the shape is whatever they currently spell.</span>
+<AudioEmbed src="/demos/gendy/" height="26.2rem" label="GENDYN, interactive" />
 
 ---
 
@@ -700,13 +749,6 @@ class: divider
 	Splay.ar(Gendy1.ar(minfreq: f, maxfreq: f)) * 0.1
 }.play
 ```
-
----
-layout: center
-class: divider
----
-
-<Listen file="xenakis-s709.mp3">Iannis Xenakis, S.709 (1994)</Listen>
 
 ---
 layout: center
@@ -861,7 +903,7 @@ class: light
 
 ---
 
-# Beta as the Workhorse
+# Beta
 
 Two numbers traverse the whole family, so one generator covers most of what the others do separately.
 
@@ -879,7 +921,7 @@ Pbind(\freq, Pbeta(200, 2000, 0.4, 3),   \dur, 0.08).play;   // the low end
 
 ---
 
-# Look Before You Map
+# Look
 
 A distribution is drawn in its own units. What the ear does with those units is a separate question, and the two rarely agree.
 
@@ -896,20 +938,10 @@ b = (a * 1000 + 200).log2;
 ```
 
 ---
-class: light
----
-
-# Look Before You Map
-
-<div class="shot"><img src="/figures/look-before-mapping-000.svg" /></div>
-
----
 
 # Distributions
 
-<AudioEmbed src="/demos/events/" height="22rem" label="six distributions, interactive" />
-
-<span class="note">Each of duration, frequency and amplitude takes its own shape, so the effect of a distribution can be heard on one parameter at a time.</span>
+<AudioEmbed src="/demos/events/" height="27rem" label="six distributions, interactive" />
 
 ---
 layout: center
@@ -1117,7 +1149,7 @@ class: light
 
 ---
 
-# Walks in Sound
+# Walks
 
 A walk on each parameter. `Pgbrown` steps by ratios, which suits durations and frequencies. The second pattern is a Lévy flight on pitch, folded into a range.
 
@@ -1162,22 +1194,7 @@ class: light
 
 ---
 
-# The Long Run
-
-Run long enough, a chain spends a fixed share of its time in each state, whichever state it starts from. This is its **stationary distribution**. The matrix sets the proportions while the succession of states stays random.
-
-```supercollider
-~plotPattern.(~chain, 100);
-
-(
-a = ~chain.asStream.nextN(10000);
-~states.collect { |state| a.occurrencesOf(state) / 10000 }
-)
-```
-
----
-
-# Learning a Chain
+# Learning
 
 `MarkovSetN` from the **MathLib** quark counts the transitions in a sequence and turns them into probabilities. Change the order from 1 to 2 and each pair of notes predicts the next, so more of the melody returns.
 

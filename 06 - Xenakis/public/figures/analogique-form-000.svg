@@ -1,0 +1,164 @@
+<!-- drawn by Course-Development/figures/cwa-stochastic-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 420" width="1120" height="420" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="560.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">after a perturbation the chain is back near its stationary state within about four screens</text>
+<rect x="40.0" y="170.0" width="15" height="0.0" fill="#141414"/>
+<text x="47.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">A</text>
+<rect x="59.0" y="170.0" width="15" height="0.0" fill="#141414"/>
+<text x="66.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">B</text>
+<rect x="78.0" y="170.0" width="15" height="0.0" fill="#141414"/>
+<text x="85.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">C</text>
+<rect x="97.0" y="170.0" width="15" height="0.0" fill="#141414"/>
+<text x="104.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">D</text>
+<rect x="116.0" y="170.0" width="15" height="0.0" fill="#141414"/>
+<text x="123.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="135.0" y="170.0" width="15" height="0.0" fill="#141414"/>
+<text x="142.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">F</text>
+<rect x="154.0" y="170.0" width="15" height="0.0" fill="#141414"/>
+<text x="161.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">G</text>
+<rect x="173.0" y="60.0" width="15" height="110.0" fill="#141414"/>
+<text x="180.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">H</text>
+<path d="M38.0 170.0 L192.0 170.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="115.0" y="210.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">every machine at H</text>
+<rect x="218.0" y="159.4" width="15" height="10.6" fill="#141414"/>
+<text x="225.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">A</text>
+<rect x="237.0" y="154.2" width="15" height="15.8" fill="#141414"/>
+<text x="244.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">B</text>
+<rect x="256.0" y="154.2" width="15" height="15.8" fill="#141414"/>
+<text x="263.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">C</text>
+<rect x="275.0" y="146.2" width="15" height="23.8" fill="#141414"/>
+<text x="282.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">D</text>
+<rect x="294.0" y="163.0" width="15" height="7.0" fill="#141414"/>
+<text x="301.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="313.0" y="159.4" width="15" height="10.6" fill="#141414"/>
+<text x="320.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">F</text>
+<rect x="332.0" y="159.4" width="15" height="10.6" fill="#141414"/>
+<text x="339.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">G</text>
+<rect x="351.0" y="154.2" width="15" height="15.8" fill="#141414"/>
+<text x="358.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">H</text>
+<path d="M216.0 170.0 L370.0 170.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="293.0" y="210.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">after 1</text>
+<rect x="396.0" y="149.2" width="15" height="20.8" fill="#141414"/>
+<text x="403.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">A</text>
+<rect x="415.0" y="158.0" width="15" height="12.0" fill="#141414"/>
+<text x="422.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">B</text>
+<rect x="434.0" y="154.1" width="15" height="15.9" fill="#141414"/>
+<text x="441.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">C</text>
+<rect x="453.0" y="157.7" width="15" height="12.3" fill="#141414"/>
+<text x="460.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">D</text>
+<rect x="472.0" y="153.3" width="15" height="16.7" fill="#141414"/>
+<text x="479.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="491.0" y="156.9" width="15" height="13.1" fill="#141414"/>
+<text x="498.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">F</text>
+<rect x="510.0" y="160.7" width="15" height="9.3" fill="#141414"/>
+<text x="517.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">G</text>
+<rect x="529.0" y="160.1" width="15" height="9.9" fill="#141414"/>
+<text x="536.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">H</text>
+<path d="M394.0 170.0 L548.0 170.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="471.0" y="210.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">after 2</text>
+<rect x="574.0" y="151.5" width="15" height="18.5" fill="#141414"/>
+<text x="581.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">A</text>
+<rect x="593.0" y="158.0" width="15" height="12.0" fill="#141414"/>
+<text x="600.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">B</text>
+<rect x="612.0" y="155.6" width="15" height="14.4" fill="#141414"/>
+<text x="619.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">C</text>
+<rect x="631.0" y="155.5" width="15" height="14.5" fill="#141414"/>
+<text x="638.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">D</text>
+<rect x="650.0" y="154.0" width="15" height="16.0" fill="#141414"/>
+<text x="657.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="669.0" y="156.5" width="15" height="13.5" fill="#141414"/>
+<text x="676.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">F</text>
+<rect x="688.0" y="161.0" width="15" height="9.0" fill="#141414"/>
+<text x="695.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">G</text>
+<rect x="707.0" y="157.8" width="15" height="12.2" fill="#141414"/>
+<text x="714.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">H</text>
+<path d="M572.0 170.0 L726.0 170.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="649.0" y="210.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">after 3</text>
+<rect x="752.0" y="151.2" width="15" height="18.8" fill="#141414"/>
+<text x="759.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">A</text>
+<rect x="771.0" y="157.8" width="15" height="12.2" fill="#141414"/>
+<text x="778.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">B</text>
+<rect x="790.0" y="155.4" width="15" height="14.6" fill="#141414"/>
+<text x="797.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">C</text>
+<rect x="809.0" y="155.8" width="15" height="14.2" fill="#141414"/>
+<text x="816.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">D</text>
+<rect x="828.0" y="154.0" width="15" height="16.0" fill="#141414"/>
+<text x="835.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="847.0" y="156.7" width="15" height="13.3" fill="#141414"/>
+<text x="854.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">F</text>
+<rect x="866.0" y="160.9" width="15" height="9.1" fill="#141414"/>
+<text x="873.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">G</text>
+<rect x="885.0" y="158.2" width="15" height="11.8" fill="#141414"/>
+<text x="892.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">H</text>
+<path d="M750.0 170.0 L904.0 170.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="827.0" y="210.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">after 4</text>
+<rect x="930.0" y="151.2" width="15" height="18.8" fill="#141414"/>
+<text x="937.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">A</text>
+<rect x="949.0" y="157.9" width="15" height="12.1" fill="#141414"/>
+<text x="956.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">B</text>
+<rect x="968.0" y="155.4" width="15" height="14.6" fill="#141414"/>
+<text x="975.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">C</text>
+<rect x="987.0" y="155.8" width="15" height="14.2" fill="#141414"/>
+<text x="994.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">D</text>
+<rect x="1006.0" y="154.0" width="15" height="16.0" fill="#141414"/>
+<text x="1013.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="1025.0" y="156.7" width="15" height="13.3" fill="#141414"/>
+<text x="1032.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">F</text>
+<rect x="1044.0" y="161.0" width="15" height="9.0" fill="#141414"/>
+<text x="1051.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">G</text>
+<rect x="1063.0" y="158.2" width="15" height="11.8" fill="#141414"/>
+<text x="1070.5" y="186.0" text-anchor="middle" font-size="10.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">H</text>
+<path d="M928.0 170.0 L1082.0 170.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="1005.0" y="210.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">stationary</text>
+<text x="610.0" y="246.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the form of Analogique A+B, after Harley's chart</text>
+<text x="126.0" y="290.0" text-anchor="end" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">A, strings</text>
+<text x="126.0" y="346.0" text-anchor="end" font-size="13" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">B, tape</text>
+<rect x="140.0" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.85" stroke="#141414" stroke-width="1"/>
+<text x="179.1" y="289.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="218.2" y="322" width="45.6" height="36" fill="#141414" fill-opacity="0.12" stroke="#141414" stroke-width="1"/>
+<text x="240.9" y="345.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">I</text>
+<rect x="263.7" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.35" stroke="#141414" stroke-width="1"/>
+<text x="302.8" y="289.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">P<tspan font-size="9" dy="-6">0</tspan><tspan font-size="9" dy="9">A</tspan></text>
+<rect x="315.8" y="322" width="26.1" height="36" fill="#141414" fill-opacity="0.12" stroke="#141414" stroke-width="1"/>
+<text x="328.9" y="345.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">II</text>
+<rect x="346.2" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.35" stroke="#141414" stroke-width="1"/>
+<text x="385.3" y="289.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">P<tspan font-size="9" dy="-6">1</tspan><tspan font-size="9" dy="9">A</tspan></text>
+<rect x="359.3" y="322" width="8.7" height="36" fill="#141414" fill-opacity="0.12" stroke="#141414" stroke-width="1"/>
+<rect x="430.9" y="322" width="15.2" height="36" fill="#141414" fill-opacity="0.12" stroke="#141414" stroke-width="1"/>
+<rect x="446.1" y="266" width="86.8" height="36" fill="#141414" fill-opacity="0.85" stroke="#141414" stroke-width="1"/>
+<text x="489.5" y="289.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="532.9" y="266" width="76.0" height="36" fill="#141414" fill-opacity="0.35" stroke="#141414" stroke-width="1"/>
+<text x="570.9" y="289.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">P<tspan font-size="9" dy="-6">1</tspan><tspan font-size="9" dy="9">C</tspan></text>
+<rect x="608.9" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.35" stroke="#141414" stroke-width="1"/>
+<text x="648.0" y="289.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">P<tspan font-size="9" dy="-6">0</tspan><tspan font-size="9" dy="9">C</tspan></text>
+<rect x="687.1" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.35" stroke="#141414" stroke-width="1"/>
+<text x="726.1" y="289.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">P<tspan font-size="9" dy="-6">0</tspan><tspan font-size="9" dy="9">B</tspan></text>
+<rect x="687.1" y="322" width="78.2" height="36" fill="#141414" fill-opacity="0.12" stroke="#141414" stroke-width="1"/>
+<text x="726.1" y="345.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">V</text>
+<rect x="765.2" y="322" width="47.8" height="36" fill="#141414" fill-opacity="0.12" stroke="#141414" stroke-width="1"/>
+<text x="789.1" y="345.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">VI</text>
+<rect x="813.0" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.35" stroke="#141414" stroke-width="1"/>
+<text x="852.1" y="289.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">P<tspan font-size="9" dy="-6">1</tspan><tspan font-size="9" dy="9">B</tspan></text>
+<rect x="891.1" y="322" width="32.6" height="36" fill="#141414" fill-opacity="0.12" stroke="#141414" stroke-width="1"/>
+<text x="907.4" y="345.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">VII</text>
+<rect x="923.7" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.85" stroke="#141414" stroke-width="1"/>
+<text x="962.8" y="289.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">E</text>
+<rect x="1001.8" y="266" width="78.2" height="36" fill="#141414" fill-opacity="0.35" stroke="#141414" stroke-width="1"/>
+<text x="1040.9" y="289.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">P<tspan font-size="9" dy="-6">1</tspan><tspan font-size="9" dy="9">A</tspan></text>
+<path d="M140.0 360.0 L140.0 366.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="140.0" y="382.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">0:00</text>
+<path d="M270.3 360.0 L270.3 366.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="270.3" y="382.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">1:00</text>
+<path d="M400.5 360.0 L400.5 366.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="400.5" y="382.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2:00</text>
+<path d="M530.8 360.0 L530.8 366.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="530.8" y="382.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">3:00</text>
+<path d="M661.0 360.0 L661.0 366.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="661.0" y="382.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4:00</text>
+<path d="M791.3 360.0 L791.3 366.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="791.3" y="382.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">5:00</text>
+<path d="M921.5 360.0 L921.5 366.0" fill="none" stroke="#555" stroke-width="1.0"/>
+<text x="921.5" y="382.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6:00</text>
+<text x="560.0" y="408.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">E the stationary chain, P0 one screen held, P1 each screen drawn from one row of (MTPZ)</text>
+</svg>

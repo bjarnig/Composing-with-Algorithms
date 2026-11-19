@@ -1,0 +1,237 @@
+<!-- drawn by Course-Development/figures/cwa-stochastic-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 442" width="1120" height="442" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="560.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">three parameters with two regions each give eight screens, and a Markov chain chooses the next one</text>
+<text x="145.0" y="70.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">the screens</text>
+<text x="70.0" y="116.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">A</text>
+<rect x="102" y="96" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="117.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">f0</text>
+<rect x="154" y="96" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="117.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">g0</text>
+<rect x="206" y="96" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="117.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">d0</text>
+<text x="70.0" y="154.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">B</text>
+<rect x="102" y="134" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="155.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">f0</text>
+<rect x="154" y="134" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="155.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">g0</text>
+<rect x="206" y="134" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="155.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">d1</text>
+<text x="70.0" y="192.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">C</text>
+<rect x="102" y="172" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="193.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">f0</text>
+<rect x="154" y="172" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="193.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">g1</text>
+<rect x="206" y="172" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="193.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">d0</text>
+<text x="70.0" y="230.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">D</text>
+<rect x="102" y="210" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="231.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">f0</text>
+<rect x="154" y="210" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="231.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">g1</text>
+<rect x="206" y="210" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="231.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">d1</text>
+<text x="70.0" y="268.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">E</text>
+<rect x="102" y="248" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="269.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">f1</text>
+<rect x="154" y="248" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="269.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">g0</text>
+<rect x="206" y="248" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="269.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">d0</text>
+<text x="70.0" y="306.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">F</text>
+<rect x="102" y="286" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="307.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">f1</text>
+<rect x="154" y="286" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="307.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">g0</text>
+<rect x="206" y="286" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="307.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">d1</text>
+<text x="70.0" y="344.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">G</text>
+<rect x="102" y="324" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="345.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">f1</text>
+<rect x="154" y="324" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="345.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">g1</text>
+<rect x="206" y="324" width="44" height="30" fill="#141414" fill-opacity="0.06" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="345.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">d0</text>
+<text x="70.0" y="382.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">H</text>
+<rect x="102" y="362" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="124.0" y="383.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">f1</text>
+<rect x="154" y="362" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="176.0" y="383.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">g1</text>
+<rect x="206" y="362" width="44" height="30" fill="#141414" fill-opacity="0.8" stroke="#555" stroke-width="1"/>
+<text x="228.0" y="383.0" text-anchor="middle" font-size="14" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">d1</text>
+<text x="145.0" y="422.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">f frequency, g intensity, d density</text>
+<text x="554.0" y="52.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">next screen</text>
+<text x="358.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">A</text>
+<text x="414.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">B</text>
+<text x="470.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">C</text>
+<text x="526.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">D</text>
+<text x="582.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">E</text>
+<text x="638.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">F</text>
+<text x="694.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">G</text>
+<text x="750.0" y="80.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">H</text>
+<text x="316.0" y="116.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">A</text>
+<rect x="330" y="92" width="56" height="38" fill="#141414" fill-opacity="0.04" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.021</text>
+<rect x="386" y="92" width="56" height="38" fill="#141414" fill-opacity="0.17" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.084</text>
+<rect x="442" y="92" width="56" height="38" fill="#141414" fill-opacity="0.17" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.084</text>
+<rect x="498" y="92" width="56" height="38" fill="#141414" fill-opacity="0.67" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.336</text>
+<rect x="554" y="92" width="56" height="38" fill="#141414" fill-opacity="0.04" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.019</text>
+<rect x="610" y="92" width="56" height="38" fill="#141414" fill-opacity="0.15" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.076</text>
+<rect x="666" y="92" width="56" height="38" fill="#141414" fill-opacity="0.15" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.076</text>
+<rect x="722" y="92" width="56" height="38" fill="#141414" fill-opacity="0.61" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="116.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.304</text>
+<text x="316.0" y="154.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">B</text>
+<rect x="330" y="130" width="56" height="38" fill="#141414" fill-opacity="0.71" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.357</text>
+<rect x="386" y="130" width="56" height="38" fill="#141414" fill-opacity="0.18" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.089</text>
+<rect x="442" y="130" width="56" height="38" fill="#141414" fill-opacity="0.65" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.323</text>
+<rect x="498" y="130" width="56" height="38" fill="#141414" fill-opacity="0.16" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.081</text>
+<rect x="554" y="130" width="56" height="38" fill="#141414" fill-opacity="0.13" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.063</text>
+<rect x="610" y="130" width="56" height="38" fill="#141414" fill-opacity="0.03" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.016</text>
+<rect x="666" y="130" width="56" height="38" fill="#141414" fill-opacity="0.11" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.057</text>
+<rect x="722" y="130" width="56" height="38" fill="#141414" fill-opacity="0.03" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="154.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.014</text>
+<text x="316.0" y="192.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">C</text>
+<rect x="330" y="168" width="56" height="38" fill="#141414" fill-opacity="0.17" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.084</text>
+<rect x="386" y="168" width="56" height="38" fill="#141414" fill-opacity="0.15" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.076</text>
+<rect x="442" y="168" width="56" height="38" fill="#141414" fill-opacity="0.04" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.021</text>
+<rect x="498" y="168" width="56" height="38" fill="#141414" fill-opacity="0.04" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.019</text>
+<rect x="554" y="168" width="56" height="38" fill="#141414" fill-opacity="0.67" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.336</text>
+<rect x="610" y="168" width="56" height="38" fill="#141414" fill-opacity="0.61" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.304</text>
+<rect x="666" y="168" width="56" height="38" fill="#141414" fill-opacity="0.17" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.084</text>
+<rect x="722" y="168" width="56" height="38" fill="#141414" fill-opacity="0.15" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="192.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.076</text>
+<text x="316.0" y="230.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">D</text>
+<rect x="330" y="206" width="56" height="38" fill="#141414" fill-opacity="0.38" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.189</text>
+<rect x="386" y="206" width="56" height="38" fill="#141414" fill-opacity="0.25" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.126</text>
+<rect x="442" y="206" width="56" height="38" fill="#141414" fill-opacity="0.25" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.126</text>
+<rect x="498" y="206" width="56" height="38" fill="#141414" fill-opacity="0.17" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.084</text>
+<rect x="554" y="206" width="56" height="38" fill="#141414" fill-opacity="0.34" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.171</text>
+<rect x="610" y="206" width="56" height="38" fill="#141414" fill-opacity="0.23" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.114</text>
+<rect x="666" y="206" width="56" height="38" fill="#141414" fill-opacity="0.23" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.114</text>
+<rect x="722" y="206" width="56" height="38" fill="#141414" fill-opacity="0.15" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="230.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.076</text>
+<text x="316.0" y="268.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">E</text>
+<rect x="330" y="244" width="56" height="38" fill="#141414" fill-opacity="0.33" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.165</text>
+<rect x="386" y="244" width="56" height="38" fill="#141414" fill-opacity="0.30" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.150</text>
+<rect x="442" y="244" width="56" height="38" fill="#141414" fill-opacity="0.30" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.150</text>
+<rect x="498" y="244" width="56" height="38" fill="#141414" fill-opacity="0.27" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.135</text>
+<rect x="554" y="244" width="56" height="38" fill="#141414" fill-opacity="0.22" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.110</text>
+<rect x="610" y="244" width="56" height="38" fill="#141414" fill-opacity="0.20" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.100</text>
+<rect x="666" y="244" width="56" height="38" fill="#141414" fill-opacity="0.20" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.100</text>
+<rect x="722" y="244" width="56" height="38" fill="#141414" fill-opacity="0.18" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="268.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.090</text>
+<text x="316.0" y="306.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">F</text>
+<rect x="330" y="282" width="56" height="38" fill="#141414" fill-opacity="0.41" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.204</text>
+<rect x="386" y="282" width="56" height="38" fill="#141414" fill-opacity="0.27" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.136</text>
+<rect x="442" y="282" width="56" height="38" fill="#141414" fill-opacity="0.07" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.036</text>
+<rect x="498" y="282" width="56" height="38" fill="#141414" fill-opacity="0.05" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.024</text>
+<rect x="554" y="282" width="56" height="38" fill="#141414" fill-opacity="0.61" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.306</text>
+<rect x="610" y="282" width="56" height="38" fill="#141414" fill-opacity="0.41" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.204</text>
+<rect x="666" y="282" width="56" height="38" fill="#141414" fill-opacity="0.11" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.054</text>
+<rect x="722" y="282" width="56" height="38" fill="#141414" fill-opacity="0.07" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="306.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.036</text>
+<text x="316.0" y="344.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">G</text>
+<rect x="330" y="320" width="56" height="38" fill="#141414" fill-opacity="0.82" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.408</text>
+<rect x="386" y="320" width="56" height="38" fill="#141414" fill-opacity="0.14" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.072</text>
+<rect x="442" y="320" width="56" height="38" fill="#141414" fill-opacity="0.54" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#fff" font-family="Menlo, Monaco, Consolas, monospace">.272</text>
+<rect x="498" y="320" width="56" height="38" fill="#141414" fill-opacity="0.10" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.048</text>
+<rect x="554" y="320" width="56" height="38" fill="#141414" fill-opacity="0.20" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.102</text>
+<rect x="610" y="320" width="56" height="38" fill="#141414" fill-opacity="0.04" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.018</text>
+<rect x="666" y="320" width="56" height="38" fill="#141414" fill-opacity="0.14" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.068</text>
+<rect x="722" y="320" width="56" height="38" fill="#141414" fill-opacity="0.02" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="344.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.012</text>
+<text x="316.0" y="382.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">H</text>
+<rect x="330" y="358" width="56" height="38" fill="#141414" fill-opacity="0.19" stroke="#555" stroke-width="0.8"/>
+<text x="358.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.096</text>
+<rect x="386" y="358" width="56" height="38" fill="#141414" fill-opacity="0.29" stroke="#555" stroke-width="0.8"/>
+<text x="414.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.144</text>
+<rect x="442" y="358" width="56" height="38" fill="#141414" fill-opacity="0.29" stroke="#555" stroke-width="0.8"/>
+<text x="470.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.144</text>
+<rect x="498" y="358" width="56" height="38" fill="#141414" fill-opacity="0.43" stroke="#555" stroke-width="0.8"/>
+<text x="526.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.216</text>
+<rect x="554" y="358" width="56" height="38" fill="#141414" fill-opacity="0.13" stroke="#555" stroke-width="0.8"/>
+<text x="582.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.064</text>
+<rect x="610" y="358" width="56" height="38" fill="#141414" fill-opacity="0.19" stroke="#555" stroke-width="0.8"/>
+<text x="638.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.096</text>
+<rect x="666" y="358" width="56" height="38" fill="#141414" fill-opacity="0.19" stroke="#555" stroke-width="0.8"/>
+<text x="694.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.096</text>
+<rect x="722" y="358" width="56" height="38" fill="#141414" fill-opacity="0.29" stroke="#555" stroke-width="0.8"/>
+<text x="750.0" y="382.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">.144</text>
+<text x="554.0" y="422.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">(MTPZ): one row per current screen, each row sums to 1</text>
+<text x="316.0" y="80.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">now</text>
+<text x="950.0" y="70.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">how often each screen comes up</text>
+<text x="840.0" y="116.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">A</text>
+<rect x="860" y="99" width="171.1" height="24" fill="#141414"/>
+<text x="1041.1" y="116.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.17</text>
+<text x="840.0" y="154.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">B</text>
+<rect x="860" y="137" width="110.3" height="24" fill="#141414"/>
+<text x="980.3" y="154.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.11</text>
+<text x="840.0" y="192.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">C</text>
+<rect x="860" y="175" width="133.1" height="24" fill="#141414"/>
+<text x="1003.1" y="192.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.13</text>
+<text x="840.0" y="230.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">D</text>
+<rect x="860" y="213" width="129.5" height="24" fill="#141414"/>
+<text x="999.5" y="230.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.13</text>
+<text x="840.0" y="268.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">E</text>
+<rect x="860" y="251" width="145.3" height="24" fill="#141414"/>
+<text x="1015.3" y="268.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.15</text>
+<text x="840.0" y="306.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">F</text>
+<rect x="860" y="289" width="121.0" height="24" fill="#141414"/>
+<text x="991.0" y="306.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.12</text>
+<text x="840.0" y="344.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">G</text>
+<rect x="860" y="327" width="82.2" height="24" fill="#141414"/>
+<text x="952.2" y="344.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.08</text>
+<text x="840.0" y="382.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">H</text>
+<rect x="860" y="365" width="107.4" height="24" fill="#141414"/>
+<text x="977.4" y="382.0" text-anchor="start" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.11</text>
+<text x="950.0" y="422.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the stationary state</text>
+</svg>
