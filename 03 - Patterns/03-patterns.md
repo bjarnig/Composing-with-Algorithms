@@ -25,23 +25,6 @@ mdc: true
 </div>
 
 ---
-
-# A First Pattern
-
-Before any of it is defined.
-
-```supercollider
-s.boot;
-
-Pbind(\degree, Pseq([0, 2, 4, 5], inf), \dur, 0.25).play;
-
-// one word changed, and it is a different piece
-Pbind(\degree, Prand([0, 2, 4, 5], inf), \dur, 0.25).play;
-```
-
-<span class="q">Neither line says what to play, only how to choose.</span>
-
----
 layout: center
 class: divider
 ---
@@ -330,7 +313,7 @@ class: light
 
 > "My favorite situation is when I can get someone sat up to have their computer run my smol Pattern code block and for them to then potentially listen to it forever and or get started making their own personal expressive imagining of just how weird music could potentially could get if we all supported each other in that endeavor."
 
-<div class="src">(Daniel M Karlsson, written for this class, September 2026)</div>
+<div class="src">(Daniel M Karlsson, September 2026)</div>
 
 ---
 class: light
@@ -384,10 +367,16 @@ class: light
 
 > "Pdef + Bind combo 4 lyfe!"
 
-<div class="src">(Daniel M Karlsson, written for this class, September 2026)</div>
+<div class="src">(Daniel M Karlsson, September 2026)</div>
 
 ---
+layout: center
+class: divider
+---
 
+<Listen file="karlsson-act-i.mp3">Daniel M Karlsson, Towards a Music for Large Ensemble, Act I (2026)</Listen>
+
+---
 layout: center
 class: divider
 ---

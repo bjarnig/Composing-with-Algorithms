@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>Wavetable Morphing — Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  .bank{display:flex;gap:2px;margin:.1rem 0 .8rem;align-items:flex-end}
+  .bank div{flex:1;height:34px;border:1px solid var(--rule);border-radius:2px;
+            position:relative;overflow:hidden}
+  .bank div.near{border-color:var(--accent)}
+  .bank canvas{width:100%;height:100%;display:block;background:transparent;border:0}
+  .bank span{position:absolute;left:2px;top:1px;font-size:9px;color:var(--muted)}
+  body.compact .bank{margin:.05rem 0 .4rem}
+  body.compact .bank div{height:24px}
+</style>
+</head>
+<body>
+
+<h1>Wavetable Morphing</h1>
+<p class="sub">A bank of single-cycle tables read by one oscillator. A fractional
+<code>bufpos</code> crossfades between adjacent tables, exactly as
+<code>VOsc.ar(bufpos, freq)</code> does in <code>Wavetables.scd</code>; a whole number is
+plain <code>Osc.ar</code> on one table.</p>
+<p class="warn">Start with the gain low. The brighter tables have a lot of high partials.</p>
+
+<div class="bank" id="bank"></div>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>interpolated waveform</span>
+  <span><i style="background:var(--rule)"></i>the two tables being blended</span>
+  <span><i style="background:var(--mint)"></i>spectrum</span>
+  <span id="info"></span>
+</div>
+
+<div class="row">
+  <button id="play">play</button>
+  <span style="color:var(--muted);font-size:.75rem">presets:</span>
+  <button class="preset" data-p="single">single table</button>
+  <button class="preset" data-p="between">between two</button>
+  <button class="preset" data-p="slow">slow sweep</button>
+  <button class="preset" data-p="noise">LFNoise morph</button>
+  <button class="preset" data-p="bright">bright end</button>
+</div>
+
+<div class="grid">
+  <fieldset>
+    <legend>oscillator</legend>
+    <label><span>bufpos</span><input type="range" id="pos" min="0" max="7" step="0.001" value="0"><output></output></label>
+    <label><span>freq (Hz)</span><input type="range" id="freq" min="20" max="800" step="1" value="80"><output></output></label>
+    <label><span>gain</span><input type="range" id="gain" min="0" max="0.4" step="0.005" value="0.12"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>morph modulation</legend>
+    <label><span>shape</span>
+      <select id="lfo">
+        <option value="off" selected>off (manual)</option>
+        <option value="sine">SinOsc.kr</option>
+        <option value="noise">LFNoise2.kr</option>
+      </select><output></output></label>
+    <label><span>rate (Hz)</span><input type="range" id="lfoRate" min="0.02" max="8" step="0.01" value="0.2"><output></output></label>
+    <label><span>depth</span><input type="range" id="lfoDepth" min="0" max="1" step="0.01" value="1"><output></output></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>view</legend>
+    <label><span>spectrum to</span><input type="range" id="maxHz" min="500" max="12000" step="250" value="2000"><output></output></label>
+    <label><span>show neighbours</span><input type="checkbox" id="ghosts" checked><output></output></label>
+  </fieldset>
+</div>
+
+<p class="note">
+The bank above shows the eight tables; the two outlined in blue are the ones currently
+being blended. Move <code>bufpos</code> and watch the waveform deform continuously while the
+spectrum steps between the two harmonic recipes. That is the thing worth noticing:
+<code>VOsc</code> crossfades the <em>waveforms</em>, so the spectrum you get part-way between
+two tables is the sum of both, not a smooth glide of each partial. At a whole-number
+<code>bufpos</code> only one table sounds, which is what plain <code>Osc</code> gives you.
+</p>
+
+<script id="tables" type="text/js-lib">
+/* Eight single-cycle tables, each given as harmonic amplitudes in the manner of
+   Buffer.sine1. Built identically on the audio thread and in the drawing, so the
+   picture is of the same table the oscillator is reading. */
+const SIZE = 2048;
+
+const SPECS = [
+  { name: 'sine',      amps: [1] },
+  { name: 'tri~',      amps: [1, 0, 1/9, 0, 1/25, 0, 1/49, 0, 1/81] },
+  { name: 'square~',   amps: [1, 0, 1/3, 0, 1/5, 0, 1/7, 0, 1/9, 0, 1/11] },
+  { name: 'saw~',      amps: [1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8, 1/9, 1/10, 1/11, 1/12] },
+  { name: 'formant',   amps: [0.3, 0.2, 0.5, 1, 0.9, 0.6, 0.2, 0.1] },
+  { name: 'hollow',    amps: [1, 0, 0, 0, 0, 0, 0.7, 0, 0, 0, 0.4] },
+  { name: 'bright',    amps: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+  { name: '8th only',  amps: [0,0,0,0,0,0,0,1] }
+];
+
+function buildTable(amps) {
+  const t = new Float32Array(SIZE);
+  let peak = 0;
+  for (let i = 0; i < SIZE; i++) {
+    const ph = (i / SIZE) * 2 * Math.PI;
+    let v = 0;
+    for (let h = 0; h < amps.length; h++)
+      if (amps[h]) v += amps[h] * Math.sin((h + 1) * ph);
+    t[i] = v;
+    if (Math.abs(v) > peak) peak = Math.abs(v);
+  }
+  if (peak > 0) for (let i = 0; i < SIZE; i++) t[i] /= peak;   // normalise to +-1
+  return t;
+}
+
+const TABLES = SPECS.map(s => buildTable(s.amps));
+const NTABLES = TABLES.length;
+
+/* One sample of VOsc: linear interpolation inside each table, then a linear
+   crossfade between the two tables bufpos falls between. */
+function readMorph(pos, phase) {
+  const p = Math.max(0, Math.min(NTABLES - 1, pos));
+  const i = Math.min(NTABLES - 2, Math.floor(p));
+  const f = (p >= NTABLES - 1) ? 1 : p - i;
+  const a = TABLES[i], b = TABLES[Math.min(NTABLES - 1, i + 1)];
+  const x = phase * SIZE;
+  const j = Math.floor(x), frac = x - j;
+  const j1 = (j + 1) % SIZE, j0 = j % SIZE;
+  const va = a[j0] + (a[j1] - a[j0]) * frac;
+  const vb = b[j0] + (b[j1] - b[j0]) * frac;
+  return va + (vb - va) * f;
+}
+</script>
+
+<script id="worklet" type="text/js-worklet">
+class WavetableProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.p = { pos:0, freq:80, gain:0.12, lfo:'off', lfoRate:0.2, lfoDepth:1 };
+    this.phase = 0;
+    this.lfoPhase = 0;
+    this.noiseA = 0; this.noiseB = 0; this.noiseT = 0;  // LFNoise2-ish, interpolating
+    this.effPos = 0;
+    this.frames = 0;
+    this.port.onmessage = e => {
+      if (e.data.type === 'params') Object.assign(this.p, e.data.value);
+    };
+  }
+
+  morphPos() {
+    const p = this.p;
+    const span = (NTABLES - 1) * p.lfoDepth;
+    if (p.lfo === 'sine') {
+      this.lfoPhase += p.lfoRate / sampleRate;
+      if (this.lfoPhase >= 1) this.lfoPhase -= 1;
+      return (Math.sin(2 * Math.PI * this.lfoPhase) * 0.5 + 0.5) * span;
+    }
+    if (p.lfo === 'noise') {
+      const period = Math.max(1, sampleRate / Math.max(0.02, p.lfoRate));
+      this.noiseT++;
+      if (this.noiseT >= period) {
+        this.noiseT = 0; this.noiseA = this.noiseB; this.noiseB = Math.random();
+      }
+      const t = this.noiseT / period;
+      const s = t * t * (3 - 2 * t);                    // smooth, like LFNoise2
+      return (this.noiseA + (this.noiseB - this.noiseA) * s) * span;
+    }
+    return p.pos;
+  }
+
+  process(inputs, outputs) {
+    const out = outputs[0], ch0 = out[0], n = ch0.length, p = this.p;
+    const inc = Math.max(0.01, p.freq) / sampleRate;
+
+    for (let i = 0; i < n; i++) {
+      this.effPos = this.morphPos();
+      ch0[i] = readMorph(this.effPos, this.phase) * p.gain;
+      this.phase += inc;
+      if (this.phase >= 1) this.phase -= 1;
+    }
+    for (let c = 1; c < out.length; c++) out[c].set(ch0);
+
+    this.frames += n;
+    if (this.frames >= sampleRate / 30) {
+      this.frames = 0;
+      this.port.postMessage({ pos: this.effPos });
+    }
+    return true;
+  }
+}
+registerProcessor('wavetable', WavetableProcessor);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const lib = new Function(document.getElementById('tables').textContent
+  + '; return {TABLES, NTABLES, SPECS, readMorph, SIZE};')();
+const { TABLES, NTABLES, SPECS, readMorph } = lib;
+
+const IDS = ['pos','freq','gain','lfo','lfoRate','lfoDepth','maxHz','ghosts'];
+Kit.compact();
+const el = Kit.controls(IDS);
+el.pos.max = NTABLES - 1;
+const ctx2d = Kit.fit(document.getElementById('view'));
+const info = document.getElementById('info');
+let livePos = 0;
+
+/* the bank strip: one small canvas per table */
+const bank = document.getElementById('bank');
+const cells = SPECS.map((spec, i) => {
+  const d = document.createElement('div');
+  const c = document.createElement('canvas');
+  const s = document.createElement('span');
+  s.textContent = i + ' ' + spec.name;
+  d.appendChild(c); d.appendChild(s); bank.appendChild(d);
+  d.addEventListener('click', () => {           // click a table to jump to it
+    el.lfo.value = 'off'; el.pos.value = i; Kit.readouts(el); send();
+  });
+  return { div: d, canvas: c };
+});
+function paintBank() {
+  for (let i = 0; i < cells.length; i++) {
+    const { canvas } = cells[i];
+    const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    if (!r.width) continue;
+    canvas.width = r.width * dpr; canvas.height = r.height * dpr;
+    const c = canvas.getContext('2d');
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, r.width, r.height);
+    c.strokeStyle = Kit.css('--muted'); c.lineWidth = 1; c.globalAlpha = .8;
+    c.beginPath();
+    for (let x = 0; x <= r.width; x++) {
+      const v = TABLES[i][Math.floor(x / r.width * (TABLES[i].length - 1))];
+      const y = r.height / 2 - v * (r.height / 2 - 2);
+      x ? c.lineTo(x, y) : c.moveTo(x, y);
+    }
+    c.stroke(); c.globalAlpha = 1;
+  }
+}
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'wavetable', prelude: ['tables'] });
+  st.node.port.onmessage = e => { livePos = e.data.pos; };
+  st.node.port.postMessage({ type: 'params', value: params() });
+  st.spec = new Float32Array(st.analyser.frequencyBinCount);
+  return st;
+});
+
+function params() {
+  const v = Kit.values(el);
+  return { pos: v.pos, freq: v.freq, gain: v.gain,
+           lfo: el.lfo.value, lfoRate: v.lfoRate, lfoDepth: v.lfoDepth };
+}
+function send() { const st = getState(); if (st) st.node.port.postMessage({ type: 'params', value: params() }); }
+IDS.forEach(id => el[id].addEventListener('input', () => {
+  Kit.readouts(el);
+  el.pos.disabled = el.lfo.value !== 'off';
+  el.lfoRate.disabled = el.lfo.value === 'off';
+  el.lfoDepth.disabled = el.lfo.value === 'off';
+  send();
+}));
+
+Kit.presets({
+  single:  {pos:0, freq:80,  lfo:'off'},
+  between: {pos:2.5, freq:80, lfo:'off'},
+  slow:    {lfo:'sine',  lfoRate:0.2, lfoDepth:1, freq:80},
+  noise:   {lfo:'noise', lfoRate:0.5, lfoDepth:1, freq:110},
+  bright:  {pos:6, freq:60,  lfo:'off'}
+}, p => {
+  for (const k in p) if (el[k]) el[k].value = p[k];
+  Kit.readouts(el);
+  el.pos.disabled = el.lfo.value !== 'off';
+  el.lfoRate.disabled = el.lfo.value === 'off';
+  el.lfoDepth.disabled = el.lfo.value === 'off';
+  send();
+});
+
+function draw() {
+  const r = document.getElementById('view').getBoundingClientRect(), W = r.width, H = r.height;
+  ctx2d.clearRect(0, 0, W, H);
+  const splitY = Math.round(H * 0.56), gap = 8;
+  const st = getState();
+
+  const pos = el.lfo.value === 'off' ? parseFloat(el.pos.value) : livePos;
+  const i = Math.min(NTABLES - 2, Math.floor(Math.max(0, Math.min(NTABLES - 1, pos))));
+  const f = pos >= NTABLES - 1 ? 1 : pos - i;
+
+  cells.forEach((c, k) => c.div.classList.toggle('near', k === i || k === i + 1));
+
+  // upper: one cycle of the interpolated table, with the two sources ghosted
+  const mid = splitY / 2;
+  ctx2d.strokeStyle = 'rgba(255,255,255,.10)'; ctx2d.lineWidth = 1;
+  ctx2d.beginPath(); ctx2d.moveTo(0, mid); ctx2d.lineTo(W, mid); ctx2d.stroke();
+  if (el.ghosts.checked) {
+    ctx2d.strokeStyle = Kit.css('--muted'); ctx2d.globalAlpha = .35;
+    for (const t of [TABLES[i], TABLES[Math.min(NTABLES - 1, i + 1)]]) {
+      ctx2d.beginPath();
+      for (let x = 0; x <= W; x++) {
+        const v = t[Math.floor(x / W * (t.length - 1))];
+        const y = mid - v * (mid - 6);
+        x ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+      }
+      ctx2d.stroke();
+    }
+    ctx2d.globalAlpha = 1;
+  }
+  ctx2d.strokeStyle = Kit.css('--accent'); ctx2d.lineWidth = 2;
+  ctx2d.beginPath();
+  for (let x = 0; x <= W; x++) {
+    const v = readMorph(pos, x / W);
+    const y = mid - v * (mid - 6);
+    x ? ctx2d.lineTo(x, y) : ctx2d.moveTo(x, y);
+  }
+  ctx2d.stroke();
+  ctx2d.fillStyle = Kit.css('--muted'); ctx2d.font = '10px ' + Kit.css('--sans');
+  ctx2d.fillText('one cycle: ' + SPECS[i].name
+    + (f > 0.001 ? '  ->  ' + SPECS[Math.min(NTABLES - 1, i + 1)].name
+                   + '   blend ' + (f * 100).toFixed(0) + '%' : '  (single table)'), 6, 12);
+
+  ctx2d.strokeStyle = 'rgba(255,255,255,.12)'; ctx2d.lineWidth = 1;
+  ctx2d.beginPath(); ctx2d.moveTo(0, splitY); ctx2d.lineTo(W, splitY); ctx2d.stroke();
+
+  // lower: spectrum
+  Kit.drawSpectrum(ctx2d, 0, splitY + gap, W, H - splitY - gap,
+    st && st.analyser, st && st.spec,
+    { maxHz: parseFloat(el.maxHz.value), sampleRate: st ? st.ctx.sampleRate : 48000,
+      colour: Kit.css('--mint') });
+
+  info.textContent = 'bufpos ' + pos.toFixed(3);
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize', paintBank);
+Kit.readouts(el);
+el.lfoRate.disabled = true; el.lfoDepth.disabled = true;
+paintBank(); draw();
+</script>
+</body>
+</html>
