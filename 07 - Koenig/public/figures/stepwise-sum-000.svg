@@ -1,0 +1,24 @@
+<!-- drawn by Course-Development/figures/cwa-koenig-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 274" width="1200" height="274" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="600.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the probabilities laid end to end on a line from 0 to 1, and one uniform random number</text>
+<rect x="150.0" y="110" width="225.0" height="44" fill="#fff" stroke="#141414" stroke-width="1.6"/>
+<text x="262.5" y="138.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">A</text>
+<text x="262.5" y="178.0" text-anchor="middle" font-size="13" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0.25</text>
+<rect x="375.0" y="110" width="450.0" height="44" fill="#efefef" stroke="#141414" stroke-width="1.6"/>
+<text x="600.0" y="138.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">B</text>
+<text x="600.0" y="178.0" text-anchor="middle" font-size="13" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0.5</text>
+<rect x="825.0" y="110" width="225.0" height="44" fill="#fff" stroke="#141414" stroke-width="1.6"/>
+<text x="937.5" y="138.0" text-anchor="middle" font-size="18" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">C</text>
+<text x="937.5" y="178.0" text-anchor="middle" font-size="13" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">0.25</text>
+<text x="150.0" y="98.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0</text>
+<text x="375.0" y="98.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.25</text>
+<text x="825.0" y="98.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.75</text>
+<text x="1050.0" y="98.0" text-anchor="middle" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1</text>
+<path d="M708.0 58.0 L708.0 106.0" fill="none" stroke="#141414" stroke-width="2.0" marker-end="url(#a)"/>
+<text x="716.0" y="70.0" text-anchor="start" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1.0.rand = 0.62, so B</text>
+<path d="M70.0 206.0 L1130.0 206.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="600.0" y="234.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">a number below 0.25 chooses A, from 0.25 to 0.75 chooses B, and above 0.75 chooses C</text>
+<text x="600.0" y="256.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">this is what wchoose and windex do; after Berg, Transition tables</text>
+</svg>

@@ -1,0 +1,163 @@
+<!-- drawn by Course-Development/figures/cwa-koenig-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 404" width="1200" height="404" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="600.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">a mask divided into N parts: one value is chosen at random between the limits at each part</text>
+<path d="M120.0 170.0 L540.0 82.5 L540.0 307.5 L120.0 207.5 L120.0 170.0" fill="#efefef" stroke="#141414" stroke-width="1.4"/>
+<circle cx="125.2" cy="183.9" r="3.2" fill="#141414"/>
+<circle cx="135.8" cy="178.2" r="3.2" fill="#141414"/>
+<circle cx="146.2" cy="174.6" r="3.2" fill="#141414"/>
+<circle cx="156.8" cy="165.4" r="3.2" fill="#141414"/>
+<circle cx="167.2" cy="175.4" r="3.2" fill="#141414"/>
+<circle cx="177.8" cy="162.9" r="3.2" fill="#141414"/>
+<circle cx="188.2" cy="221.8" r="3.2" fill="#141414"/>
+<circle cx="198.8" cy="192.4" r="3.2" fill="#141414"/>
+<circle cx="209.2" cy="155.8" r="3.2" fill="#141414"/>
+<circle cx="219.8" cy="178.0" r="3.2" fill="#141414"/>
+<circle cx="230.2" cy="155.6" r="3.2" fill="#141414"/>
+<circle cx="240.8" cy="225.9" r="3.2" fill="#141414"/>
+<circle cx="251.2" cy="193.7" r="3.2" fill="#141414"/>
+<circle cx="261.8" cy="216.4" r="3.2" fill="#141414"/>
+<circle cx="272.2" cy="186.4" r="3.2" fill="#141414"/>
+<circle cx="282.8" cy="183.0" r="3.2" fill="#141414"/>
+<circle cx="293.2" cy="247.2" r="3.2" fill="#141414"/>
+<circle cx="303.8" cy="225.3" r="3.2" fill="#141414"/>
+<circle cx="314.2" cy="219.0" r="3.2" fill="#141414"/>
+<circle cx="324.8" cy="138.1" r="3.2" fill="#141414"/>
+<circle cx="335.2" cy="156.5" r="3.2" fill="#141414"/>
+<circle cx="345.8" cy="239.2" r="3.2" fill="#141414"/>
+<circle cx="356.2" cy="149.8" r="3.2" fill="#141414"/>
+<circle cx="366.8" cy="245.8" r="3.2" fill="#141414"/>
+<circle cx="377.2" cy="174.7" r="3.2" fill="#141414"/>
+<circle cx="387.8" cy="251.4" r="3.2" fill="#141414"/>
+<circle cx="398.2" cy="273.5" r="3.2" fill="#141414"/>
+<circle cx="408.8" cy="131.2" r="3.2" fill="#141414"/>
+<circle cx="419.2" cy="242.9" r="3.2" fill="#141414"/>
+<circle cx="429.8" cy="243.4" r="3.2" fill="#141414"/>
+<circle cx="440.2" cy="106.5" r="3.2" fill="#141414"/>
+<circle cx="450.8" cy="124.7" r="3.2" fill="#141414"/>
+<circle cx="461.2" cy="233.8" r="3.2" fill="#141414"/>
+<circle cx="471.8" cy="104.2" r="3.2" fill="#141414"/>
+<circle cx="482.2" cy="186.3" r="3.2" fill="#141414"/>
+<circle cx="492.8" cy="158.0" r="3.2" fill="#141414"/>
+<circle cx="503.2" cy="256.0" r="3.2" fill="#141414"/>
+<circle cx="513.8" cy="100.6" r="3.2" fill="#141414"/>
+<circle cx="524.2" cy="153.2" r="3.2" fill="#141414"/>
+<circle cx="534.8" cy="91.0" r="3.2" fill="#141414"/>
+<text x="110.0" y="212.5" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">A1</text>
+<text x="110.0" y="175.0" text-anchor="end" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">A2</text>
+<text x="550.0" y="312.5" text-anchor="start" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Z1</text>
+<text x="550.0" y="87.5" text-anchor="start" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Z2</text>
+<path d="M120.0 336.0 L540.0 336.0" fill="none" stroke="#141414" stroke-width="1.2"/>
+<path d="M120.0 331.0 L120.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M130.5 331.0 L130.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M141.0 331.0 L141.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M151.5 331.0 L151.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M162.0 331.0 L162.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M172.5 331.0 L172.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M183.0 331.0 L183.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M193.5 331.0 L193.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M204.0 331.0 L204.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M214.5 331.0 L214.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M225.0 331.0 L225.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M235.5 331.0 L235.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M246.0 331.0 L246.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M256.5 331.0 L256.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M267.0 331.0 L267.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M277.5 331.0 L277.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M288.0 331.0 L288.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M298.5 331.0 L298.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M309.0 331.0 L309.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M319.5 331.0 L319.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M330.0 331.0 L330.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M340.5 331.0 L340.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M351.0 331.0 L351.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M361.5 331.0 L361.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M372.0 331.0 L372.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M382.5 331.0 L382.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M393.0 331.0 L393.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M403.5 331.0 L403.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M414.0 331.0 L414.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M424.5 331.0 L424.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M435.0 331.0 L435.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M445.5 331.0 L445.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M456.0 331.0 L456.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M466.5 331.0 L466.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M477.0 331.0 L477.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M487.5 331.0 L487.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M498.0 331.0 L498.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M508.5 331.0 L508.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M519.0 331.0 L519.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M529.5 331.0 L529.5 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<path d="M540.0 331.0 L540.0 341.0" fill="none" stroke="#141414" stroke-width="1"/>
+<text x="330.0" y="364.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">one mask, N = 40</text>
+<text x="330.0" y="384.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">~mask.(40, 0.45, 0.6, 0.05, 0.95)</text>
+<path d="M660.0 207.5 L806.7 95.0 L806.7 295.0 L660.0 220.0 L660.0 207.5" fill="#efefef" stroke="#141414" stroke-width="1.4"/>
+<circle cx="663.7" cy="206.5" r="3.2" fill="#141414"/>
+<circle cx="671.0" cy="217.7" r="3.2" fill="#141414"/>
+<circle cx="678.3" cy="216.4" r="3.2" fill="#141414"/>
+<circle cx="685.7" cy="225.6" r="3.2" fill="#141414"/>
+<circle cx="693.0" cy="228.9" r="3.2" fill="#141414"/>
+<circle cx="700.3" cy="236.5" r="3.2" fill="#141414"/>
+<circle cx="707.7" cy="222.2" r="3.2" fill="#141414"/>
+<circle cx="715.0" cy="198.2" r="3.2" fill="#141414"/>
+<circle cx="722.3" cy="251.6" r="3.2" fill="#141414"/>
+<circle cx="729.7" cy="186.8" r="3.2" fill="#141414"/>
+<circle cx="737.0" cy="221.9" r="3.2" fill="#141414"/>
+<circle cx="744.3" cy="225.8" r="3.2" fill="#141414"/>
+<circle cx="751.7" cy="160.7" r="3.2" fill="#141414"/>
+<circle cx="759.0" cy="203.8" r="3.2" fill="#141414"/>
+<circle cx="766.3" cy="227.5" r="3.2" fill="#141414"/>
+<circle cx="773.7" cy="202.2" r="3.2" fill="#141414"/>
+<circle cx="781.0" cy="164.1" r="3.2" fill="#141414"/>
+<circle cx="788.3" cy="275.6" r="3.2" fill="#141414"/>
+<circle cx="795.7" cy="108.1" r="3.2" fill="#141414"/>
+<circle cx="803.0" cy="288.7" r="3.2" fill="#141414"/>
+<text x="733.3" y="342.0" text-anchor="middle" font-size="12" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">N = 20</text>
+<path d="M806.7 95.0 L894.7 107.5 L894.7 120.0 L806.7 295.0 L806.7 95.0" fill="#efefef" stroke="#141414" stroke-width="1.4"/>
+<circle cx="810.3" cy="143.6" r="3.2" fill="#141414"/>
+<circle cx="817.7" cy="124.0" r="3.2" fill="#141414"/>
+<circle cx="825.0" cy="255.6" r="3.2" fill="#141414"/>
+<circle cx="832.3" cy="129.5" r="3.2" fill="#141414"/>
+<circle cx="839.7" cy="181.9" r="3.2" fill="#141414"/>
+<circle cx="847.0" cy="148.8" r="3.2" fill="#141414"/>
+<circle cx="854.3" cy="199.3" r="3.2" fill="#141414"/>
+<circle cx="861.7" cy="181.8" r="3.2" fill="#141414"/>
+<circle cx="869.0" cy="158.9" r="3.2" fill="#141414"/>
+<circle cx="876.3" cy="107.2" r="3.2" fill="#141414"/>
+<circle cx="883.7" cy="134.8" r="3.2" fill="#141414"/>
+<circle cx="891.0" cy="111.9" r="3.2" fill="#141414"/>
+<text x="850.7" y="342.0" text-anchor="middle" font-size="12" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">N = 12</text>
+<path d="M894.7 107.5 L1100.0 232.5 L1100.0 245.0 L894.7 120.0 L894.7 107.5" fill="#efefef" stroke="#141414" stroke-width="1.4"/>
+<circle cx="898.3" cy="110.6" r="3.2" fill="#141414"/>
+<circle cx="905.7" cy="114.9" r="3.2" fill="#141414"/>
+<circle cx="913.0" cy="126.9" r="3.2" fill="#141414"/>
+<circle cx="920.3" cy="131.2" r="3.2" fill="#141414"/>
+<circle cx="927.7" cy="133.5" r="3.2" fill="#141414"/>
+<circle cx="935.0" cy="134.9" r="3.2" fill="#141414"/>
+<circle cx="942.3" cy="147.7" r="3.2" fill="#141414"/>
+<circle cx="949.7" cy="144.1" r="3.2" fill="#141414"/>
+<circle cx="957.0" cy="148.0" r="3.2" fill="#141414"/>
+<circle cx="964.3" cy="151.7" r="3.2" fill="#141414"/>
+<circle cx="971.7" cy="166.4" r="3.2" fill="#141414"/>
+<circle cx="979.0" cy="159.5" r="3.2" fill="#141414"/>
+<circle cx="986.3" cy="174.7" r="3.2" fill="#141414"/>
+<circle cx="993.7" cy="176.0" r="3.2" fill="#141414"/>
+<circle cx="1001.0" cy="177.1" r="3.2" fill="#141414"/>
+<circle cx="1008.3" cy="177.7" r="3.2" fill="#141414"/>
+<circle cx="1015.7" cy="189.4" r="3.2" fill="#141414"/>
+<circle cx="1023.0" cy="186.6" r="3.2" fill="#141414"/>
+<circle cx="1030.3" cy="195.8" r="3.2" fill="#141414"/>
+<circle cx="1037.7" cy="203.1" r="3.2" fill="#141414"/>
+<circle cx="1045.0" cy="207.6" r="3.2" fill="#141414"/>
+<circle cx="1052.3" cy="213.8" r="3.2" fill="#141414"/>
+<circle cx="1059.7" cy="219.5" r="3.2" fill="#141414"/>
+<circle cx="1067.0" cy="223.0" r="3.2" fill="#141414"/>
+<circle cx="1074.3" cy="220.8" r="3.2" fill="#141414"/>
+<circle cx="1081.7" cy="221.4" r="3.2" fill="#141414"/>
+<circle cx="1089.0" cy="236.3" r="3.2" fill="#141414"/>
+<circle cx="1096.3" cy="242.2" r="3.2" fill="#141414"/>
+<text x="997.3" y="342.0" text-anchor="middle" font-size="12" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">N = 28</text>
+<text x="880.0" y="364.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">three masks in sequence</text>
+<text x="880.0" y="384.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">Pseq([~mask.(...), ~mask.(...), ~mask.(...)])</text>
+</svg>

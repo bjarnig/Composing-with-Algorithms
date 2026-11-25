@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>Tendency Mask, Web Audio demo</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+  canvas { height: 21rem; cursor: ns-resize; touch-action: none; }
+  .code { font-family: "Fira Code", Menlo, monospace; font-size: .72rem; color: var(--mint);
+          margin: .2rem 0 1rem; overflow-wrap: anywhere; }
+  .stats { font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .stats b { color: var(--fg); font-weight: 600; }
+  label.check, body.compact label.check { grid-template-columns: 1.2rem minmax(0, 1fr); }
+  body.compact .code, body.compact .hint { display: none; }
+  body.compact canvas { height: 12.4rem; }
+</style>
+</head>
+<body>
+
+<h1>Tendency Mask</h1>
+<p class="sub">After Gottfried Michael Koenig's Project Two. Two limits move over time, and each
+event takes a pitch drawn uniformly between them at the moment it sounds. Drag the points of
+the upper and lower limit to draw the mask; the cursor plays it from left to right and starts
+again. The line under the picture is the same mask written as a pattern.</p>
+
+<canvas id="view"></canvas>
+<div class="legend">
+  <span><i style="background:var(--accent)"></i>limits, drag the points</span>
+  <span><i style="background:var(--mint)"></i>events played</span>
+</div>
+<p id="code" class="code"></p>
+
+<div class="row">
+  <button id="play">play</button>
+  <button class="preset" data-p="narrow">narrowing</button>
+  <button class="preset" data-p="widen">widening</button>
+  <button class="preset" data-p="cross">crossing</button>
+  <button class="preset" data-p="koenig">A1 A2 Z1 Z2</button>
+  <button class="preset" data-p="steps">blocks</button>
+  <span id="stats" class="stats"></span>
+</div>
+<p class="hint">A narrow mask is heard as a line, a wide one as a cloud. The density does not
+change when the mask does; only the range from which each pitch is chosen.</p>
+
+<div class="grid">
+  <fieldset class="primary">
+    <legend>events</legend>
+    <label><span>events / s</span><input type="range" id="rate" min="1" max="40" step="1" value="12"><output></output></label>
+    <label><span>sus</span><input type="range" id="sus" min="0.05" max="2" step="0.05" value="0.4"><output></output></label>
+    <label class="check"><input type="checkbox" id="round" checked><span>round to semitones</span></label>
+  </fieldset>
+  <fieldset class="primary">
+    <legend>mask</legend>
+    <label><span>length (s)</span><input type="range" id="length" min="4" max="60" step="1" value="20"><output></output></label>
+    <label><span>level</span><input type="range" id="gain" min="0" max="0.6" step="0.01" value="0.3"><output></output></label>
+  </fieldset>
+</div>
+
+<script id="logic">
+/* The mask, shared by the page and by the test. Each limit is a list of breakpoints
+   [time 0 to 1, midinote], read with linear interpolation as Pseg does. */
+const Mask = {
+  LOW: 24, HIGH: 108,
+  at(points, x) {
+    if (x <= points[0][0]) return points[0][1];
+    for (let i = 1; i < points.length; i++) {
+      const [x1, y1] = points[i];
+      if (x <= x1) {
+        const [x0, y0] = points[i - 1];
+        return x1 === x0 ? y1 : y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+      }
+    }
+    return points[points.length - 1][1];
+  },
+  // the limits at a point in time; crossing limits are read as their lower and upper
+  limits(upper, lower, x) {
+    const a = this.at(upper, x), b = this.at(lower, x);
+    return [Math.min(a, b), Math.max(a, b)];
+  },
+  // one value drawn uniformly between the limits, as Pwhite does
+  draw(upper, lower, x, round, rand = Math.random) {
+    const [lo, hi] = this.limits(upper, lower, x);
+    const v = lo + (hi - lo) * rand();
+    if (!round) return v;
+    // the nearest semitone, kept inside the limits whenever a semitone fits between them
+    const a = Math.ceil(lo), z = Math.floor(hi);
+    return a <= z ? Math.min(z, Math.max(a, Math.round(v))) : Math.round(v);
+  },
+  // the same mask as a SuperCollider pattern
+  code(upper, lower, seconds) {
+    const seg = pts => {
+      const levels = pts.map(p => Math.round(p[1]));
+      const times = pts.slice(1).map((p, i) => +((p[0] - pts[i][0]) * seconds).toFixed(2));
+      return `Pseg([${levels.join(', ')}], [${times.join(', ')}])`;
+    };
+    return `\\midinote, Pwhite(${seg(lower)}, ${seg(upper)})`;
+  },
+};
+</script>
+
+<script id="worklet" type="text/js-worklet">
+/* Starts plucked voices at the times the page asks for. Times are AudioContext seconds,
+   so scheduling is sample-accurate however late the message arrives. */
+class Voices extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.q = []; this.gain = 0.3;
+    this.v = Array.from({ length: 32 }, () => ({ on: false, level: 0 }));
+    this.port.onmessage = e => {
+      const d = e.data;
+      if (d.type === 'notes') { this.q.push(...d.list); this.q.sort((a, b) => a.t - b.t); }
+      if (d.type === 'gain') this.gain = d.value;
+    };
+  }
+  start(n) {
+    let s = this.v.find(x => !x.on);
+    if (!s) s = this.v.reduce((a, b) => (a.level < b.level ? a : b));
+    s.on = true; s.ph = 0; s.inc = n.f / sampleRate; s.amp = n.a; s.level = 1; s.age = 0;
+    s.dec = Math.exp(-6.9078 / Math.max(1, n.d * sampleRate));   // -60 dB over the sus
+  }
+  process(_in, out) {
+    const L = out[0][0], R = out[0][1];
+    for (let i = 0; i < L.length; i++) {
+      const t = currentTime + i / sampleRate;
+      while (this.q.length && this.q[0].t <= t) this.start(this.q.shift());
+      let mix = 0;
+      for (const s of this.v) {
+        if (!s.on) continue;
+        s.ph += s.inc; if (s.ph >= 1) s.ph -= 1;
+        const w = s.ph * 6.283185307179586;
+        const atk = s.age < 120 ? s.age / 120 : 1;
+        mix += (Math.sin(w) + 0.35 * Math.sin(2 * w) + 0.15 * Math.sin(3 * w)) * s.level * atk * s.amp;
+        s.level *= s.dec; s.age++;
+        if (s.level < 1e-4) s.on = false;
+      }
+      L[i] = R[i] = Math.tanh(mix * this.gain);
+    }
+    return true;
+  }
+}
+registerProcessor('voices', Voices);
+</script>
+
+<script src="../kit/kit.js"></script>
+<script>
+const IDS = ['rate', 'sus', 'round', 'length', 'gain'];
+Kit.compact();
+const el = Kit.controls(IDS);
+const canvas = document.getElementById('view');
+const g = Kit.fit(canvas);
+const statsEl = document.getElementById('stats');
+const codeEl = document.getElementById('code');
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+const PRESETS = {
+  narrow: { upper: [[0, 100], [0.25, 92], [0.5, 80], [0.75, 70], [1, 65]],
+            lower: [[0, 36], [0.25, 44], [0.5, 54], [0.75, 60], [1, 63]] },
+  widen:  { upper: [[0, 61], [0.25, 64], [0.5, 72], [0.75, 86], [1, 100]],
+            lower: [[0, 59], [0.25, 56], [0.5, 50], [0.75, 42], [1, 30]] },
+  cross:  { upper: [[0, 96], [0.25, 88], [0.5, 66], [0.75, 48], [1, 40]],
+            lower: [[0, 36], [0.25, 44], [0.5, 62], [0.75, 82], [1, 92]] },
+  koenig: { upper: [[0, 70], [0.25, 76], [0.5, 82], [0.75, 88], [1, 94]],
+            lower: [[0, 64], [0.25, 55], [0.5, 46], [0.75, 37], [1, 28]] },
+  steps:  { upper: [[0, 90], [0.25, 90], [0.25, 62], [0.5, 62], [0.5, 50], [0.75, 50], [0.75, 98], [1, 98]],
+            lower: [[0, 84], [0.25, 84], [0.25, 36], [0.5, 36], [0.5, 48], [0.75, 48], [0.75, 60], [1, 60]] },
+};
+let upper = PRESETS.narrow.upper.map(p => p.slice());
+let lower = PRESETS.narrow.lower.map(p => p.slice());
+
+let played = [];                   // {x, m} for the events of the current pass
+let count = 0, outside = 0;
+let startT = null, nextT = null;
+
+function geometry() {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  const left = 34, right = W - 10, top = 10, bottom = H - 22;
+  return { W, H, left, right, top, bottom,
+           X: x => left + x * (right - left),
+           Y: m => bottom - (m - Mask.LOW) / (Mask.HIGH - Mask.LOW) * (bottom - top),
+           M: y => Mask.LOW + (bottom - y) / (bottom - top) * (Mask.HIGH - Mask.LOW) };
+}
+
+const getState = Kit.playButton(document.getElementById('play'), async () => {
+  const st = await Kit.build({ processor: 'voices' });
+  st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  setInterval(() => {
+    const now = st.ctx.currentTime;
+    if (st.ctx.state !== 'running') { nextT = null; return; }
+    if (nextT === null || nextT < now) { nextT = now + 0.05; if (startT === null) startT = nextT; }
+    const list = [];
+    const len = +el.length.value;
+    while (nextT < now + 0.2) {
+      let x = ((nextT - startT) / len) % 1;
+      if (x < 0) x += 1;
+      if (played.length && x < played[played.length - 1].x) played = [];   // a new pass
+      const m = Mask.draw(upper, lower, x, el.round.checked);
+      const [lo, hi] = Mask.limits(upper, lower, x);
+      if (m < lo - 0.5 || m > hi + 0.5) outside++;
+      count++;
+      played.push({ x, m });
+      list.push({ t: nextT, f: mtof(m), d: +el.sus.value, a: 0.7 });
+      nextT += 1 / +el.rate.value;
+    }
+    if (list.length) st.node.port.postMessage({ type: 'notes', list });
+  }, 25);
+  return st;
+});
+
+IDS.forEach(id => el[id].addEventListener('input', () => {
+  Kit.readouts(el);
+  const st = getState();
+  if (id === 'gain' && st) st.node.port.postMessage({ type: 'gain', value: +el.gain.value });
+  if (id === 'length') startT = null;
+  showCode();
+}));
+Kit.presets(PRESETS, p => {
+  upper = p.upper.map(q => q.slice()); lower = p.lower.map(q => q.slice());
+  played = []; showCode();
+});
+
+function showCode() { codeEl.textContent = Mask.code(upper, lower, +el.length.value); }
+
+/* Dragging: the nearest breakpoint of either limit follows the pointer vertically. */
+let grab = null;
+function nearest(px, py) {
+  const G = geometry();
+  let best = null, dist = 18;
+  for (const pts of [upper, lower]) pts.forEach((p, i) => {
+    const d = Math.hypot(G.X(p[0]) - px, G.Y(p[1]) - py);
+    if (d < dist) { dist = d; best = { pts, i }; }
+  });
+  return best;
+}
+canvas.addEventListener('pointerdown', e => {
+  const r = canvas.getBoundingClientRect();
+  grab = nearest(e.clientX - r.left, e.clientY - r.top);
+  if (grab) canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove', e => {
+  if (!grab) return;
+  const r = canvas.getBoundingClientRect(), G = geometry();
+  const m = Math.max(Mask.LOW, Math.min(Mask.HIGH, G.M(e.clientY - r.top)));
+  grab.pts[grab.i][1] = Math.round(m);
+  showCode();
+});
+canvas.addEventListener('pointerup', () => { grab = null; });
+
+function draw() {
+  const G = geometry();
+  g.clearRect(0, 0, G.W, G.H);
+  const accent = Kit.css('--accent'), mint = Kit.css('--mint'), muted = Kit.css('--muted');
+  g.font = '10px ' + Kit.css('--sans');
+  for (let m = 36; m <= 96; m += 12) {
+    g.strokeStyle = 'rgba(255,255,255,.06)';
+    g.beginPath(); g.moveTo(G.left, G.Y(m)); g.lineTo(G.right, G.Y(m)); g.stroke();
+    g.fillStyle = muted; g.fillText(String(m), 6, G.Y(m) + 3);
+  }
+  // the mask, filled between the limits
+  const N = 200;
+  g.fillStyle = 'rgba(120,165,210,.10)';
+  g.beginPath();
+  for (let i = 0; i <= N; i++) { const x = i / N; g.lineTo(G.X(x), G.Y(Mask.limits(upper, lower, x)[1])); }
+  for (let i = N; i >= 0; i--) { const x = i / N; g.lineTo(G.X(x), G.Y(Mask.limits(upper, lower, x)[0])); }
+  g.closePath(); g.fill();
+  for (const pts of [upper, lower]) {
+    g.strokeStyle = accent; g.lineWidth = 1.6; g.beginPath();
+    pts.forEach((p, i) => i ? g.lineTo(G.X(p[0]), G.Y(p[1])) : g.moveTo(G.X(p[0]), G.Y(p[1])));
+    g.stroke(); g.lineWidth = 1;
+    g.fillStyle = accent;
+    pts.forEach(p => { g.beginPath(); g.arc(G.X(p[0]), G.Y(p[1]), 4.5, 0, 6.2832); g.fill(); });
+  }
+  g.fillStyle = mint;
+  for (const p of played) { g.beginPath(); g.arc(G.X(p.x), G.Y(p.m), 2.4, 0, 6.2832); g.fill(); }
+  const st = getState();
+  if (st && startT !== null && st.ctx.state === 'running') {
+    let x = ((st.ctx.currentTime - startT) / +el.length.value) % 1;
+    if (x < 0) x += 1;
+    g.strokeStyle = 'rgba(255,255,255,.35)';
+    g.beginPath(); g.moveTo(G.X(x), G.top); g.lineTo(G.X(x), G.bottom); g.stroke();
+  }
+  g.fillStyle = muted;
+  g.fillText('0 s', G.left, G.H - 6);
+  const end = el.length.value + ' s';
+  g.fillText(end, G.right - g.measureText(end).width, G.H - 6);
+  statsEl.innerHTML = `events <b>${count}</b>  outside the mask <b>${outside}</b>`;
+  requestAnimationFrame(draw);
+}
+
+Kit.readouts(el);
+showCode();
+draw();
+</script>
+</body>
+</html>

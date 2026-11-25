@@ -1,0 +1,36 @@
+<!-- drawn by Course-Development/figures/cwa-koenig-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" width="1200" height="330" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="600.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">values pass through three selections before they reach the score</text>
+<rect x="80.0" y="70.0" width="200.0" height="160.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="180.0" y="102.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">List</text>
+<text x="180.0" y="124.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the available values</text>
+<text x="180.0" y="162.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">48 49 50 ... 83</text>
+<path d="M284.0 165.0 L354.0 165.0" fill="none" stroke="#141414" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="360.0" y="70.0" width="200.0" height="160.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="460.0" y="102.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">Table</text>
+<text x="460.0" y="124.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">the values in groups</text>
+<text x="460.0" y="162.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">[48 ... 53]</text>
+<text x="460.0" y="184.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">[54 ... 59]</text>
+<text x="460.0" y="206.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">[60 ... 65]</text>
+<text x="460.0" y="228.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">...</text>
+<path d="M564.0 165.0 L634.0 165.0" fill="none" stroke="#141414" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="640.0" y="70.0" width="200.0" height="160.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="740.0" y="102.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">Ensemble</text>
+<text x="740.0" y="124.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a group chosen</text>
+<text x="740.0" y="162.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">[60 ... 65]</text>
+<path d="M844.0 165.0 L914.0 165.0" fill="none" stroke="#141414" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="920.0" y="70.0" width="200.0" height="160.0" rx="4" fill="none" stroke="#141414" stroke-width="2.0"/>
+<text x="1020.0" y="102.0" text-anchor="middle" font-size="17" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">Score</text>
+<text x="1020.0" y="124.0" text-anchor="middle" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">values chosen in time</text>
+<text x="1020.0" y="162.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">62 60 65 61 ...</text>
+<text x="600.0" y="154.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a selection</text>
+<text x="600.0" y="192.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">principle</text>
+<text x="880.0" y="154.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">a selection</text>
+<text x="880.0" y="192.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">principle</text>
+<text x="320.0" y="154.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">grouped</text>
+<path d="M70.0 262.0 L1130.0 262.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="600.0" y="290.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">the composer fills the List and the Table, and selection principles do the rest</text>
+<text x="600.0" y="312.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">Project Two, 1966 to 1968, after Berg</text>
+</svg>

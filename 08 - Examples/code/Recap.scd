@@ -18,13 +18,10 @@ Server.default.boot;
 
 // Then we add the synthdefs we will use. For now we have simple synths but we will study those in detail later.
 
-SynthDef(\sine, {
-	|amp=0.1, freq=440, pan=0|
-	var env, sig;
-	env = EnvGen.kr(Env.perc, doneAction:2);
-	sig = SinOsc.ar(freq) * env;
-	sig = Pan2.ar(sig, pan, amp);
-	Out.ar(0, sig);
+// the same \sine as in Koenig.scd, so evaluating either file gives one definition
+SynthDef(\sine, { |out=0, freq=440, amp=0.2, sus=0.05, pan=0|
+	var env = EnvGen.kr(Env.perc(0.01, sus), doneAction: 2);
+	Out.ar(out, Pan2.ar(SinOsc.ar(freq) * env, pan, amp));
 }).add;
 
 SynthDef(\saw, {

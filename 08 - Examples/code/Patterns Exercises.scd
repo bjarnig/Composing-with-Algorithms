@@ -1,0 +1,13 @@
+////////////////////////////////////////////////////////////////
+//
+//                     Examples: Patterns Exercises
+//
+////////////////////////////////////////////////////////////////
+
+// The SynthDefs are at the top of Patterns.scd.
+
+
+// 1. Two voices phasing: the same six notes with durations of 0.2 and 0.205.
+
+
+

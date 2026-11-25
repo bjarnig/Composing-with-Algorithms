@@ -1,6 +1,7 @@
 <!-- drawn by Course-Development/figures/cwa-koenig-figs.py
      edit there and re-run; do not hand-edit this file -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 370" width="1120" height="370" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
 <text x="560.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">uniform values between two limits that move: here they close in on 50</text>
 <rect x="70" y="60" width="980" height="240" fill="none" stroke="#9a9a9a" stroke-width="1"/>
 <circle cx="70.0" cy="70.6" r="1.6" fill="#141414"/>

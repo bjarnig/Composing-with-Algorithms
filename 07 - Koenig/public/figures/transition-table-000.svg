@@ -1,0 +1,58 @@
+<!-- drawn by Course-Development/figures/cwa-koenig-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 398" width="1200" height="398" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="600.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">each note has its own list of what may follow it; everything on the right also appears on the left</text>
+<path d="M281.8 88.6 Q445.0 107.0 605.2 88.9" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="352.0" y="101.2" width="30" height="17" fill="#fff"/>
+<text x="367.0" y="114.2" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.5</text>
+<path d="M242.8 116.2 Q228.0 180.0 242.1 240.9" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="210.8" y="134.0" width="30" height="17" fill="#fff"/>
+<text x="225.8" y="147.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.3</text>
+<path d="M275.7 104.0 Q427.5 216.0 606.3 265.6" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="338.1" y="162.6" width="30" height="17" fill="#fff"/>
+<text x="353.1" y="175.6" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.2</text>
+<path d="M608.2 81.4 Q445.0 63.0 284.8 81.1" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="508.0" y="52.8" width="30" height="17" fill="#fff"/>
+<text x="523.0" y="65.8" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">1</text>
+<path d="M280.8 266.4 Q462.5 216.0 611.8 105.8" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="365.9" y="238.6" width="30" height="17" fill="#fff"/>
+<text x="380.9" y="251.6" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.5</text>
+<path d="M281.8 278.6 Q445.0 297.0 605.2 278.9" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="352.0" y="291.2" width="30" height="17" fill="#fff"/>
+<text x="367.0" y="304.2" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.5</text>
+<path d="M614.3 256.0 Q462.5 144.0 283.7 94.4" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="521.9" y="181.4" width="30" height="17" fill="#fff"/>
+<text x="536.9" y="194.4" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.2</text>
+<path d="M608.2 271.4 Q445.0 253.0 284.8 271.1" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="508.0" y="242.8" width="30" height="17" fill="#fff"/>
+<text x="523.0" y="255.8" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.4</text>
+<path d="M647.2 243.8 Q662.0 180.0 647.9 119.1" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="649.2" y="210.0" width="30" height="17" fill="#fff"/>
+<text x="664.2" y="223.0" text-anchor="middle" font-size="12.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">0.4</text>
+<circle cx="250.0" cy="85.0" r="30" fill="#fff" stroke="#141414" stroke-width="2"/>
+<text x="250.0" y="92.0" text-anchor="middle" font-size="19" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">c</text>
+<circle cx="640.0" cy="85.0" r="30" fill="#fff" stroke="#141414" stroke-width="2"/>
+<text x="640.0" y="92.0" text-anchor="middle" font-size="19" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">g</text>
+<circle cx="250.0" cy="275.0" r="30" fill="#fff" stroke="#141414" stroke-width="2"/>
+<text x="250.0" y="282.0" text-anchor="middle" font-size="19" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">f</text>
+<circle cx="640.0" cy="275.0" r="30" fill="#fff" stroke="#141414" stroke-width="2"/>
+<text x="640.0" y="282.0" text-anchor="middle" font-size="19" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">e</text>
+<text x="900.0" y="82.0" text-anchor="end" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">current</text>
+<text x="920.0" y="82.0" text-anchor="start" font-size="12" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">next, with its probability</text>
+<text x="900.0" y="118.0" text-anchor="end" font-size="16" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">c</text>
+<path d="M906.0 113.0 L914.0 113.0" fill="none" stroke="#141414" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="920.0" y="118.0" text-anchor="start" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">g 0.5   f 0.3   e 0.2</text>
+<text x="900.0" y="158.0" text-anchor="end" font-size="16" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">g</text>
+<path d="M906.0 153.0 L914.0 153.0" fill="none" stroke="#141414" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="920.0" y="158.0" text-anchor="start" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">c 1</text>
+<text x="900.0" y="198.0" text-anchor="end" font-size="16" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">f</text>
+<path d="M906.0 193.0 L914.0 193.0" fill="none" stroke="#141414" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="920.0" y="198.0" text-anchor="start" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">g 0.5   e 0.5</text>
+<text x="900.0" y="238.0" text-anchor="end" font-size="16" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">e</text>
+<path d="M906.0 233.0 L914.0 233.0" fill="none" stroke="#141414" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="920.0" y="238.0" text-anchor="start" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">c 0.2   f 0.4   g 0.4</text>
+<path d="M70.0 330.0 L1130.0 330.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="600.0" y="358.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">a first-order table: the next note depends only on the current one</text>
+<text x="600.0" y="380.0" text-anchor="middle" font-size="13" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">after Berg, Transition tables (sometimes are Markov chains)</text>
+</svg>
