@@ -1,0 +1,49 @@
+<!-- drawn by Course-Development/figures/cwa-examples-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 502" width="1200" height="502" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="600.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">the same three patterns, in sequence, together, and entering at set times</text>
+<text x="230.0" y="106.0" text-anchor="end" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Pseq([a, b, c])</text>
+<text x="230.0" y="126.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">one after the other</text>
+<rect x="250.0" y="74.0" width="264.0" height="26" fill="#ffffff" stroke="#141414" stroke-width="1.5"/>
+<text x="382.0" y="92.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">a</text>
+<rect x="514.0" y="74.0" width="176.0" height="26" fill="#efefef" stroke="#141414" stroke-width="1.5"/>
+<text x="602.0" y="92.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">b</text>
+<rect x="690.0" y="74.0" width="352.0" height="26" fill="#d9d9d9" stroke="#141414" stroke-width="1.5"/>
+<text x="866.0" y="92.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">c</text>
+<text x="230.0" y="224.0" text-anchor="end" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Ppar([a, b, c])</text>
+<text x="230.0" y="244.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">all start together</text>
+<rect x="250.0" y="192.0" width="264.0" height="26" fill="#ffffff" stroke="#141414" stroke-width="1.5"/>
+<text x="382.0" y="210.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">a</text>
+<rect x="250.0" y="222.0" width="176.0" height="26" fill="#efefef" stroke="#141414" stroke-width="1.5"/>
+<text x="338.0" y="240.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">b</text>
+<rect x="250.0" y="252.0" width="352.0" height="26" fill="#d9d9d9" stroke="#141414" stroke-width="1.5"/>
+<text x="426.0" y="270.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">c</text>
+<text x="230.0" y="342.0" text-anchor="end" font-size="13" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Ptpar([0, a, 1, b, 2.5, c])</text>
+<text x="230.0" y="362.0" text-anchor="end" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">each at its own time</text>
+<rect x="250.0" y="310.0" width="264.0" height="26" fill="#ffffff" stroke="#141414" stroke-width="1.5"/>
+<text x="382.0" y="328.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">a</text>
+<rect x="338.0" y="340.0" width="176.0" height="26" fill="#efefef" stroke="#141414" stroke-width="1.5"/>
+<text x="426.0" y="358.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">b</text>
+<rect x="470.0" y="370.0" width="352.0" height="26" fill="#d9d9d9" stroke="#141414" stroke-width="1.5"/>
+<text x="646.0" y="388.0" text-anchor="middle" font-size="14" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">c</text>
+<path d="M250.0 416.0 L250.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<text x="250.0" y="438.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">0 s</text>
+<path d="M338.0 416.0 L338.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<path d="M426.0 416.0 L426.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<text x="426.0" y="438.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">2 s</text>
+<path d="M514.0 416.0 L514.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<path d="M602.0 416.0 L602.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<text x="602.0" y="438.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">4 s</text>
+<path d="M690.0 416.0 L690.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<path d="M778.0 416.0 L778.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<text x="778.0" y="438.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">6 s</text>
+<path d="M866.0 416.0 L866.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<path d="M954.0 416.0 L954.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<text x="954.0" y="438.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">8 s</text>
+<path d="M1042.0 416.0 L1042.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<path d="M1130.0 416.0 L1130.0 422.0" fill="none" stroke="#555" stroke-width="1"/>
+<text x="1130.0" y="438.0" text-anchor="middle" font-size="11.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">10 s</text>
+<path d="M70.0 456.0 L1130.0 456.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="600.0" y="484.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">a lasts three seconds, b two and c four; Ptpar takes a start time before each pattern</text>
+</svg>

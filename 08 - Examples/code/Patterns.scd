@@ -4,9 +4,10 @@
 //
 ////////////////////////////////////////////////////////////////
 
-A recap of the pattern basics and a collection of pattern techniques, in slide
-order. Every example can be played with any of the seven instruments. Evaluate
-the SynthDefs first, then any block on its own.
+The class in slide order: the instruments, a recap, the pattern vocabulary
+from events and pitch without a scale to Pmono and state machines, then the
+techniques and the textures. Every example can be played with any of the seven
+instruments. Evaluate the SynthDefs first, then any block on its own.
 
 StageLimiter.activate
 
@@ -65,6 +66,17 @@ SynthDef(\drone, { |out=0, freq=440, amp=0.1, sus=2, pan=0, slide=0|
 )
 
 
+////////////////////////// Instruments ///////////////////////////
+
+~instruments = [\sine, \gliss, \pluck, \bell, \breath, \blip, \drone];
+
+(
+Pbind(\instrument, Pdup(5, Pseq(~instruments)),
+	\freq, Pexprand(80, 3000),
+	\sus, 0.3, \slide, Pwhite(-3.0, 3.0), \dur, 0.2).play
+)
+
+
 ////////////////////////// Recap ///////////////////////////
 
 Pbind(\instrument, \sine, \freq, Pseq([100, 800, 300], inf), \dur, 0.2).play;
@@ -109,6 +121,262 @@ Pbind(\instrument, \sine, \freq, Pwhite(100, 250, 14), \amp, Pexprand(0.2, 1.0, 
 )
 
 
+////////////////////////// Events ///////////////////////////
+
+(instrument: \bell, freq: 1234.5, sus: 2).play;
+
+Pbind(\instrument, \bell, \freq, 1234.5, \sus, 2, \dur, 1).play;
+
+Pbind(\instrument, \bell, \freq, Pexprand(200, 4000), \sus, 2, \dur, 1).play;
+
+
+////////////////////////// Pitch without a Scale ///////////////////////////
+
+(
+// hertz
+Pbind(\instrument, \pluck, \freq, Pseq([97, 389, 1543, 211], inf), \dur, 0.25).play;
+)
+
+(
+// a fraction of a semitone
+Pbind(\instrument, \pluck, \midinote, 60 + Pwhite(0.0, 1.0), \dur, 0.15).play;
+)
+
+(
+// ratios to a fundamental of 110 Hz
+Pbind(\instrument, \bell, \freq, 110 * Pseq([1, 1.13, 1.47, 2.71, 3.9], inf), \dur, 0.3).play;
+)
+
+(
+// an inharmonic chord
+Pbind(\instrument, \bell, \freq, [110, 155.6, 297.1, 523.4], \dur, 2).play;
+)
+
+
+////////////////////////// Silence ///////////////////////////
+
+(
+// a rest of one second after every eight sounds
+Pbind(\instrument, \blip, \freq, Pexprand(300, 3000),
+	\dur, Pseq([Pn(0.1, 8), Rest(1)], inf)).play;
+)
+
+(
+// one event in three is silent
+Pbind(\instrument, \pluck, \freq, Pexprand(100, 1000), \dur, 0.15,
+	\type, Pwrand([\note, \rest], [2, 1].normalizeSum, inf)).play;
+)
+
+
+////////////////////////// Lists ///////////////////////////
+
+~list = [97, 211, 389, 1543, 2903];
+
+Pbind(\instrument, \blip, \freq, Pseq(~list, inf), \dur, 0.15).play;
+
+Pbind(\instrument, \blip, \freq, Prand(~list, inf), \dur, 0.15).play;
+
+Pbind(\instrument, \blip, \freq, Pxrand(~list, inf), \dur, 0.15).play;
+
+Pbind(\instrument, \blip, \freq, Pwrand(~list, [8, 4, 2, 1, 1].normalizeSum, inf), \dur, 0.15).play;
+
+Pbind(\instrument, \blip, \freq, Pshuf(~list, inf), \dur, 0.15).play;
+
+
+////////////////////////// Lists ///////////////////////////
+
+Pbind(\instrument, \pluck, \freq, 400, \dur, Prand([0.05, 0.05, 0.1, 0.8], inf)).play;
+
+Pbind(\instrument, Pxrand([\pluck, \bell, \breath, \blip], inf), \freq, 700, \dur, 0.2).play;
+
+(
+// each inner pattern is played to its end before the next
+Pbind(\instrument, \blip,
+	\freq, Pseq([Pseq([300, 310, 320]), Pexprand(1000, 4000, 4), Pn(80, 2)], inf),
+	\dur, 0.12).play;
+)
+
+
+////////////////////////// Numbers ///////////////////////////
+
+Pbind(\instrument, \sine, \freq, Pwhite(200, 2000), \dur, 0.1).play;
+
+Pbind(\instrument, \sine, \freq, Pexprand(200, 2000), \dur, 0.1).play;
+
+Pbind(\instrument, \sine, \freq, Pbrown(200, 2000, 60), \dur, 0.1).play;
+
+Pbind(\instrument, \sine, \freq, Pseries(200, 37, 50), \dur, 0.1).play;
+
+Pbind(\instrument, \sine, \freq, Pgeom(200, 1.05, 50), \dur, 0.1).play;
+
+
+////////////////////////// Numbers ///////////////////////////
+
+(
+Pbind(\instrument, \pluck,
+	\freq, Pbrown(100, 1500, 40),
+	\dur, Pbrown(0.03, 0.3, 0.02),
+	\amp, Pbrown(0.02, 0.3, 0.03),
+	\pan, Pbrown(-1.0, 1.0, 0.2)).play;
+)
+
+Pbind(\instrument, \blip, \freq, Pgbrown(100, 4000, 0.1), \dur, Pgbrown(0.02, 0.5, 0.1)).play;
+
+
+////////////////////////// Distributions ///////////////////////////
+
+Pbind(\instrument, \pluck, \midinote, Pgauss(60, 8), \dur, 0.08).play;
+
+Pbind(\instrument, \pluck, \midinote, Pcauchy(60, 2).clip(20, 110), \dur, 0.08).play;
+
+(
+// mostly very quiet or loud
+Pbind(\instrument, \blip, \freq, 900, \amp, Pbeta(0.01, 0.4, 0.3, 0.3), \dur, 0.08).play;
+)
+
+
+////////////////////////// Shapes in Time ///////////////////////////
+
+(
+// the register from 30 Hz to 4000 Hz and back over twenty seconds
+Pbind(\instrument, \sine, \freq, Pseg([30, 4000, 30], [10, 10], \exp), \dur, 0.05).play;
+)
+
+(
+// from fifty events a second to two
+Pbind(\instrument, \pluck, \freq, Pexprand(200, 3000), \dur, Pseg([0.02, 0.5], [15], \exp)).play;
+)
+
+(
+// a crescendo of noise
+Pbind(\instrument, \breath, \freq, Pexprand(500, 5000), \dur, 0.05, \amp, Pseg([0, 0.5], [12])).play;
+)
+
+
+////////////////////////// Relations ///////////////////////////
+
+Pbind(\instrument, \bell, \freq, Pexprand(80, 5000), \sus, 300 / Pkey(\freq), \dur, 0.15).play;
+
+(
+Pbind(\instrument, \pluck, \freq, Pexprand(100, 4000),
+	\pan, Pkey(\freq).collect { |f| f.explin(100, 4000, -1, 1) }, \dur, 0.1).play;
+)
+
+(
+Pbind(\instrument, \blip, \freq, Pexprand(200, 2000),
+	\dur, Pfunc { if(0.25.coin) { Rest(0.2) } { 0.1 } }).play;
+)
+
+
+////////////////////////// Repetition ///////////////////////////
+
+(
+// a gesture of five sounds, four times
+Pbind(\instrument, \blip, \freq, Pn(Pgeom(3000, 0.7, 5), 4), \dur, 0.08).play;
+)
+
+(
+// each value twice
+Pbind(\instrument, \pluck, \freq, Pdup(2, Pexprand(100, 2000)), \dur, 0.1).play;
+)
+
+(
+// groups of one to eight
+Pbind(\instrument, \pluck, \freq, Pdup(Pwhite(1, 8), Pexprand(100, 2000)), \dur, 0.06).play;
+)
+
+
+////////////////////////// Layers ///////////////////////////
+
+(
+~a = Pbind(\instrument, \drone, \freq, 55, \sus, 3, \dur, Pn(3, 1));
+~b = Pbind(\instrument, \blip, \freq, Pexprand(2000, 6000, 20), \dur, 0.1);
+~c = Pbind(\instrument, \breath, \freq, Pexprand(300, 900, 8), \dur, 0.5);
+)
+
+Pseq([~a, ~b, ~c]).play;
+
+Ppar([~a, ~b, ~c]).play;
+
+Ptpar([0, ~a, 1, ~b, 2.5, ~c]).play;
+
+
+////////////////////////// Layers ///////////////////////////
+
+~cloud = Pbind(\instrument, \sine, \freq, Pexprand(800, 1200), \sus, 0.03, \dur, 0.03);
+
+(
+Ppar([
+	~cloud,
+	Pbindf(~cloud, \freq, Pkey(\freq) * 0.25, \instrument, \pluck),
+	Pbindf(~cloud, \freq, Pkey(\freq) * 4.1, \amp, 0.02)
+]).play
+)
+
+
+////////////////////////// Form and Change ///////////////////////////
+
+(
+Pspawner({ |sp|
+	sp.seq(Pfindur(4, Pbind(\instrument, \sine,
+		\freq, Pexprand(1000, 8000), \sus, 0.02, \dur, 0.01)));
+	sp.wait(2);
+	sp.par(Pbind(\instrument, \drone, \freq, 41.2, \sus, 6, \dur, Pn(6, 1)));
+	sp.seq(Pfindur(6, Pbind(\instrument, \gliss, \freq, Pexprand(200, 2000),
+		\slide, Pgauss(0, 12), \sus, 2, \dur, 0.25, \amp, 0.03)));
+}).play
+)
+
+
+////////////////////////// Form and Change ///////////////////////////
+
+Pdef(\noise, Pbind(\instrument, \breath, \freq, Pexprand(200, 800), \dur, 0.1)).play;
+
+(
+// evaluate this while it plays: the change comes at the next event
+Pdef(\noise, Pbind(\instrument, \breath, \freq, Pexprand(3000, 6000), \dur, 0.03));
+)
+
+Pdef(\noise).stop;
+
+
+////////////////////////// Pmono ///////////////////////////
+
+(
+SynthDef(\mono, { |out=0, freq=200, amp=0.1, pan=0, glide=0.1, gate=1|
+	var env = EnvGen.kr(Env.asr(0.05, 1, 0.5), gate, doneAction: 2);
+	var sig = LPF.ar(VarSaw.ar(Lag.kr(freq, glide), 0, 0.3), 3000);
+	Out.ar(out, Pan2.ar(sig * env, pan, amp));
+}).add;
+)
+
+Pmono(\mono, \freq, Pexprand(60, 2000), \dur, 0.2).play;
+
+Pmono(\mono, \freq, Pbrown(100, 400, 20), \glide, 0.02, \dur, 0.05).play;
+
+Pmono(\mono, \freq, Pseq([100, 3000], inf), \glide, Pwhite(0.05, 2.0), \dur, 2).play;
+
+
+////////////////////////// States and Conditions ///////////////////////////
+
+(
+Pbind(\instrument, \pluck,
+	\freq, Pfsm([
+		[0],
+		Pexprand(50, 120, 4), [0, 0, 1],      // low: stays, or rises
+		Pexprand(300, 900, 3), [0, 1, 2],
+		Pexprand(2000, 6000, 6), [1]          // high: always back to the middle
+	], inf),
+	\dur, 0.1).play;
+)
+
+(
+Pbind(\instrument, \blip,
+	\freq, Pif(Pwhite(0.0, 1.0) < 0.8, Pexprand(100, 300), Pexprand(4000, 8000)),
+	\dur, 0.08).play;
+)
+
+
 ////////////////////////// Reading a Collection ///////////////////////////
 
 (
@@ -129,7 +397,7 @@ Pbind(\instrument, \pluck,
 (
 ~high = Env([0.26, 0.51, 0.9], [0.5, 0.5]);
 ~low = Env([0.25, 0.49, 0.01], [0.5, 0.5]);
-~collection = Array.series(16, 40, 2);
+~collection = Array.series(16, 40, 2.5);
 )
 
 (
@@ -147,13 +415,13 @@ Pbind(\instrument, \blip,
 
 (
 Pbind(\instrument, \bell,
-	\midinote, Pseq([[60, 64, 68], [53, 56, 59]], inf),
+	\freq, Pseq([[200, 283, 317], [151, 389, 1210]], inf),
 	\dur, Pseq([0.5, 0.25], inf)).play;
 )
 
 (
 Pbind(\instrument, \pluck,
-	\midinote, Pwhite([60, 70], [80, 90], inf),
+	\midinote, Pwhite([60, 70.5], [80, 90.5], inf),
 	\dur, Pwrand([1, 0.25], [0.6, 0.4], inf)).play;
 )
 
@@ -161,7 +429,7 @@ Pbind(\instrument, \pluck,
 // chords that grow from one note to six
 Pbind(\instrument, \drone,
 	\size, Pseries(1, 1, 6),
-	\midinote, Pfunc { |event| [48, 55, 62, 64, 69, 76].keep(event[\size]) },
+	\freq, Pfunc { |event| [55, 87.3, 131, 208.6, 333, 529].keep(event[\size]) },
 	\dur, 1.5, \sus, 2).play
 )
 
@@ -169,8 +437,8 @@ Pbind(\instrument, \drone,
 ////////////////////////// Series and Layers ///////////////////////////
 
 (
-~up = Pbind(\instrument, \blip, \midinote, Pseries(48, 1, 48), \dur, 0.1);
-~down = Pbind(\instrument, \blip, \midinote, Pseries(96, -1, 48), \dur, 0.1);
+~up = Pbind(\instrument, \blip, \freq, Pseries(100, 37, 48), \dur, 0.1);
+~down = Pbind(\instrument, \blip, \freq, Pseries(1876, -37, 48), \dur, 0.1);
 )
 
 Pseq([~up, ~down]).play;
@@ -179,7 +447,7 @@ Ptpar([0.0, ~up, 0.0, ~down, 0.5, ~up, 0.5, ~down, 1.0, ~up, 1.0, ~down]).play;
 
 (
 // a walk inside a series: each step is random
-Pbind(\instrument, \pluck, \midinote, Pseries(60, Pwhite(-5, 5), inf).fold(36, 96),
+Pbind(\instrument, \pluck, \midinote, Pseries(60, Pwhite(-5.0, 5.0), inf).fold(36, 96),
 	\dur, 0.1).play;
 )
 
@@ -188,22 +456,22 @@ Pbind(\instrument, \pluck, \midinote, Pseries(60, Pwhite(-5, 5), inf).fold(36, 9
 
 (
 ~voice = Pbind(\instrument, \pluck,
-	\midinote, Pseq([60, 62, 63, 67, 65, 63, 62, 58, 60]),
+	\freq, Pseq([311, 347, 529, 467, 389, 803, 212, 236, 331]),
 	\dur, Pseq([2, 1, 1, 2, 1, 1, 2, 2, 4] / 8));
 )
 
 (
 Ptpar([
 	0, ~voice,
-	1, Pbindf(~voice, \midinote, Pkey(\midinote) + 7, \instrument, \bell),
-	2, Pbindf(~voice, \midinote, Pkey(\midinote) - 12, \instrument, \blip)
+	1, Pbindf(~voice, \freq, Pkey(\freq) * 1.41, \instrument, \bell),
+	2, Pbindf(~voice, \freq, Pkey(\freq) * 0.37, \instrument, \blip)
 ]).play
 )
 
 
 ////////////////////////// Phasing ///////////////////////////
 
-~notes = Pseq([60, 63, 65, 63, 67, 65], inf);
+~notes = Pseq([60, 61.5, 66, 59, 70.5, 64], inf);
 
 (
 Ppar([
@@ -217,11 +485,11 @@ Ppar([
 
 (
 Ppar([
-	Pbind(\instrument, \pluck, \midinote, Pseq([48, 55, 51], inf), \dur, 0.15,
+	Pbind(\instrument, \pluck, \freq, Pseq([61, 97, 73], inf), \dur, 0.15,
 		\amp, Pseq([0.3, 0.1, 0.1], inf)),
-	Pbind(\instrument, \blip, \midinote, Pseq([72, 70, 67, 65], inf), \dur, 0.15,
+	Pbind(\instrument, \blip, \freq, Pseq([1013, 877, 1411, 653], inf), \dur, 0.15,
 		\amp, Pseq([0.15, 0.05, 0.05, 0.05], inf)),
-	Pbind(\instrument, \bell, \midinote, Pseq([84, 86, 91, 89, 87], inf), \dur, 0.15,
+	Pbind(\instrument, \bell, \freq, Pseq([3011, 3593, 2707, 4219, 3301], inf), \dur, 0.15,
 		\amp, Pseq([0.1, 0.02, 0.02, 0.02, 0.02], inf))
 ]).play
 )
@@ -281,31 +549,31 @@ Pbind(\instrument, \sine, \freq, Pseg(Pwhite(100, 500), Pseq([1, 5], inf), \line
 
 (
 Pbind(\instrument, \pluck,
-	\midinote, Ppatlace([Pseq([48, 50, 52], inf), Pwhite(72, 84), Pbrown(60, 66, 1)], inf),
+	\freq, Ppatlace([Pseq([90, 97, 104], inf), Pexprand(2000, 4000), Pbrown(300, 400, 10)], inf),
 	\dur, 0.12).play;
 )
 
 (
 Pbind(\instrument, \blip,
-	\midinote, Place([60, [63, 65, 67], 70, [72, 74]], inf),
+	\freq, Place([200, [310, 470, 730], 1100, [1700, 2600]], inf),
 	\dur, 0.12).play
 )
 
 
 ////////////////////////// Walking a List ///////////////////////////
 
-~scale = [48, 50, 51, 53, 55, 56, 58, 60, 62, 63, 65, 67];
+~list = [110, 127, 151, 178, 209, 247, 290, 341, 403, 475, 559, 659];
 
 (
 // steps of -1, 1 or 2, turning back at the ends
 Pbind(\instrument, \pluck,
-	\midinote, Pwalk(~scale, Prand([-1, 1, 2], inf), Pseq([1, -1], inf), 0),
+	\freq, Pwalk(~list, Prand([-1, 1, 2], inf), Pseq([1, -1], inf), 0),
 	\dur, 0.12).play;
 )
 
 (
 // Pindex reads a list with an index from any pattern
-Pbind(\instrument, \bell, \midinote, Pindex(~scale, Pbrown(0, 11, 2), inf) + 12,
+Pbind(\instrument, \bell, \freq, Pindex(~list, Pbrown(0, 11, 2), inf) * 2,
 	\dur, 0.15).play
 )
 
@@ -314,10 +582,10 @@ Pbind(\instrument, \bell, \midinote, Pindex(~scale, Pbrown(0, 11, 2), inf) + 12,
 
 (
 Pbind(\instrument, \blip,
-	\midinote, Pswitch1([
-		Pseq([60, 62, 63, 65], inf),
-		Pseries(84, -1, inf).wrap(72, 84),
-		Pwhite(36, 48)
+	\freq, Pswitch1([
+		Pseq([300, 330, 371, 406], inf),
+		Pseries(4000, -150, inf).wrap(1000, 4000),
+		Pexprand(50, 120)
 	], Pseq([0, 0, 1, 0, 2, 1], inf)),
 	\dur, 0.1).play
 )
@@ -331,9 +599,9 @@ Pbind(\instrument, \sine, \freq, Pwhite(100, 900).select { |x| x < 800 }, \dur, 
 )
 
 (
-// only notes in a scale, by rejecting the rest
+// nothing between 300 and 3000 Hz: only the extremes remain
 Pbind(\instrument, \pluck,
-	\midinote, Pwhite(48, 72).reject { |n| [1, 3, 6, 8, 10].includes(n % 12) },
+	\freq, Pexprand(50, 8000).reject { |f| (f > 300) && (f < 3000) },
 	\dur, 0.12).play;
 )
 
@@ -363,7 +631,7 @@ Pbind(\instrument, \sine, \freq, Pconst(5000, Pseq([500, 600, 700], inf)), \dur,
 
 (
 // Ptime counts the time since the start
-Pbind(\instrument, \pluck, \degree, Pif(Ptime(inf) < 1.0, Pwhite(-4, 11, inf)), \dur, 0.1).play;
+Pbind(\instrument, \pluck, \freq, Pif(Ptime(inf) < 1.0, Pexprand(200, 2000, inf)), \dur, 0.1).play;
 )
 
 
@@ -390,18 +658,18 @@ Pbind(\instrument, \blip,
 
 Pchain(Pbind(\instrument, \pluck, \midinote, Pwhite(48, 60)), ~rhythm).play;
 
-Pchain(Pbind(\instrument, \bell, \midinote, Pseq([72, 79, 77], inf)), ~rhythm).play;
+Pchain(Pbind(\instrument, \bell, \freq, Pseq([2203, 3389, 2671], inf)), ~rhythm).play;
 
 Pbindf(~rhythm, \instrument, \breath, \freq, Pexprand(300, 3000)).play
 
 
 ////////////////////////// Changing While Playing ///////////////////////////
 
-Pbindef(\live, \instrument, \pluck, \midinote, Pwhite(60, 72), \dur, 0.15).play;
+Pbindef(\live, \instrument, \pluck, \freq, Pexprand(200, 2000), \dur, 0.15).play;
 
 Pbindef(\live, \instrument, \bell);
 
-Pbindef(\live, \midinote, Pseq([60, 63, 67, 70], inf));
+Pbindef(\live, \freq, Pseq([97, 389, 1543, 211], inf));
 
 Pbindef(\live, \dur, Prand([0.1, 0.2], inf), \slide, Pwhite(-2, 2));
 
@@ -412,16 +680,109 @@ Pbindef(\live).stop;
 
 (
 Pspawner({ |sp|
-	sp.par(Pbind(\instrument, \drone, \midinote, [36, 43], \sus, 24, \dur, Pn(24, 1), \amp, 0.05));
+	sp.par(Pbind(\instrument, \drone, \freq, [41, 61.3], \sus, 24, \dur, Pn(24, 1), \amp, 0.05));
 	sp.seq(Pfindur(6, Pbind(\instrument, \pluck,                         // group
-		\midinote, Pdup(Pwhite(2, 5), Prand([60, 63, 67, 70], inf)), \dur, 0.1)));
+		\freq, Pdup(Pwhite(2, 5), Prand([311, 347, 529, 803], inf)), \dur, 0.1)));
 	sp.par(Pfindur(12, Pbind(\instrument, \breath, \freq, Pexprand(400, 4000), \dur, 0.3)));
 	sp.seq(Pfindur(6, Pbind(\instrument, \bell,                          // tendency
 		\midinote, Pwhite(Pseg([60, 36], [6]), Pseg([62, 96], [6])), \dur, 0.08)));
 	sp.seq(Pfindur(6, Pbind(\instrument, \blip,                          // series
-		\midinote, Pn(Plazy { Pseq([72, 74, 75, 79, 80].scramble) }), \dur, 0.12)));
-	sp.seq(Pbind(\instrument, \gliss, \midinote, [48, 55, 63], \slide, -12, \sus, 4,
+		\freq, Pn(Plazy { Pseq([1013, 1171, 1409, 1693, 1877].scramble) }), \dur, 0.12)));
+	sp.seq(Pbind(\instrument, \gliss, \freq, [130, 196.4, 311.7], \slide, -12, \sus, 4,
 		\dur, Pn(4, 1)));
 }).play
+)
+
+
+////////////////////////// Clouds ///////////////////////////
+
+Pbind(\instrument, \sine, \freq, Pexprand(2000, 9000), \sus, 0.01, \dur, 0.005, \amp, 0.05).play;
+
+(
+Pbind(\instrument, \sine, \sus, 0.02, \dur, 0.01, \amp, 0.05,
+	\freq, Pexprand(Pseg([100, 1900], [15]), Pseg([8000, 2100], [15]))).play;
+)
+
+
+////////////////////////// Noise Bands ///////////////////////////
+
+Pbind(\instrument, \breath, \freq, 800, \sus, 2, \dur, 0.5).play;
+
+(
+// many bands, of many lengths
+Pbind(\instrument, \breath, \freq, Pexprand(100, 8000), \sus, Pexprand(0.2, 4), \dur, 0.1).play;
+)
+
+(
+// one band sliding down four octaves
+Pbind(\instrument, \breath, \freq, 4000, \slide, -48, \sus, 8, \dur, Pn(8, 1)).play;
+)
+
+
+////////////////////////// Glissandi ///////////////////////////
+
+(
+Pbind(\instrument, \gliss, \freq, Pexprand(100, 2000), \slide, Pwhite(-24, 24),
+	\sus, 2, \dur, 0.2, \amp, 0.03).play;
+)
+
+(
+Pbind(\instrument, \drone, \freq, Pexprand(500, 3000), \slide, -36,
+	\sus, Pseries(0.5, 0.25, 30), \dur, 0.4, \amp, 0.05).play;
+)
+
+
+////////////////////////// Registers ///////////////////////////
+
+(
+Pbind(\instrument, \pluck,
+	\freq, Prand([Pwhite(30, 60, 1), Pwhite(6000, 9000, 1)], inf), \dur, 0.1).play;
+)
+
+(
+Ppar([
+	Pbind(\instrument, \drone, \freq, [41, 41.7], \sus, 8, \dur, 6, \amp, 0.1),
+	Pbind(\instrument, \blip, \freq, Pexprand(5000, 9000), \dur, Pexprand(0.1, 2.0), \amp, 0.03)
+]).play
+)
+
+
+////////////////////////// Density ///////////////////////////
+
+(
+Pbind(\instrument, \blip, \freq, Pexprand(400, 4000),
+	\dur, Pseg([1, 0.01, 1], [10, 10], \exp), \sus, 0.05).play;
+)
+
+Pbind(\instrument, \pluck, \freq, Pexprand(100, 3000), \dur, Pexprand(0.01, 1.0)).play;
+
+
+////////////////////////// Bursts ///////////////////////////
+
+(
+Pbind(\instrument, \breath, \freq, Pexprand(1000, 6000), \sus, 0.03,
+	\dur, Pseq([Pgeom(0.3, 0.8, 20), Rest(2)], inf)).play;
+)
+
+
+////////////////////////// Microtones ///////////////////////////
+
+(
+Pbind(\instrument, \drone, \midinote, 60 + (Array.series(10) / 10),
+	\sus, 8, \dur, Pn(8, 1), \amp, 0.02).play;
+)
+
+Pbind(\instrument, \pluck, \midinote, Pbrown(48, 72, 1/3).round(1/3), \dur, 0.12).play;
+
+
+////////////////////////// Ratios ///////////////////////////
+
+~ratios = [1, 2.76, 5.4, 8.93, 13.3];
+
+Pbind(\instrument, \bell, \freq, 55 * Prand(~ratios, inf), \dur, 0.2).play;
+
+(
+Pbind(\instrument, \drone, \freq, Pexprand(40, 200).collect { |f| f * ~ratios },
+	\sus, 4, \dur, 3, \amp, 0.02).play;
 )
 

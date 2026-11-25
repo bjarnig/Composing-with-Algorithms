@@ -1,0 +1,41 @@
+<!-- drawn by Course-Development/figures/cwa-examples-figs.py
+     edit there and re-run; do not hand-edit this file -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 370" width="1200" height="370" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" fill="#141414">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#141414"/></marker></defs>
+<text x="600.0" y="28.0" text-anchor="middle" font-size="15" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-style="italic">a Pbind fills an event one key at a time, top to bottom; Pkey reads a key that is already there</text>
+<text x="330.0" y="70.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">Pbind</text>
+<text x="830.0" y="70.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">the event</text>
+<rect x="150.0" y="98.0" width="360.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="166.0" y="120.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\instrument</text>
+<text x="300.0" y="120.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">\bell</text>
+<path d="M514.0 115.0 L676.0 115.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="680.0" y="98.0" width="300.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="696.0" y="120.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\instrument</text>
+<text x="830.0" y="120.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">\bell</text>
+<rect x="150.0" y="144.0" width="360.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="166.0" y="166.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\freq</text>
+<text x="300.0" y="166.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">Pexprand(200, 4000)</text>
+<path d="M514.0 161.0 L676.0 161.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="680.0" y="144.0" width="300.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="696.0" y="166.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\freq</text>
+<text x="830.0" y="166.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">1731.4</text>
+<rect x="150.0" y="190.0" width="360.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="166.0" y="212.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\sus</text>
+<text x="300.0" y="212.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">300 / Pkey(\freq)</text>
+<path d="M514.0 207.0 L676.0 207.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="680.0" y="190.0" width="300.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="696.0" y="212.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\sus</text>
+<text x="830.0" y="212.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.173</text>
+<rect x="150.0" y="236.0" width="360.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="166.0" y="258.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\dur</text>
+<text x="300.0" y="258.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.1</text>
+<path d="M514.0 253.0 L676.0 253.0" fill="none" stroke="#141414" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="680.0" y="236.0" width="300.0" height="34.0" rx="3" fill="none" stroke="#141414" stroke-width="1.4"/>
+<text x="696.0" y="258.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace" font-weight="600">\dur</text>
+<text x="830.0" y="258.0" text-anchor="start" font-size="13.5" fill="#141414" font-family="Menlo, Monaco, Consolas, monospace">0.1</text>
+<path d="M985 161.0 C1050 161.0 1050 207.0 985 207.0" fill="none" stroke="#141414" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a)"/>
+<text x="1056.0" y="188.0" text-anchor="start" font-size="12.5" fill="#555" font-family="Menlo, Monaco, Consolas, monospace">Pkey</text>
+<text x="830.0" y="302.0" text-anchor="middle" font-size="12.5" fill="#555" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif">then the event is played: one \bell at 1731.4 Hz, 0.173 s long</text>
+<path d="M70.0 324.0 L1130.0 324.0" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+<text x="600.0" y="352.0" text-anchor="middle" font-size="15" fill="#141414" font-family="Avenir Next, Avenir, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600">Pbindf(pattern, key, value) adds keys after the ones the pattern already has, so Pkey can read them</text>
+</svg>
